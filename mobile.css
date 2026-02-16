@@ -1,0 +1,258 @@
+/* mobile.css — responsive overrides only */
+
+/* <= 900px */
+@media (max-width: 900px) {
+
+  /* Global */
+  body { overflow-x: hidden; }
+  * { text-align: left; }
+  h1, h2, h3 { line-height: 1.15; }
+
+  /* HERO */
+  div#hero{
+    height: auto;
+    flex-direction: column;
+    gap: 18px;
+    padding: 22px 16px 10px;
+  }
+
+  div#hero_text_container{
+    width: 100%;
+    height: auto;
+    align-items: flex-start;
+  }
+
+  div#hero_text{
+    height: auto;
+    margin-bottom: 14px;
+    gap: 10px;
+  }
+
+  div#text_hello,
+  div#text_jobtitle{
+    padding-left: 0;
+  }
+
+  div#text_imbasaam h1{
+    padding-left: 0;
+  }
+
+  span.span_line{
+    width: 52px;
+    margin-top: 18px;
+  }
+
+  span.circle{
+    margin-top: 14px;
+  }
+
+  div#hero_buttons{
+    width: 100%;
+    height: auto;
+    margin-left: 0;
+    justify-content: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .hero_buttons{
+    padding: 10px 14px;
+    border-radius: 10px;
+  }
+
+  div#hero_image{
+    width: 100%;
+    height: 320px;
+    border-radius: 16px;
+    background-position: center;
+    background-size: cover;
+  }
+
+  /* SKILLS BAR */
+  div#skills_language{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 10px;
+    padding: 12px 10px;
+  }
+
+  a.skill_language{
+    line-height: normal;
+    margin: 0;
+    padding: 8px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.10);
+  }
+
+  a.skill_language p{
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* ABOUT */
+  div#about_section{
+    flex-direction: column;
+    align-items: stretch;
+    padding: 26px 16px 0;
+    gap: 18px;
+  }
+
+  div#about_icons_section{
+    margin-top: 0;
+    justify-content: flex-start;
+  }
+
+  div#skills{
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .icon_skills{
+    margin: 12px 0;
+  }
+
+  .icon_skills h1{
+    text-align: left;
+    margin-left: 14px;
+  }
+
+  div#About_{
+    width: 100%;
+    height: auto;
+    margin-top: 0;
+    gap: 12px;
+    padding: 10px 0 0;
+  }
+
+  div#About_ h1{
+    font-size: 26px;
+  }
+
+  div#About_ p{
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .data_row{
+    width: 100%;
+    gap: 14px;
+    justify-content: space-between;
+  }
+
+  .data_column{
+    max-width: none;
+    width: 33.33%;
+    height: auto;
+    padding: 10px 10px;
+    border-radius: 14px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+  }
+
+  .smallerText{
+    font-size: 11px;
+  }
+
+  /* PROJECTS */
+  .project_section{
+    padding: 26px 16px 10px;
+  }
+
+  .project_container{
+    width: 100%;
+    margin-bottom: 18px;
+  }
+
+  .project_description{
+    width: 100%;
+    height: auto;
+    gap: 8px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+
+  .project_description h1{
+    font-size: 26px;
+    font-weight: 600;
+  }
+
+  .project_description p{
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .project_element{
+    width: 100%;
+  }
+
+  /* CodePen/iframe sizing */
+  p.codepen{
+    margin: 0 !important;
+    padding: 10px !important;
+    border-radius: 16px;
+    border-color: rgba(255,255,255,.12) !important;
+    overflow: hidden;
+  }
+
+  iframe{
+    width: 100% !important;
+    min-height: 420px;
+  }
+
+  /* FOOTER */
+  footer#contact_footer{
+    height: auto;
+    padding: 28px 16px;
+    gap: 12px;
+  }
+
+  footer#contact_footer h1{
+    font-size: 22px;
+  }
+
+  footer#contact_footer .contact_btn,
+  footer#contact_footer .cv-btn{
+    width: 100%;
+    max-width: 520px;
+    text-align: center;
+  }
+
+  footer#contact_footer a{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+
+/* <= 480px (phones) */
+@media (max-width: 480px){
+
+  div#hero_image{
+    height: 260px;
+  }
+
+  div#text_hello h1,
+  div#text_imbasaam h1,
+  div#text_jobtitle h1{
+    font-size: 28px;
+  }
+
+  span.span_line{
+    width: 42px;
+  }
+
+  .data_row{
+    flex-direction: column;
+  }
+
+  .data_column{
+    width: 100%;
+  }
+
+  iframe{
+    min-height: 380px;
+  }
+}
