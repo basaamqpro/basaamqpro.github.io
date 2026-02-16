@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Bright Scroll Portfolio Demo</title>
+<style>
+  :root{
+    --frame:#f3b13f; --ink:#111; --muted:#4b4b4b; --paper:#fff;
+    --line:rgba(0,0,0,.10); --accent:#0ea5e9; --accent2:#10b981;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    color:var(--ink);
+    background:
+      radial-gradient(900px 500px at 15% 10%, rgba(14,165,233,.22), transparent 55%),
+      radial-gradient(900px 500px at 85% 15%, rgba(16,185,129,.16), transparent 55%),
+      var(--frame);
+  }
+  a{color:inherit; text-decoration:none}
+  .wrap{max-width:1100px; margin:0 auto; padding:26px}
+  /* Top mini header */
+  .top{
+    position:sticky; top:0; z-index:10;
+    backdrop-filter: blur(10px);
+    background: linear-gradient(180deg, rgba(243,177,63,.92), rgba(243,177,63,.65));
+    border-bottom: 1px solid rgba(0,0,0,.10);
+  }
+  .topbar{display:flex; align-items:center; justify-content:space-between; gap:14px}
+  .brand{display:flex; align-items:center; gap:10px; font-weight:900; letter-spacing:.2px}
+  .mark{width:34px; height:34px; border-radius:14px; background:var(--ink); position:relative; overflow:hidden}
+  .mark:after{content:""; position:absolute; inset:-40%; background:linear-gradient(135deg, var(--accent), var(--accent2)); transform:rotate(15deg)}
+  .pill{border:1px solid rgba(0,0,0,.18); padding:8px 12px; border-radius:999px; background:rgba(255,255,255,.35)}
+  .links{display:flex; gap:8px; flex-wrap:wrap}
+  .links a{padding:8px 10px; border-radius:999px; border:1px solid rgba(0,0,0,.14); background:rgba(255,255,255,.25)}
+  .links a:hover{background:rgba(255,255,255,.40)}
+  /* Layout: left index + main */
+  .layout{display:grid; grid-template-columns: 180px 1fr; gap:18px; align-items:start}
+  .index{
+    position:sticky; top:84px;
+    padding:12px; border-radius:18px;
+    background:rgba(255,255,255,.35);
+    border:1px solid rgba(0,0,0,.12);
+  }
+  .index b{display:block; font-size:12px; letter-spacing:.18em; text-transform:uppercase; margin:2px 0 10px}
+  .idx a{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:10px 10px; border-radius:14px;
+    border:1px solid transparent;
+    color:rgba(0,0,0,.70);
+  }
+  .idx a span{opacity:.55}
+  .idx a.on{background:rgba(255,255,255,.65); border-color:rgba(0,0,0,.12); color:var(--ink)}
+  /* Sections */
+  section{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding: clamp(22px, 4vw, 42px);
+    box-shadow: 0 20px 60px rgba(0,0,0,.15);
+    margin: 0 0 18px;
+    position:relative;
+    overflow:hidden;
+  }
+  /* subtle corner stamp */
+  section:before{
+    content:"";
+    position:absolute; right:-40px; top:-40px;
+    width:140px; height:140px; border-radius:30px;
+    background: radial-gradient(circle at 30% 30%, rgba(14,165,233,.18), transparent 60%),
+                radial-gradient(circle at 70% 70%, rgba(16,185,129,.14), transparent 60%);
+    transform: rotate(12deg);
+  }
+  .k{font-weight:900; letter-spacing:.2em; text-transform:uppercase; font-size:12px; color:rgba(0,0,0,.55)}
+  h1{margin:10px 0 10px; font-size:clamp(40px, 5.4vw, 74px); line-height:.95}
+  h2{margin:0 0 12px; font-size:28px; line-height:1.1}
+  p{margin:0; color:var(--muted); line-height:1.8; max-width:70ch}
+  /* Hero unique: brush + photo placeholder */
+  .heroGrid{display:grid; grid-template-columns: 1.15fr .85fr; gap:18px; align-items:center}
+  .brush{
+    display:inline-block; position:relative; padding:0 .1em;
+    background: linear-gradient(90deg, rgba(14,165,233,.25), rgba(16,185,129,.22));
+    border-radius:14px;
+  }
+  .portrait{
+    border-radius:22px; border:1px solid var(--line);
+    background:
+      radial-gradient(120px 120px at 30% 30%, rgba(0,0,0,.07), transparent 65%),
+      linear-gradient(135deg, rgba(14,165,233,.18), rgba(16,185,129,.14)),
+      #fafafa;
+    height:320px; position:relative; overflow:hidden;
+  }
+  .portrait:after{
+    content:""; position:absolute; inset:16px;
+    border-radius:18px; border:1px dashed rgba(0,0,0,.18);
+  }
+  .miniRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+  .chip{border:1px solid var(--line); padding:8px 10px; border-radius:999px; background:#fafafa}
+  .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+  .btn{
+    display:inline-block; padding:11px 14px; border-radius:999px;
+    border:1px solid rgba(0,0,0,.16);
+    background:#fff;
+  }
+  .btn.primary{background:var(--ink); color:#fff; border-color:var(--ink)}
+  /* Simple, not-card services: icon + text rows */
+  .services{margin-top:14px; display:grid; gap:10px}
+  .svc{
+    display:grid; grid-template-columns: 44px 1fr; gap:12px; align-items:start;
+    padding:12px 12px; border-radius:18px;
+    border:1px solid var(--line); background:#fcfcfc;
+  }
+  .dot{width:44px; height:44px; border-radius:16px; display:grid; place-items:center; font-weight:900}
+  .dot.a{background:rgba(14,165,233,.18)}
+  .dot.b{background:rgba(16,185,129,.16)}
+  .dot.c{background:rgba(0,0,0,.08)}
+  .svc b{display:block; margin:0 0 2px}
+  /* Projects: stacked “chapters” not grid */
+  .proj{margin-top:14px; display:grid; gap:14px}
+  .chapter{
+    display:grid; grid-template-columns: 120px 1fr; gap:14px; align-items:center;
+    padding:14px; border-radius:20px; border:1px solid var(--line); background:#fff;
+  }
+  .num{font-weight:1000; font-size:34px; letter-spacing:-.03em}
+  .bar{height:12px; border-radius:999px; border:1px solid var(--line); background:linear-gradient(90deg, rgba(14,165,233,.22), rgba(16,185,129,.18))}
+  .small{font-size:13px; color:rgba(0,0,0,.60)}
+  /* Skills: simple “underline pills” */
+  .skills{margin-top:12px; display:flex; flex-wrap:wrap; gap:10px}
+  .skill{padding:6px 2px; border-bottom:2px solid rgba(0,0,0,.18); font-weight:700}
+  /* Contact block */
+  .contactRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+  @media(max-width:980px){
+    .layout{grid-template-columns: 1fr}
+    .index{position:relative; top:auto}
+    .heroGrid{grid-template-columns:1fr}
+    .portrait{height:260px}
+    .chapter{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap topbar">
+    <div class="brand"><span class="mark"></span> YourName</div>
+    <div class="pill">Recruiter-friendly • clean scroll • fast scan</div>
+    <nav class="links" aria-label="Quick links">
+      <a href="#about">About</a><a href="#work">Work</a><a href="#skills">Skills</a><a href="#contact">Contact</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap layout">
+  <!-- Sticky index (recruiter scan) -->
+  <aside class="index">
+    <b>Index</b>
+    <div class="idx">
+      <a href="#top" class="on">Intro <span>01</span></a>
+      <a href="#about">What I do <span>02</span></a>
+      <a href="#work">Selected work <span>03</span></a>
+      <a href="#skills">Skills <span>04</span></a>
+      <a href="#contact">Contact <span>05</span></a>
+    </div>
+  </aside>
+
+  <main>
+    <!-- HERO -->
+    <section id="top">
+      <div class="k">Web Designer • CS Student • London</div>
+      <div class="heroGrid">
+        <div>
+          <h1>Hey, I’m <span class="brush">YourName</span>.</h1>
+          <p>I design simple, bright, organized websites that recruiters can scan in seconds — and users can navigate without thinking.</p>
+          <div class="miniRow">
+            <span class="chip">UI clarity</span>
+            <span class="chip">UX structure</span>
+            <span class="chip">Responsive build</span>
+          </div>
+          <div class="ctaRow">
+            <a class="btn primary" href="#work">View work →</a>
+            <a class="btn" href="#contact">Email</a>
+            <a class="btn" href="#">CV PDF</a>
+            <a class="btn" href="#">LinkedIn</a>
+          </div>
+        </div>
+        <div class="portrait" aria-label="Photo placeholder (replace with your image)"></div>
+      </div>
+    </section>
+
+    <!-- WHAT I DO -->
+    <section id="about">
+      <div class="k">What I do</div>
+      <h2>Clear websites with calm design.</h2>
+      <p>Instead of lots of cards and effects, I focus on typography, spacing, and a clean section rhythm that makes content feel effortless.</p>
+
+      <div class="services">
+        <div class="svc">
+          <div class="dot a">UI</div>
+          <div><b>UI Design</b><div class="small">Type scale, spacing system, clean layouts, strong hierarchy.</div></div>
+        </div>
+        <div class="svc">
+          <div class="dot b">UX</div>
+          <div><b>UX Flow</b><div class="small">Simple paths, clear CTAs, “what matters” first.</div></div>
+        </div>
+        <div class="svc">
+          <div class="dot c">&lt;/&gt;</div>
+          <div><b>Front-end</b><div class="small">Responsive HTML/CSS + light JS when needed.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section id="work">
+      <div class="k">Selected work</div>
+      <h2>Three chapters. No clutter.</h2>
+      <p>Recruiters don’t want 12 thumbnails. They want 2–3 strong examples with intent.</p>
+
+      <div class="proj">
+        <div class="chapter">
+          <div>
+            <div class="num">01</div>
+            <div class="bar"></div>
+          </div>
+          <div>
+            <b>Landing Page Redesign</b>
+            <div class="small">Goal: clearer CTA flow • Output: hero, proof, offer blocks • Result: improved engagement (placeholder).</div>
+          </div>
+        </div>
+
+        <div class="chapter">
+          <div>
+            <div class="num">02</div>
+            <div class="bar"></div>
+          </div>
+          <div>
+            <b>Portfolio Case Study Template</b>
+            <div class="small">Goal: explain work better • Output: case structure • Result: easier scanning + stronger story.</div>
+          </div>
+        </div>
+
+        <div class="chapter">
+          <div>
+            <div class="num">03</div>
+            <div class="bar"></div>
+          </div>
+          <div>
+            <b>SaaS Marketing Page</b>
+            <div class="small">Goal: feature hierarchy • Output: sections by benefits • Result: clearer product narrative.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="k">Skills</div>
+      <h2>Tools recruiters expect.</h2>
+      <p>Keep this clean and believable — don’t list 30 tools. Show what you actually use.</p>
+      <div class="skills">
+        <span class="skill">Figma</span>
+        <span class="skill">HTML</span>
+        <span class="skill">CSS</span>
+        <span class="skill">JavaScript</span>
+        <span class="skill">Responsive Design</span>
+        <span class="skill">Accessibility</span>
+        <span class="skill">Git</span>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="k">Contact</div>
+      <h2>One clear action.</h2>
+      <p>If you’re hiring for a junior/placement role, I’d love to connect. Links below (replace with your real ones).</p>
+      <div class="contactRow">
+        <a class="btn primary" href="mailto:you@email.com">Email me</a>
+        <a class="btn" href="#">LinkedIn</a>
+        <a class="btn" href="#">GitHub</a>
+        <a class="btn" href="#">CV PDF</a>
+      </div>
+    </section>
+
+    <div style="padding:10px 2px 40px; color:rgba(0,0,0,.65); font-size:12px">
+      Tip: Replace placeholder links + swap the portrait div for your image. Keep it simple.
+    </div>
+  </main>
+</div>
+
+<script>
+  // active index highlight (tiny JS)
+  const links=[...document.querySelectorAll('.idx a')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      const id='#'+e.target.id;
+      links.forEach(a=>a.classList.toggle('on', a.getAttribute('href')===id || (id==="#" && a.getAttribute('href')==="#top")));
+    });
+  },{threshold:.55});
+  secs.forEach(s=>io.observe(s));
+</script>
+</body>
+</html>

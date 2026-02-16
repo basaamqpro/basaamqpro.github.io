@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dev Portfolio — Modern Wide Sections</title>
+  <style>
+    :root{
+      --bg:#070A12;
+      --panel:#0B1020;
+      --text:#EAF0FF;
+      --muted:rgba(234,240,255,.72);
+      --line:rgba(234,240,255,.14);
+      --accent:#7C5CFF;
+      --accent2:#34D6FF;
+      --max:1120px;
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font:16px/1.5 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(900px 450px at 10% 0%, rgba(124,92,255,.22), transparent 60%),
+        radial-gradient(700px 420px at 90% 10%, rgba(52,214,255,.18), transparent 55%),
+        linear-gradient(180deg, #050711, #070A12 40%, #050711);
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max); margin:0 auto; padding:0 22px}
+    .section{width:100%; padding:88px 0; border-top:1px solid var(--line)}
+    .section:first-of-type{border-top:0}
+    .pill{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:8px 12px; border:1px solid var(--line);
+      border-radius:999px; background:rgba(255,255,255,.03);
+      color:var(--muted); font-size:13px;
+      backdrop-filter: blur(10px);
+    }
+    .dot{width:7px;height:7px;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+    .btns{display:flex; gap:12px; flex-wrap:wrap}
+    .btn{
+      padding:12px 14px; border-radius:14px; border:1px solid var(--line);
+      background:rgba(255,255,255,.03); color:var(--text);
+      display:inline-flex; align-items:center; gap:10px;
+      transition:transform .15s ease, background .15s ease, border-color .15s ease;
+      cursor:pointer;
+    }
+    .btn:hover{transform:translateY(-2px); background:rgba(255,255,255,.06); border-color:rgba(234,240,255,.25)}
+    .btn.primary{
+      border:0;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:#040611;
+      font-weight:700;
+    }
+    .btn .icon{opacity:.9}
+    header{
+      position:sticky; top:0; z-index:20;
+      background:rgba(5,7,17,.6);
+      backdrop-filter: blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      height:64px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px;
+    }
+    .brand{display:flex; gap:10px; align-items:center; font-weight:800; letter-spacing:.3px}
+    .mark{
+      width:30px;height:30px;border-radius:10px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      box-shadow:0 12px 30px rgba(124,92,255,.22);
+    }
+    nav a{
+      color:var(--muted); font-size:14px;
+      padding:8px 10px; border-radius:12px;
+    }
+    nav a:hover{background:rgba(255,255,255,.05); color:var(--text)}
+    .nav-right{display:flex; gap:10px; align-items:center}
+    .ghost{display:none}
+    /* HERO */
+    .hero{
+      width:100%;
+      padding:80px 0 36px;
+      position:relative;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:34px;
+      align-items:stretch;
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size: clamp(40px, 5vw, 64px);
+      line-height:1.02;
+      letter-spacing:-.02em;
+    }
+    .lead{color:var(--muted); font-size:18px; max-width:56ch}
+    .hero-card{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-radius:var(--radius);
+      overflow:hidden;
+      position:relative;
+      box-shadow:0 24px 70px rgba(0,0,0,.45);
+    }
+    .hero-card .top{
+      padding:18px 18px 0;
+      display:flex; justify-content:space-between; align-items:center;
+      color:var(--muted); font-size:13px;
+    }
+    .lights{display:flex; gap:7px}
+    .light{width:10px;height:10px;border-radius:99px;background:rgba(234,240,255,.16)}
+    .screen{
+      padding:18px;
+      display:grid;
+      gap:12px;
+    }
+    .line{
+      height:10px; border-radius:999px;
+      background:rgba(234,240,255,.10);
+      position:relative; overflow:hidden;
+    }
+    .line::after{
+      content:"";
+      position:absolute; inset:0;
+      transform:translateX(-40%);
+      background:linear-gradient(90deg, transparent, rgba(124,92,255,.35), rgba(52,214,255,.22), transparent);
+      animation: shimmer 2.4s infinite linear;
+    }
+    .line:nth-child(2){width:84%}
+    .line:nth-child(3){width:62%}
+    .mini-grid{
+      margin-top:8px;
+      display:grid; grid-template-columns: repeat(3,1fr); gap:10px;
+    }
+    .mini{
+      height:70px; border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+    }
+    @keyframes shimmer{
+      to{transform:translateX(60%)}
+    }
+    .metrics{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:12px;
+      margin-top:18px;
+    }
+    .metric{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.02);
+      border-radius:18px;
+      padding:14px;
+    }
+    .metric b{display:block; font-size:18px}
+    .metric span{color:var(--muted); font-size:13px}
+    /* ABOUT SPLIT */
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:26px;
+      align-items:start;
+    }
+    .panel{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.02);
+      border-radius:var(--radius);
+      padding:22px;
+    }
+    h2{
+      margin:0 0 10px;
+      font-size:26px; letter-spacing:-.01em;
+    }
+    .klist{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
+    .tag{
+      padding:8px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+      background:rgba(255,255,255,.02);
+    }
+    .timeline{display:grid; gap:12px}
+    .row{
+      display:flex; gap:12px; align-items:flex-start;
+      padding:12px; border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.02);
+    }
+    .row .n{
+      width:28px; height:28px; border-radius:10px;
+      background:rgba(124,92,255,.18);
+      display:grid; place-items:center;
+      border:1px solid rgba(124,92,255,.35);
+      font-weight:700;
+    }
+    .row p{margin:0; color:var(--muted); font-size:14px}
+    .row b{display:block; margin-bottom:2px}
+    /* PROJECTS */
+    .projects-head{
+      display:flex; justify-content:space-between; align-items:flex-end;
+      gap:16px; flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:14px;
+    }
+    .card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.02);
+      overflow:hidden;
+      transition:transform .16s ease, border-color .16s ease, background .16s ease;
+    }
+    .card:hover{transform:translateY(-3px); border-color:rgba(234,240,255,.24); background:rgba(255,255,255,.04)}
+    .thumb{
+      height:140px;
+      background:
+        radial-gradient(160px 80px at 30% 20%, rgba(124,92,255,.35), transparent 60%),
+        radial-gradient(140px 90px at 80% 30%, rgba(52,214,255,.22), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.01));
+      border-bottom:1px solid var(--line);
+      position:relative;
+    }
+    .thumb::after{
+      content:"";
+      position:absolute; inset:16px;
+      border-radius:18px;
+      border:1px dashed rgba(234,240,255,.18);
+    }
+    .card .body{padding:16px}
+    .card h3{margin:0 0 6px; font-size:18px}
+    .card p{margin:0 0 12px; color:var(--muted); font-size:14px}
+    .meta{display:flex; gap:8px; flex-wrap:wrap}
+    /* CTA STRIP */
+    .cta{
+      border:1px solid var(--line);
+      background:linear-gradient(135deg, rgba(124,92,255,.20), rgba(52,214,255,.12));
+      border-radius:calc(var(--radius) + 6px);
+      padding:22px;
+      display:flex; justify-content:space-between; align-items:center;
+      gap:14px; flex-wrap:wrap;
+    }
+    .cta p{margin:6px 0 0; color:rgba(234,240,255,.78)}
+    footer{
+      padding:34px 0 44px;
+      color:var(--muted);
+      border-top:1px solid var(--line);
+    }
+    /* RESPONSIVE */
+    @media (max-width: 920px){
+      .hero-grid{grid-template-columns:1fr; }
+      .grid{grid-template-columns:1fr}
+      .split{grid-template-columns:1fr}
+      nav{display:none}
+      .ghost{display:inline-flex}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="mark"></div>
+        <div>Bas<span style="color:rgba(234,240,255,.65)">Dev</span></div>
+      </div>
+      <nav>
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#stack">Stack</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-right">
+        <a class="btn" href="#contact"><span class="icon">✦</span> Let’s talk</a>
+      </div>
+    </div>
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;height:64px">
+      <div class="brand">
+        <div class="mark"></div>
+        <div>Bas<span style="color:rgba(234,240,255,.65)">Dev</span></div>
+      </div>
+      <a class="btn ghost" href="#contact">Contact</a>
+    </div>
+  </header>
+
+  <!-- HERO (100% wide section) -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <span class="pill"><span class="dot"></span> Web Developer • Front-end focused • London</span>
+          <h1>Build clean, fast websites that recruiters actually enjoy scrolling.</h1>
+          <p class="lead">
+            I design and develop modern interfaces with strong typography, accessible structure,
+            and performance-first code. Wide sections, simple layouts, no clutter.
+          </p>
+          <div class="btns" style="margin-top:18px">
+            <a class="btn primary" href="#work"><span class="icon">↘</span> View projects</a>
+            <a class="btn" href="#contact"><span class="icon">✉</span> Email me</a>
+            <a class="btn" href="#stack"><span class="icon">⌁</span> Tech stack</a>
+          </div>
+
+          <div class="metrics">
+            <div class="metric">
+              <b>Performance</b><span>Lighthouse-friendly structure</span>
+            </div>
+            <div class="metric">
+              <b>Design</b><span>Type-led, minimal, modern</span>
+            </div>
+            <div class="metric">
+              <b>Build</b><span>Responsive, accessible layouts</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right visual (simple fake preview) -->
+        <div class="hero-card" aria-hidden="true">
+          <div class="top">
+            <div class="lights">
+              <div class="light"></div><div class="light"></div><div class="light"></div>
+            </div>
+            <div>live preview</div>
+          </div>
+          <div class="screen">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="mini-grid">
+              <div class="mini"></div>
+              <div class="mini"></div>
+              <div class="mini"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work" class="section">
+    <div class="container">
+      <div class="projects-head">
+        <div>
+          <h2>Selected work</h2>
+          <div class="pill"><span class="dot"></span> 100% wide sections • clean grid • hover polish</div>
+        </div>
+        <a class="btn" href="#contact"><span class="icon">＋</span> Request full portfolio PDF</a>
+      </div>
+
+      <div class="grid">
+        <a class="card" href="#" onclick="demo('Project 01')">
+          <div class="thumb"></div>
+          <div class="body">
+            <h3>Project 01 — Landing redesign</h3>
+            <p>Hero refresh, typography system, faster load. Built as a reusable layout.</p>
+            <div class="meta">
+              <span class="tag">HTML/CSS</span><span class="tag">Responsive</span><span class="tag">Performance</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="card" href="#" onclick="demo('Project 02')">
+          <div class="thumb"></div>
+          <div class="body">
+            <h3>Project 02 — Portfolio system</h3>
+            <p>Wide sections + elegant scroll flow. Easy to update with new projects.</p>
+            <div class="meta">
+              <span class="tag">UI</span><span class="tag">Accessibility</span><span class="tag">Components</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="card" href="#" onclick="demo('Project 03')">
+          <div class="thumb"></div>
+          <div class="body">
+            <h3>Project 03 — Dashboard concept</h3>
+            <p>Clean data cards, clear hierarchy, and simple interaction states.</p>
+            <div class="meta">
+              <span class="tag">Layout</span><span class="tag">Design tokens</span><span class="tag">Polish</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT / STACK -->
+  <section id="about" class="section">
+    <div class="container split">
+      <div class="panel">
+        <h2>About</h2>
+        <p style="color:var(--muted); margin:0">
+          I’m a web developer who likes bright, organised pages that feel effortless.
+          This theme is built around wide sections, a strong hero, and simple blocks that recruiters can scan fast.
+        </p>
+        <div class="klist" style="margin-top:16px">
+          <span class="tag">UI-first engineering</span>
+          <span class="tag">Clean typography</span>
+          <span class="tag">Semantic HTML</span>
+          <span class="tag">Smooth responsive grid</span>
+          <span class="tag">Fast builds</span>
+        </div>
+      </div>
+
+      <div class="panel" id="stack">
+        <h2>How I build</h2>
+        <div class="timeline">
+          <div class="row">
+            <div class="n">1</div>
+            <div>
+              <b>Structure first</b>
+              <p>Wide sections + clear content hierarchy. Recruiter-friendly scanning.</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="n">2</div>
+            <div>
+              <b>Design tokens</b>
+              <p>Consistent spacing, radius, and type scale for a modern feel.</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="n">3</div>
+            <div>
+              <b>Polish</b>
+              <p>Hover states, subtle borders, and performance-minded visuals.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="cta">
+        <div>
+          <span class="pill"><span class="dot"></span> Available for internships / junior roles</span>
+          <h2 style="margin:10px 0 0">Let’s build something clean and memorable.</h2>
+          <p>Send a message and I’ll reply with availability + links.</p>
+        </div>
+        <div class="btns">
+          <a class="btn primary" href="mailto:hello@example.com"><span class="icon">✉</span> Email</a>
+          <a class="btn" href="#" onclick="copyHandle()"><span class="icon">⧉</span> Copy LinkedIn</a>
+          <a class="btn" href="#" onclick="copyHandle()"><span class="icon">⧉</span> Copy GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+      <div>© <span id="y"></span> BasDev — Modern wide-section theme</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a href="#work">Work</a> · <a href="#about">About</a> · <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    function demo(name){
+      alert(name + " clicked — replace with your real case study link.");
+    }
+    function copyHandle(){
+      navigator.clipboard?.writeText("linkedin.com/in/your-handle  |  github.com/your-handle");
+      alert("Copied placeholders. Replace with your real links.");
+    }
+  </script>
+</body>
+</html>

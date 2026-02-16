@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Demo F — Brutalist Minimal</title>
+<style>
+  body{margin:0;font-family:system-ui;background:#fff;color:#0a0a0a}
+  .wrap{max-width:980px;margin:0 auto;padding:26px}
+  .top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+  h1{margin:0;font-size:44px;letter-spacing:-.03em}
+  .sub{margin:8px 0 0;color:#333;max-width:60ch;line-height:1.7}
+  .rule{border-top:2px solid #0a0a0a;margin:18px 0}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .blk{border:2px solid #0a0a0a;padding:16px}
+  .blk b{display:block;font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+  .blk h3{margin:8px 0 6px;font-size:18px}
+  .blk p{margin:0;color:#333;line-height:1.7}
+  a{color:inherit}
+  .list a{display:block;padding:10px 0;border-bottom:1px solid #0a0a0a;text-decoration:none}
+  .list a:hover{text-decoration:underline}
+  .btn{border:2px solid #0a0a0a;background:#0a0a0a;color:#fff;padding:10px 12px}
+  .btn.alt{background:#fff;color:#0a0a0a}
+  .focus .sub,.focus .blk p,.focus .list{display:none}
+  @media(max-width:900px){h1{font-size:34px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <h1>YOUR NAME</h1>
+      <div class="sub">Web designer. I build clear, sharp interfaces. No fluff. Just outcomes.</div>
+    </div>
+    <button class="btn alt" id="focus">Focus mode</button>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="grid">
+    <div class="blk">
+      <b>Selected work</b>
+      <div class="list">
+        <a href="#" onclick="preview('Project 01','Landing page clarity + CTA.')">Project 01 →</a>
+        <a href="#" onclick="preview('Project 02','Editorial portfolio layout.')">Project 02 →</a>
+        <a href="#" onclick="preview('Project 03','SaaS product site hierarchy.')">Project 03 →</a>
+      </div>
+    </div>
+
+    <div class="blk" id="panel">
+      <b>Preview</b>
+      <h3 style="margin-top:8px">Click a project</h3>
+      <p>Brutalist layout works when the writing is strong and spacing is confident.</p>
+      <div class="rule"></div>
+      <button class="btn" onclick="alert('Demo: open email / booking link')">Contact</button>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="blk">
+    <b>About</b>
+    <p>Discovery → system → build. Clear deliverables. No confusion.</p>
+  </div>
+</div>
+
+<script>
+  function preview(t,d){
+    const p=document.getElementById('panel');
+    p.querySelector('h3').textContent=t;
+    p.querySelector('p').textContent=d;
+  }
+  document.getElementById('focus').onclick=()=>document.body.classList.toggle('focus');
+</script>
+</body>
+</html>

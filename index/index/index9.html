@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bright Portfolio Demo</title>
+<style>
+  body{
+    margin:0;
+    font-family:system-ui;
+    background:#f2b544; /* warm bright background */
+    color:#111;
+  }
+
+  section{
+    padding:90px 10vw;
+    background:white;
+    margin-bottom:20px;
+  }
+
+  h1{
+    font-size:clamp(40px,6vw,70px);
+    margin:0;
+    line-height:1;
+  }
+
+  h2{
+    font-size:28px;
+    margin-bottom:30px;
+  }
+
+  p{
+    max-width:600px;
+    line-height:1.7;
+    color:#444;
+  }
+
+  .hero{
+    background:transparent;
+    color:#111;
+  }
+
+  .hero p{
+    font-size:18px;
+  }
+
+  .three{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:40px;
+  }
+
+  .item h3{
+    margin-bottom:10px;
+  }
+
+  .project{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:50px;
+    align-items:center;
+  }
+
+  .mock{
+    height:260px;
+    background:#eaeaea;
+  }
+
+  .skills span{
+    display:inline-block;
+    margin:5px 10px 5px 0;
+    font-weight:600;
+  }
+
+  .btn{
+    margin-top:20px;
+    display:inline-block;
+    padding:12px 18px;
+    background:#111;
+    color:white;
+    text-decoration:none;
+  }
+
+  @media(max-width:800px){
+    .project{grid-template-columns:1fr}
+  }
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+  <h1>Hey there.<br>I'm Your Name.</h1>
+  <p>Web Designer & Computer Science Student based in London. I design clear, structured websites that are easy to use and easy to hire from.</p>
+</section>
+
+<section>
+  <h2>What do I do?</h2>
+  <div class="three">
+    <div class="item">
+      <h3>UI Design</h3>
+      <p>Clean layouts, strong typography, clear spacing systems.</p>
+    </div>
+    <div class="item">
+      <h3>UX Thinking</h3>
+      <p>Logical structure and user-focused flow.</p>
+    </div>
+    <div class="item">
+      <h3>Front-End</h3>
+      <p>Responsive HTML/CSS with performance in mind.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Selected Project</h2>
+  <div class="project">
+    <div class="mock"></div>
+    <div>
+      <h3>Landing Page Redesign</h3>
+      <p>Improved hierarchy and simplified CTA flow to increase engagement.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Skills</h2>
+  <div class="skills">
+    <span>Figma</span>
+    <span>HTML</span>
+    <span>CSS</span>
+    <span>JavaScript</span>
+    <span>Responsive Design</span>
+  </div>
+</section>
+
+<section>
+  <h2>Let's work together.</h2>
+  <p>If you're looking for a junior web designer who understands both design and structure, I’d love to connect.</p>
+  <a href="#" class="btn">Contact Me</a>
+</section>
+
+</body>
+</html>

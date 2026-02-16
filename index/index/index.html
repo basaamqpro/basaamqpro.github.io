@@ -1,0 +1,1216 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b0f1a" />
+  <title>Nova Vale — Web Designer Portfolio</title>
+  <meta name="description" content="A premium web designer portfolio with projects, services, testimonials, and contact." />
+
+  <style>
+    /* ---------------------------
+      Design System
+    --------------------------- */
+    :root{
+      --bg: #070A12;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.08);
+      --text: rgba(255,255,255,.88);
+      --muted: rgba(255,255,255,.62);
+      --faint: rgba(255,255,255,.12);
+      --brand: #8B5CF6;    /* violet */
+      --brand2:#22C55E;    /* green  */
+      --brand3:#06B6D4;    /* cyan   */
+      --danger:#FB7185;
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 26px;
+      --max: 1120px;
+      --ease: cubic-bezier(.2,.8,.2,1);
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    :root[data-theme="light"]{
+      --bg: #F7F7FB;
+      --panel: rgba(0,0,0,.04);
+      --panel2: rgba(0,0,0,.06);
+      --text: rgba(0,0,0,.86);
+      --muted: rgba(0,0,0,.62);
+      --faint: rgba(0,0,0,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.12);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: var(--font);
+      background:
+        radial-gradient(1200px 800px at 15% 10%, rgba(139,92,246,.22), transparent 60%),
+        radial-gradient(900px 650px at 90% 20%, rgba(6,182,212,.16), transparent 55%),
+        radial-gradient(800px 600px at 65% 95%, rgba(34,197,94,.14), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      letter-spacing:.2px;
+      overflow-x:hidden;
+    }
+
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    button,input,textarea{font:inherit; color:inherit}
+    ::selection{background: rgba(139,92,246,.35)}
+
+    /* ---------------------------
+      Layout Helpers
+    --------------------------- */
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 20px}
+    .row{display:flex; gap:16px}
+    .grid{display:grid; gap:16px}
+    .pill{display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:999px; background:var(--panel); border:1px solid var(--faint)}
+    .card{
+      background: linear-gradient(180deg, var(--panel2), var(--panel));
+      border: 1px solid var(--faint);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:12px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--faint);
+      background: var(--panel);
+      cursor:pointer;
+      transition: transform .15s var(--ease), background .2s var(--ease), border-color .2s var(--ease);
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px); background: var(--panel2)}
+    .btn:active{transform: translateY(0px) scale(.99)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(139,92,246,.95), rgba(6,182,212,.85));
+      border-color: rgba(255,255,255,.12);
+    }
+    :root[data-theme="light"] .btn.primary{
+      border-color: rgba(0,0,0,.08);
+    }
+    .btn.primary:hover{filter:saturate(1.05) brightness(1.02)}
+    .btn.ghost{background: transparent}
+    .kbd{
+      font-size:12px; padding:3px 8px; border-radius:10px;
+      background: var(--panel); border:1px solid var(--faint); color: var(--muted);
+    }
+    .tag{
+      font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--faint); color: var(--muted);
+      background: rgba(255,255,255,.03);
+      white-space:nowrap;
+    }
+    :root[data-theme="light"] .tag{background: rgba(0,0,0,.03)}
+
+    /* ---------------------------
+      Top Nav
+    --------------------------- */
+    header{
+      position: sticky; top:0; z-index:50;
+      background: linear-gradient(180deg, rgba(0,0,0,.35), transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    :root[data-theme="light"] header{
+      background: linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,.35));
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .nav{
+      height:72px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      font-weight:700; letter-spacing:.6px;
+    }
+    .logo{
+      width:40px; height:40px; border-radius:14px;
+      background:
+        radial-gradient(18px 18px at 30% 30%, rgba(255,255,255,.5), transparent 60%),
+        linear-gradient(135deg, rgba(139,92,246,.95), rgba(6,182,212,.85));
+      box-shadow: 0 12px 30px rgba(139,92,246,.25);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo:after{
+      content:"";
+      position:absolute; inset:-40%;
+      background: conic-gradient(from 180deg, rgba(255,255,255,.0), rgba(255,255,255,.25), rgba(255,255,255,.0));
+      animation: spin 4s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    .navlinks{
+      display:flex; align-items:center; gap:8px;
+      padding:8px;
+      border-radius:999px;
+      background: var(--panel);
+      border:1px solid var(--faint);
+    }
+    .navlinks a{
+      padding:10px 12px; border-radius:999px;
+      color: var(--muted);
+      transition: background .2s var(--ease), color .2s var(--ease);
+      font-weight:600;
+      font-size:14px;
+    }
+    .navlinks a:hover{background: var(--panel2); color: var(--text)}
+    .navtools{display:flex; align-items:center; gap:10px}
+    .navcta{display:flex; align-items:center; gap:10px}
+    .burger{display:none}
+
+    /* ---------------------------
+      Hero
+    --------------------------- */
+    .hero{
+      padding: 52px 0 24px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .hero-card{
+      padding: 28px;
+      border-radius: var(--radius2);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-card:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(700px 220px at 15% 0%, rgba(139,92,246,.25), transparent 55%),
+                  radial-gradient(700px 220px at 85% 10%, rgba(6,182,212,.20), transparent 55%),
+                  radial-gradient(700px 220px at 70% 120%, rgba(34,197,94,.14), transparent 55%);
+      pointer-events:none;
+    }
+    .hero-inner{position:relative}
+    .eyebrow{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+      margin-bottom:14px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:50%;
+      background: var(--brand2);
+      box-shadow: 0 0 0 6px rgba(34,197,94,.16);
+    }
+    h1{
+      margin: 0 0 10px;
+      font-size: clamp(34px, 4vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -0.8px;
+    }
+    .lead{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+      max-width: 58ch;
+    }
+    .hero-actions{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+      margin-top: 14px;
+    }
+    .hero-metrics{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top: 18px;
+    }
+    .metric{
+      padding: 14px;
+      border-radius: 16px;
+      border:1px solid var(--faint);
+      background: rgba(255,255,255,.03);
+    }
+    :root[data-theme="light"] .metric{background: rgba(0,0,0,.02)}
+    .metric b{display:block; font-size:18px}
+    .metric span{font-size:12px; color: var(--muted)}
+    .portrait-card{
+      padding: 18px;
+      border-radius: var(--radius2);
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      overflow:hidden;
+      position:relative;
+    }
+    .portrait-card:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(600px 260px at 50% 0%, rgba(139,92,246,.22), transparent 60%),
+        radial-gradient(600px 260px at 60% 110%, rgba(6,182,212,.16), transparent 55%);
+      pointer-events:none;
+    }
+    .portrait-inner{position:relative}
+    .portrait{
+      border-radius: 22px;
+      border:1px solid var(--faint);
+      overflow:hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
+      box-shadow: 0 18px 40px rgba(0,0,0,.25);
+      position:relative;
+    }
+    .portrait svg{width:100%; height:auto; display:block}
+    .portrait-badge{
+      margin-top: 14px;
+      display:flex; flex-wrap:wrap; gap:8px;
+    }
+    .mini{
+      padding:10px 12px;
+      border-radius: 16px;
+      border:1px solid var(--faint);
+      background: rgba(255,255,255,.03);
+      display:flex; align-items:center; gap:10px;
+      color: var(--muted);
+    }
+    :root[data-theme="light"] .mini{background: rgba(0,0,0,.02)}
+    .mini strong{color: var(--text)}
+    .icon{
+      width:18px; height:18px; display:inline-block;
+    }
+
+    /* ---------------------------
+      Sections
+    --------------------------- */
+    section{padding: 26px 0}
+    .section-head{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:12px;
+      margin-bottom: 14px;
+    }
+    .section-title{
+      margin:0;
+      font-size: 22px;
+      letter-spacing:-.2px;
+    }
+    .section-sub{margin:0; color: var(--muted); font-size: 13px; line-height:1.6}
+
+    .services{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    .service{
+      padding: 18px;
+      border-radius: var(--radius);
+      position:relative;
+      overflow:hidden;
+      transition: transform .2s var(--ease), border-color .2s var(--ease);
+    }
+    .service:hover{transform: translateY(-3px); border-color: rgba(139,92,246,.35)}
+    .service h3{margin:10px 0 6px; font-size:16px}
+    .service p{margin:0; color: var(--muted); line-height:1.7; font-size:14px}
+    .service .bubble{
+      width:44px; height:44px; border-radius: 16px;
+      background: rgba(139,92,246,.16);
+      display:flex; align-items:center; justify-content:center;
+      border:1px solid rgba(139,92,246,.25);
+    }
+    .service:nth-child(2) .bubble{background: rgba(6,182,212,.14); border-color: rgba(6,182,212,.22)}
+    .service:nth-child(3) .bubble{background: rgba(34,197,94,.12); border-color: rgba(34,197,94,.22)}
+
+    .projects{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    .project{
+      padding: 16px;
+      border-radius: var(--radius);
+      cursor:pointer;
+      transition: transform .2s var(--ease), border-color .2s var(--ease), background .2s var(--ease);
+      position:relative;
+      overflow:hidden;
+    }
+    .project:hover{
+      transform: translateY(-3px);
+      border-color: rgba(6,182,212,.35);
+      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.04));
+    }
+    :root[data-theme="light"] .project:hover{
+      background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.02));
+    }
+
+    .thumb{
+      border-radius: 16px;
+      border:1px solid var(--faint);
+      overflow:hidden;
+      background: rgba(255,255,255,.03);
+    }
+    .project h3{margin:12px 0 6px; font-size:16px}
+    .project p{margin:0; color: var(--muted); font-size:13px; line-height:1.7}
+    .project .meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
+
+    .about{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    .about-card{padding:18px; border-radius: var(--radius)}
+    .about-card h3{margin:0 0 8px}
+    .about-card p{margin:0; color: var(--muted); line-height:1.7}
+    .timeline{margin-top:14px; display:grid; gap:10px}
+    .step{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:12px;
+      border-radius: 16px;
+      border:1px solid var(--faint);
+      background: rgba(255,255,255,.03);
+    }
+    :root[data-theme="light"] .step{background: rgba(0,0,0,.02)}
+    .step b{display:block; margin-bottom:2px}
+    .step span{color: var(--muted); font-size:13px; line-height:1.6}
+
+    .testimonials{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    .quote{padding:18px; border-radius: var(--radius)}
+    .quote p{margin:0; color: var(--text); line-height:1.7}
+    .quote .who{margin-top:12px; color: var(--muted); font-size:13px}
+    .stars{color: rgba(255,255,255,.75)}
+    :root[data-theme="light"] .stars{color: rgba(0,0,0,.65)}
+
+    .contact{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      align-items:stretch;
+    }
+    .contact-card{padding:18px; border-radius: var(--radius)}
+    form{display:grid; gap:10px}
+    input, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius: 14px;
+      border:1px solid var(--faint);
+      background: rgba(255,255,255,.03);
+      outline:none;
+      transition: border-color .2s var(--ease), background .2s var(--ease);
+    }
+    :root[data-theme="light"] input, :root[data-theme="light"] textarea{background: rgba(0,0,0,.02)}
+    input:focus, textarea:focus{border-color: rgba(139,92,246,.45); background: rgba(139,92,246,.06)}
+    textarea{min-height: 120px; resize: vertical}
+    .tiny{font-size:12px; color: var(--muted); line-height:1.6}
+
+    footer{
+      padding: 24px 0 40px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .foot{
+      display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    :root[data-theme="light"] .foot{border-top: 1px solid rgba(0,0,0,.08)}
+
+    /* ---------------------------
+      Modal
+    --------------------------- */
+    .modal{
+      position:fixed; inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 20px;
+      background: rgba(0,0,0,.55);
+      z-index: 100;
+    }
+    .modal[open]{display:flex}
+    .modal-card{
+      width: min(920px, 100%);
+      border-radius: 24px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.16);
+    }
+    :root[data-theme="light"] .modal-card{border-color: rgba(0,0,0,.12)}
+    .modal-top{
+      padding: 16px 18px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      background: linear-gradient(180deg, var(--panel2), var(--panel));
+      border-bottom:1px solid var(--faint);
+    }
+    .modal-body{
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+    }
+    :root[data-theme="light"] .modal-body{
+      background: linear-gradient(180deg, rgba(0,0,0,.03), rgba(0,0,0,.015));
+    }
+    .modal-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:14px;
+      align-items:start;
+    }
+    .modal-body h3{margin:0 0 6px}
+    .modal-body p{margin:0 0 10px; color: var(--muted); line-height:1.7}
+    .modal-actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
+
+    /* ---------------------------
+      Animations / Reveal
+    --------------------------- */
+    .reveal{
+      opacity:0;
+      transform: translateY(12px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
+    }
+    .reveal.in{
+      opacity:1;
+      transform: translateY(0px);
+    }
+
+    /* ---------------------------
+      Responsive
+    --------------------------- */
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns: 1fr}
+      .services, .projects, .testimonials{grid-template-columns: 1fr 1fr}
+      .about, .contact, .modal-grid{grid-template-columns: 1fr}
+    }
+    @media (max-width: 640px){
+      .navlinks{display:none}
+      .burger{display:inline-flex}
+      .services, .projects, .testimonials{grid-template-columns: 1fr}
+      .hero-metrics{grid-template-columns: 1fr}
+      .hero-card{padding: 20px}
+      .portrait-card{padding: 16px}
+    }
+
+    /* ---------------------------
+      Mobile menu drawer
+    --------------------------- */
+    .drawer{
+      position: fixed;
+      top: 76px;
+      left: 20px;
+      right: 20px;
+      display:none;
+      z-index: 60;
+      border-radius: 20px;
+      overflow:hidden;
+    }
+    .drawer.open{display:block}
+    .drawer .inner{
+      padding: 12px;
+      background: linear-gradient(180deg, var(--panel2), var(--panel));
+      border:1px solid var(--faint);
+    }
+    .drawer a{
+      display:flex;
+      padding: 12px 12px;
+      border-radius: 14px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .drawer a:hover{background: var(--panel2); color: var(--text)}
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="Home">
+        <span class="logo" aria-hidden="true"></span>
+        <span>Nova Vale</span>
+      </a>
+
+      <nav class="navlinks" aria-label="Primary">
+        <a href="#work">Work</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="navtools">
+        <button class="btn ghost" id="themeBtn" aria-label="Toggle theme" title="Toggle theme (T)">
+          <span class="icon" aria-hidden="true">🌓</span>
+          <span class="hide-sm">Theme</span>
+          <span class="kbd">T</span>
+        </button>
+        <button class="btn burger" id="menuBtn" aria-label="Open menu" title="Menu">
+          ☰
+        </button>
+        <a class="btn primary" href="#contact" title="Jump to contact">
+          Let’s build
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="drawer" id="drawer">
+      <div class="inner card">
+        <a href="#work" class="drawer-link">Work</a>
+        <a href="#services" class="drawer-link">Services</a>
+        <a href="#about" class="drawer-link">About</a>
+        <a href="#contact" class="drawer-link">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main id="top" class="wrap">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-card card reveal">
+          <div class="hero-inner">
+            <div class="eyebrow">
+              <span class="pill"><span class="dot"></span> Available for new projects</span>
+              <span class="pill">Premium UI • Conversion-focused • Fast delivery</span>
+            </div>
+
+            <h1>Web design that feels <span style="color:var(--brand)">high-end</span> and converts like a product.</h1>
+            <p class="lead">
+              I design and build sleek websites for brands that want clarity, confidence, and motion that feels intentional —
+              not noisy. From landing pages to full multi-page sites, everything is crafted for performance and usability.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn primary" href="#work">
+                View featured work <span aria-hidden="true">↘</span>
+              </a>
+              <a class="btn" href="#contact">
+                Get a quote <span aria-hidden="true">✉</span>
+              </a>
+              <span class="pill" title="Quick promise">
+                <span aria-hidden="true">⚡</span> Typical turnaround: 7–14 days
+              </span>
+            </div>
+
+            <div class="hero-metrics">
+              <div class="metric">
+                <b>3–5x</b>
+                <span>faster iterations with modular components</span>
+              </div>
+              <div class="metric">
+                <b>90+</b>
+                <span>PageSpeed-friendly patterns & lightweight UI</span>
+              </div>
+              <div class="metric">
+                <b>Pixel</b>
+                <span>precise typography & spacing systems</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="portrait-card card reveal">
+          <div class="portrait-inner">
+            <div class="portrait" aria-label="Portfolio visual">
+              <!-- Inline SVG “device mock” (no external images) -->
+              <svg viewBox="0 0 900 640" role="img" aria-label="Abstract mockup">
+                <defs>
+                  <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="rgba(139,92,246,.95)"/>
+                    <stop offset="1" stop-color="rgba(6,182,212,.85)"/>
+                  </linearGradient>
+                  <linearGradient id="g2" x1="0" y1="1" x2="1" y2="0">
+                    <stop offset="0" stop-color="rgba(34,197,94,.55)"/>
+                    <stop offset="1" stop-color="rgba(139,92,246,.10)"/>
+                  </linearGradient>
+                </defs>
+                <rect x="40" y="40" width="820" height="560" rx="40" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.18)"/>
+                <rect x="78" y="92" width="744" height="468" rx="28" fill="rgba(0,0,0,.15)" stroke="rgba(255,255,255,.12)"/>
+                <rect x="78" y="92" width="744" height="70" rx="28" fill="rgba(255,255,255,.06)" />
+                <circle cx="120" cy="127" r="10" fill="rgba(251,113,133,.75)"/>
+                <circle cx="150" cy="127" r="10" fill="rgba(250,204,21,.65)"/>
+                <circle cx="180" cy="127" r="10" fill="rgba(34,197,94,.6)"/>
+                <rect x="110" y="190" width="350" height="70" rx="16" fill="url(#g1)" opacity=".9"/>
+                <rect x="110" y="280" width="540" height="16" rx="8" fill="rgba(255,255,255,.18)"/>
+                <rect x="110" y="310" width="470" height="16" rx="8" fill="rgba(255,255,255,.14)"/>
+                <rect x="110" y="340" width="520" height="16" rx="8" fill="rgba(255,255,255,.12)"/>
+                <rect x="110" y="390" width="240" height="150" rx="22" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.12)"/>
+                <rect x="370" y="390" width="240" height="150" rx="22" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.12)"/>
+                <rect x="630" y="390" width="160" height="150" rx="22" fill="url(#g2)" opacity=".7" stroke="rgba(255,255,255,.12)"/>
+              </svg>
+            </div>
+
+            <div class="portrait-badge">
+              <div class="mini">
+                <span aria-hidden="true">🎨</span>
+                <div><strong>UI Design</strong><br><span class="tiny">Figma-first systems</span></div>
+              </div>
+              <div class="mini">
+                <span aria-hidden="true">🧠</span>
+                <div><strong>UX Strategy</strong><br><span class="tiny">Clear paths to action</span></div>
+              </div>
+              <div class="mini">
+                <span aria-hidden="true">⚙️</span>
+                <div><strong>Build</strong><br><span class="tiny">Clean HTML/CSS/JS</span></div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Work -->
+    <section id="work">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Featured Work</h2>
+          <p class="section-sub">Three case studies with clear outcomes, visual polish, and practical constraints.</p>
+        </div>
+        <div class="pill" title="Tip: click a project">
+          <span aria-hidden="true">🖱️</span> Click a project to view details
+        </div>
+      </div>
+
+      <div class="projects">
+        <article class="project card reveal" tabindex="0"
+          data-title="Aster Atelier — Luxury Skincare"
+          data-desc="A conversion-led landing page with product storytelling, clean typography, and performance-friendly motion."
+          data-role="UI/UX • Landing Page • Design System"
+          data-stack="Figma • HTML/CSS • Vanilla JS"
+          data-outcomes="↑ 28% add-to-cart • ↓ 34% bounce rate • 95+ Lighthouse"
+        >
+          <div class="thumb">
+            <svg viewBox="0 0 1200 700" role="img" aria-label="Project thumbnail 1">
+              <defs>
+                <linearGradient id="p1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="rgba(139,92,246,.9)"/>
+                  <stop offset="1" stop-color="rgba(6,182,212,.75)"/>
+                </linearGradient>
+              </defs>
+              <rect width="1200" height="700" fill="rgba(255,255,255,.04)"/>
+              <rect x="70" y="90" width="1060" height="520" rx="40" fill="rgba(0,0,0,.18)" stroke="rgba(255,255,255,.12)"/>
+              <rect x="130" y="150" width="520" height="90" rx="18" fill="url(#p1)"/>
+              <rect x="130" y="270" width="720" height="18" rx="9" fill="rgba(255,255,255,.18)"/>
+              <rect x="130" y="305" width="620" height="18" rx="9" fill="rgba(255,255,255,.14)"/>
+              <rect x="130" y="340" width="680" height="18" rx="9" fill="rgba(255,255,255,.12)"/>
+              <rect x="130" y="400" width="340" height="160" rx="26" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.12)"/>
+              <rect x="500" y="400" width="340" height="160" rx="26" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.12)"/>
+              <rect x="870" y="400" width="260" height="160" rx="26" fill="rgba(34,197,94,.18)" stroke="rgba(255,255,255,.12)"/>
+            </svg>
+          </div>
+          <h3>Aster Atelier</h3>
+          <p>Luxury landing page with product storytelling and confident CTA flow.</p>
+          <div class="meta">
+            <span class="tag">Landing Page</span>
+            <span class="tag">UI System</span>
+            <span class="tag">Performance</span>
+          </div>
+        </article>
+
+        <article class="project card reveal" tabindex="0"
+          data-title="Harbor & Co — Studio Portfolio"
+          data-desc="A calm, editorial website with case study layouts, subtle transitions, and a modular component library."
+          data-role="Brand Web • Case Studies • Typography"
+          data-stack="Figma • CSS Grid • JS"
+          data-outcomes="↑ 2.1x inquiries • ↑ time-on-site • smoother mobile UX"
+        >
+          <div class="thumb">
+            <svg viewBox="0 0 1200 700" role="img" aria-label="Project thumbnail 2">
+              <defs>
+                <linearGradient id="p2" x1="0" y1="1" x2="1" y2="0">
+                  <stop offset="0" stop-color="rgba(6,182,212,.8)"/>
+                  <stop offset="1" stop-color="rgba(34,197,94,.65)"/>
+                </linearGradient>
+              </defs>
+              <rect width="1200" height="700" fill="rgba(255,255,255,.04)"/>
+              <rect x="60" y="80" width="1080" height="540" rx="42" fill="rgba(0,0,0,.18)" stroke="rgba(255,255,255,.12)"/>
+              <rect x="110" y="140" width="360" height="420" rx="30" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.12)"/>
+              <rect x="510" y="140" width="580" height="120" rx="28" fill="url(#p2)" opacity=".85"/>
+              <rect x="510" y="290" width="520" height="18" rx="9" fill="rgba(255,255,255,.18)"/>
+              <rect x="510" y="325" width="460" height="18" rx="9" fill="rgba(255,255,255,.14)"/>
+              <rect x="510" y="360" width="500" height="18" rx="9" fill="rgba(255,255,255,.12)"/>
+              <rect x="510" y="410" width="260" height="150" rx="26" fill="rgba(139,92,246,.16)" stroke="rgba(255,255,255,.12)"/>
+              <rect x="790" y="410" width="300" height="150" rx="26" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.12)"/>
+            </svg>
+          </div>
+          <h3>Harbor &amp; Co</h3>
+          <p>Editorial portfolio with strong typography and modular case studies.</p>
+          <div class="meta">
+            <span class="tag">Portfolio</span>
+            <span class="tag">Editorial</span>
+            <span class="tag">Responsive</span>
+          </div>
+        </article>
+
+        <article class="project card reveal" tabindex="0"
+          data-title="Nimbus SaaS — Product Marketing"
+          data-desc="A product website built for clarity: feature hierarchy, crisp sections, and frictionless navigation."
+          data-role="Product Site • UX Copy • Motion"
+          data-stack="Figma • HTML/CSS • JS"
+          data-outcomes="↑ 19% demo requests • ↑ scroll depth • improved clarity"
+        >
+          <div class="thumb">
+            <svg viewBox="0 0 1200 700" role="img" aria-label="Project thumbnail 3">
+              <defs>
+                <linearGradient id="p3" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="rgba(34,197,94,.75)"/>
+                  <stop offset="1" stop-color="rgba(139,92,246,.65)"/>
+                </linearGradient>
+              </defs>
+              <rect width="1200" height="700" fill="rgba(255,255,255,.04)"/>
+              <rect x="70" y="90" width="1060" height="520" rx="40" fill="rgba(0,0,0,.18)" stroke="rgba(255,255,255,.12)"/>
+              <rect x="130" y="150" width="460" height="90" rx="18" fill="url(#p3)" opacity=".85"/>
+              <rect x="130" y="270" width="680" height="18" rx="9" fill="rgba(255,255,255,.18)"/>
+              <rect x="130" y="305" width="590" height="18" rx="9" fill="rgba(255,255,255,.14)"/>
+              <rect x="130" y="340" width="640" height="18" rx="9" fill="rgba(255,255,255,.12)"/>
+              <rect x="130" y="400" width="320" height="160" rx="26" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.12)"/>
+              <rect x="470" y="400" width="320" height="160" rx="26" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.12)"/>
+              <rect x="810" y="400" width="320" height="160" rx="26" fill="rgba(6,182,212,.14)" stroke="rgba(255,255,255,.12)"/>
+            </svg>
+          </div>
+          <h3>Nimbus SaaS</h3>
+          <p>Product marketing site focused on clear hierarchy and smooth navigation.</p>
+          <div class="meta">
+            <span class="tag">SaaS</span>
+            <span class="tag">Motion</span>
+            <span class="tag">Copy</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Services</h2>
+          <p class="section-sub">Pick a lane or bundle them. Everything is designed to be shipped, not just admired.</p>
+        </div>
+        <div class="pill"><span aria-hidden="true">🧩</span> Modular + scalable components</div>
+      </div>
+
+      <div class="services">
+        <div class="service card reveal">
+          <div class="bubble" aria-hidden="true">✨</div>
+          <h3>UI Design &amp; Design Systems</h3>
+          <p>Reusable components, typography rhythm, and a visual system that stays consistent as your site grows.</p>
+        </div>
+        <div class="service card reveal">
+          <div class="bubble" aria-hidden="true">🧭</div>
+          <h3>UX Structure &amp; Content Flow</h3>
+          <p>Clear sections, thoughtful CTA placement, and user journeys that reduce confusion and increase action.</p>
+        </div>
+        <div class="service card reveal">
+          <div class="bubble" aria-hidden="true">⚡</div>
+          <h3>Build (HTML/CSS/JS)</h3>
+          <p>Responsive, accessible front-end with lightweight motion and performance-friendly patterns.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">About</h2>
+          <p class="section-sub">A simple process that keeps the project calm, fast, and predictable.</p>
+        </div>
+        <div class="pill"><span aria-hidden="true">🗂️</span> Clear deliverables</div>
+      </div>
+
+      <div class="about">
+        <div class="about-card card reveal">
+          <h3>Design philosophy</h3>
+          <p>
+            My style is “quiet premium”: strong hierarchy, generous spacing, deliberate motion,
+            and visuals that support content instead of fighting it.
+          </p>
+          <div class="timeline">
+            <div class="step">
+              <span aria-hidden="true">①</span>
+              <div><b>Discovery</b><span>Goals, audience, and what “success” means for this website.</span></div>
+            </div>
+            <div class="step">
+              <span aria-hidden="true">②</span>
+              <div><b>System</b><span>Typography + components + spacing rules (the “feel” of the site).</span></div>
+            </div>
+            <div class="step">
+              <span aria-hidden="true">③</span>
+              <div><b>Build</b><span>Responsive implementation + polish + performance checks.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-card card reveal">
+          <h3>Toolbox</h3>
+          <p>Figma for design systems, modern CSS for layout, and clean vanilla JS for subtle interaction.</p>
+
+          <div class="timeline">
+            <div class="step">
+              <span aria-hidden="true">🎯</span>
+              <div><b>Outcomes first</b><span>Every section answers a question or drives an action.</span></div>
+            </div>
+            <div class="step">
+              <span aria-hidden="true">🧱</span>
+              <div><b>Reusable components</b><span>Ship faster now, iterate faster later.</span></div>
+            </div>
+            <div class="step">
+              <span aria-hidden="true">♿</span>
+              <div><b>Accessible by default</b><span>Keyboard-friendly, readable contrast, predictable UI.</span></div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px; display:flex; flex-wrap:wrap; gap:8px;">
+            <span class="tag">Figma</span>
+            <span class="tag">Design Systems</span>
+            <span class="tag">Responsive CSS</span>
+            <span class="tag">Performance</span>
+            <span class="tag">Accessibility</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section>
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Testimonials</h2>
+          <p class="section-sub">Short quotes that sound like real people, not marketing robots.</p>
+        </div>
+        <div class="pill"><span class="stars" aria-hidden="true">★★★★★</span> Consistent client satisfaction</div>
+      </div>
+
+      <div class="testimonials">
+        <div class="quote card reveal">
+          <p>“The site feels premium without being loud. Clear sections, fast load, and the conversions improved.”</p>
+          <div class="who">— Samira, DTC founder</div>
+        </div>
+        <div class="quote card reveal">
+          <p>“Finally a portfolio that explains our work properly. The case studies look incredible on mobile.”</p>
+          <div class="who">— Jonas, creative director</div>
+        </div>
+        <div class="quote card reveal">
+          <p>“The process was calm and structured. Every round of feedback felt like real progress.”</p>
+          <div class="who">— Mei, product marketer</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Contact</h2>
+          <p class="section-sub">Tell me what you’re building. I’ll reply with a simple plan + timeline.</p>
+        </div>
+        <div class="pill"><span aria-hidden="true">⏱️</span> Reply in 24–48 hours</div>
+      </div>
+
+      <div class="contact">
+        <div class="contact-card card reveal">
+          <h3 style="margin:0 0 8px;">Project checklist</h3>
+          <p class="tiny" style="margin:0 0 10px;">
+            To get an accurate quote, include: goals, pages, examples you like, deadline, and whether you need copywriting.
+          </p>
+
+          <div class="timeline">
+            <div class="step">
+              <span aria-hidden="true">📄</span>
+              <div><b>Scope</b><span>Landing page, multi-page, or redesign? How many sections/pages?</span></div>
+            </div>
+            <div class="step">
+              <span aria-hidden="true">🧩</span>
+              <div><b>Assets</b><span>Logo, colors, photos, and brand guidelines (if any).</span></div>
+            </div>
+            <div class="step">
+              <span aria-hidden="true">🚀</span>
+              <div><b>Launch</b><span>Domain + hosting ready? Or do you need setup support?</span></div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:10px;">
+            <a class="btn" href="mailto:hello@example.com?subject=Website%20Project%20Inquiry">
+              Email me <span aria-hidden="true">↗</span>
+            </a>
+            <button class="btn ghost" id="copyEmailBtn" type="button" title="Copy email to clipboard">
+              Copy email <span class="kbd">C</span>
+            </button>
+          </div>
+
+          <p class="tiny" style="margin-top:10px;">
+            Replace <b>hello@example.com</b> with your real email in the HTML.
+          </p>
+        </div>
+
+        <div class="contact-card card reveal">
+          <h3 style="margin:0 0 8px;">Send a message</h3>
+          <p class="tiny" style="margin:0 0 10px;">
+            This form uses <b>mailto</b> (no backend). If you want a real form (Formspree / Netlify / custom API), tell me.
+          </p>
+
+          <form id="contactForm">
+            <input name="name" placeholder="Your name" required />
+            <input name="email" type="email" placeholder="Email" required />
+            <input name="subject" placeholder="Subject" required />
+            <textarea name="message" placeholder="Tell me about your project…" required></textarea>
+
+            <div class="row" style="justify-content:space-between; flex-wrap:wrap;">
+              <button class="btn primary" type="submit">Open email draft →</button>
+              <span class="tiny" style="align-self:center;">Tip: press <b>T</b> for theme, <b>C</b> to copy email.</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="foot wrap">
+        <div>© <span id="year"></span> Nova Vale. Built with clean HTML/CSS/JS.</div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn ghost" href="#top">Back to top ↑</a>
+          <a class="btn ghost" href="#work">Work</a>
+          <a class="btn ghost" href="#contact">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Project Modal -->
+  <dialog class="modal" id="modal" aria-label="Project details">
+    <div class="modal-card card">
+      <div class="modal-top">
+        <div>
+          <div class="pill" style="margin-bottom:8px; width:fit-content;">
+            <span aria-hidden="true">📌</span> Case study
+          </div>
+          <div style="font-weight:900; font-size:16px;" id="mTitle">Project Title</div>
+          <div class="tiny" id="mRole">Role</div>
+        </div>
+        <div class="row" style="gap:10px;">
+          <button class="btn" id="mClose" aria-label="Close">Close ✕</button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-grid">
+          <div>
+            <div class="thumb" id="mThumb" aria-label="Project preview">
+              <!-- thumbnail injected -->
+            </div>
+          </div>
+          <div>
+            <h3 style="margin-top:0;">Summary</h3>
+            <p id="mDesc"></p>
+
+            <h3>Stack</h3>
+            <p id="mStack"></p>
+
+            <h3>Outcomes</h3>
+            <p id="mOut"></p>
+
+            <div class="modal-actions">
+              <a class="btn primary" href="#contact" id="mCta">Start a similar project →</a>
+              <button class="btn ghost" id="mCopy" type="button">Copy summary</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    // ---------------------------
+    // Utilities
+    // ---------------------------
+    const $ = (q, el=document) => el.querySelector(q);
+    const $$ = (q, el=document) => [...el.querySelectorAll(q)];
+
+    // ---------------------------
+    // Theme toggle (with localStorage)
+    // ---------------------------
+    const themeBtn = $("#themeBtn");
+    const root = document.documentElement;
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) root.setAttribute("data-theme", savedTheme);
+
+    function toggleTheme(){
+      const current = root.getAttribute("data-theme");
+      const next = current === "light" ? "" : "light";
+      if (next) root.setAttribute("data-theme", next);
+      else root.removeAttribute("data-theme");
+      localStorage.setItem("theme", next || "");
+    }
+    themeBtn.addEventListener("click", toggleTheme);
+
+    // Keyboard shortcuts
+    document.addEventListener("keydown", (e) => {
+      if (e.key.toLowerCase() === "t") toggleTheme();
+      if (e.key.toLowerCase() === "c") copyEmail();
+      if (e.key === "Escape") closeModal();
+    });
+
+    // ---------------------------
+    // Mobile drawer
+    // ---------------------------
+    const menuBtn = $("#menuBtn");
+    const drawer = $("#drawer");
+    menuBtn?.addEventListener("click", () => drawer.classList.toggle("open"));
+    $$(".drawer-link").forEach(a => a.addEventListener("click", () => drawer.classList.remove("open")));
+
+    // Close drawer on outside click
+    document.addEventListener("click", (e) => {
+      if (!drawer.classList.contains("open")) return;
+      const isInside = drawer.contains(e.target) || menuBtn.contains(e.target);
+      if (!isInside) drawer.classList.remove("open");
+    });
+
+    // ---------------------------
+    // Smooth scroll
+    // ---------------------------
+    $$('a[href^="#"]').forEach(a => {
+      a.addEventListener("click", (e) => {
+        const id = a.getAttribute("href");
+        if (!id || id === "#") return;
+        const target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({behavior:"smooth", block:"start"});
+        history.pushState(null, "", id);
+      });
+    });
+
+    // ---------------------------
+    // Reveal on scroll
+    // ---------------------------
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(ent => {
+        if (ent.isIntersecting){
+          ent.target.classList.add("in");
+          io.unobserve(ent.target);
+        }
+      });
+    }, {threshold: 0.12});
+
+    $$(".reveal").forEach(el => io.observe(el));
+
+    // ---------------------------
+    // Project modal
+    // ---------------------------
+    const modal = $("#modal");
+    const mTitle = $("#mTitle");
+    const mRole  = $("#mRole");
+    const mDesc  = $("#mDesc");
+    const mStack = $("#mStack");
+    const mOut   = $("#mOut");
+    const mThumb = $("#mThumb");
+    const mClose = $("#mClose");
+    const mCopy  = $("#mCopy");
+
+    function openModal(projectEl){
+      const title = projectEl.dataset.title || "Project";
+      const desc  = projectEl.dataset.desc || "";
+      const role  = projectEl.dataset.role || "";
+      const stack = projectEl.dataset.stack || "";
+      const out   = projectEl.dataset.outcomes || "";
+
+      mTitle.textContent = title;
+      mRole.textContent  = role;
+      mDesc.textContent  = desc;
+      mStack.textContent = stack;
+      mOut.textContent   = out;
+
+      // Inject thumbnail clone
+      const thumb = projectEl.querySelector(".thumb")?.cloneNode(true);
+      mThumb.innerHTML = "";
+      if (thumb) mThumb.appendChild(thumb.firstElementChild);
+
+      modal.setAttribute("open", "");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal(){
+      if (!modal.hasAttribute("open")) return;
+      modal.removeAttribute("open");
+      document.body.style.overflow = "";
+    }
+
+    $$(".project").forEach(card => {
+      card.addEventListener("click", () => openModal(card));
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openModal(card);
+        }
+      });
+    });
+
+    mClose.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    mCopy.addEventListener("click", async () => {
+      const text =
+`${mTitle.textContent}
+${mRole.textContent}
+
+Summary: ${mDesc.textContent}
+Stack: ${mStack.textContent}
+Outcomes: ${mOut.textContent}`;
+      try{
+        await navigator.clipboard.writeText(text);
+        mCopy.textContent = "Copied ✓";
+        setTimeout(() => mCopy.textContent = "Copy summary", 1200);
+      }catch{
+        mCopy.textContent = "Copy failed";
+        setTimeout(() => mCopy.textContent = "Copy summary", 1200);
+      }
+    });
+
+    // ---------------------------
+    // Contact form -> mailto
+    // ---------------------------
+    const contactForm = $("#contactForm");
+    contactForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const data = new FormData(contactForm);
+      const name = data.get("name");
+      const email = data.get("email");
+      const subject = data.get("subject");
+      const message = data.get("message");
+
+      const to = "hello@example.com"; // <-- change me
+      const body = encodeURIComponent(
+`Name: ${name}
+Email: ${email}
+
+Message:
+${message}`
+      );
+      const sub = encodeURIComponent(subject);
+      window.location.href = `mailto:${to}?subject=${sub}&body=${body}`;
+    });
+
+    // ---------------------------
+    // Copy email helper
+    // ---------------------------
+    const copyEmailBtn = $("#copyEmailBtn");
+    const EMAIL = "hello@example.com"; // <-- change me
+    async function copyEmail(){
+      try{
+        await navigator.clipboard.writeText(EMAIL);
+        copyEmailBtn.textContent = "Copied ✓";
+        setTimeout(() => copyEmailBtn.innerHTML = 'Copy email <span class="kbd">C</span>', 1200);
+      }catch{
+        copyEmailBtn.textContent = "Copy failed";
+        setTimeout(() => copyEmailBtn.innerHTML = 'Copy email <span class="kbd">C</span>', 1200);
+      }
+    }
+    copyEmailBtn.addEventListener("click", copyEmail);
+
+    // ---------------------------
+    // Footer year
+    // ---------------------------
+    $("#year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

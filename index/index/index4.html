@@ -1,0 +1,155 @@
+<!-- OPTION C: Pick Your Path (CSS-only mode switch) -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Prototype C — Pick Your Path</title>
+<style>
+  :root{--bg:#0b0e18;--panel:#121827;--line:rgba(255,255,255,.10);--text:rgba(255,255,255,.9);--muted:rgba(255,255,255,.65);--a:#8b5cf6;--b:#06b6d4;--c:#f97316}
+  *{box-sizing:border-box} body{margin:0;font:14px/1.6 system-ui;background:
+    radial-gradient(900px 600px at 20% 0%, rgba(139,92,246,.22), transparent 60%),
+    radial-gradient(900px 600px at 85% 20%, rgba(6,182,212,.16), transparent 60%),
+    var(--bg); color:var(--text)}
+  .wrap{max-width:1080px;margin:0 auto;padding:26px}
+  .card{border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03))}
+  h1{margin:0;font-size:26px;line-height:1.15}
+  .sub{margin:10px 0 0;color:var(--muted);max-width:70ch}
+  /* Mode controls */
+  input{position:absolute;opacity:0;pointer-events:none}
+  .modes{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+  .modeBtn{
+    padding:10px 12px;border-radius:999px;border:1px solid var(--line);
+    background:rgba(255,255,255,.03);color:var(--muted);cursor:pointer;font-weight:800
+  }
+  /* Highlight active mode */
+  #m1:checked ~ .modes label[for="m1"]{background:rgba(139,92,246,.16);color:var(--text);border-color:rgba(139,92,246,.35)}
+  #m2:checked ~ .modes label[for="m2"]{background:rgba(6,182,212,.14);color:var(--text);border-color:rgba(6,182,212,.35)}
+  #m3:checked ~ .modes label[for="m3"]{background:rgba(249,115,22,.14);color:var(--text);border-color:rgba(249,115,22,.35)}
+
+  /* Sections */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .box{padding:14px;border-radius:16px;border:1px solid var(--line);background:rgba(0,0,0,.16)}
+  .box h3{margin:0 0 6px;font-size:16px}
+  .box p{margin:0;color:var(--muted)}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .tag{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.03)}
+  .cta{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
+  .btn{padding:10px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);text-decoration:none}
+  .btn.primary{border-color:transparent}
+  /* Content changes per mode (show/hide + emphasis) */
+  .modeCopy{display:none;margin-top:12px}
+  #m1:checked ~ .modeCopy.landing{display:block}
+  #m2:checked ~ .modeCopy.full{display:block}
+  #m3:checked ~ .modeCopy.hiring{display:block}
+
+  /* Mode-specific CTA colors */
+  #m1:checked ~ .grid .btn.primary{background:linear-gradient(135deg,var(--a),rgba(139,92,246,.45))}
+  #m2:checked ~ .grid .btn.primary{background:linear-gradient(135deg,var(--b),rgba(6,182,212,.45))}
+  #m3:checked ~ .grid .btn.primary{background:linear-gradient(135deg,var(--c),rgba(249,115,22,.45))}
+
+  /* Mode-specific section emphasis */
+  .emphLanding, .emphFull, .emphHiring{opacity:.55;transform:scale(.995);transition:.2s}
+  #m1:checked ~ .grid .emphLanding{opacity:1;transform:scale(1)}
+  #m2:checked ~ .grid .emphFull{opacity:1;transform:scale(1)}
+  #m3:checked ~ .grid .emphHiring{opacity:1;transform:scale(1)}
+
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="card" style="padding:16px">
+    <h1>Pick your path</h1>
+    <p class="sub">This prototype adapts to the visitor: projects + services + CTA shift based on what they want.</p>
+
+    <input id="m1" name="mode" type="radio" checked>
+    <input id="m2" name="mode" type="radio">
+    <input id="m3" name="mode" type="radio">
+
+    <div class="modes">
+      <label class="modeBtn" for="m1">I want a landing page</label>
+      <label class="modeBtn" for="m2">I want a full website</label>
+      <label class="modeBtn" for="m3">I’m hiring a designer</label>
+    </div>
+
+    <div class="modeCopy landing">
+      <div class="box" style="margin-top:12px">
+        <b>Landing Mode:</b> show “conversion wins”, proof blocks, a single CTA path.
+      </div>
+    </div>
+    <div class="modeCopy full">
+      <div class="box" style="margin-top:12px">
+        <b>Full Website Mode:</b> emphasize structure, scalability, pages, and design systems.
+      </div>
+    </div>
+    <div class="modeCopy hiring">
+      <div class="box" style="margin-top:12px">
+        <b>Hiring Mode:</b> highlight process, collaboration, and skills summary (like a mini resume).
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Projects -->
+      <div class="box emphLanding">
+        <h3>Projects (Landing-forward)</h3>
+        <p>3 focused case studies with metrics and CTA placement examples.</p>
+        <div class="tagrow"><span class="tag">Hero clarity</span><span class="tag">Proof</span><span class="tag">CTA</span></div>
+        <div class="cta">
+          <a class="btn primary" href="#contact">Get landing quote</a>
+          <a class="btn" href="#work">View landing work</a>
+        </div>
+      </div>
+
+      <div class="box emphFull">
+        <h3>Projects (Full-site)</h3>
+        <p>Navigation, multi-page layout, design system, and responsive rules.</p>
+        <div class="tagrow"><span class="tag">IA</span><span class="tag">Components</span><span class="tag">Pages</span></div>
+        <div class="cta">
+          <a class="btn primary" href="#contact">Plan my website</a>
+          <a class="btn" href="#work">See full sites</a>
+        </div>
+      </div>
+
+      <div class="box emphHiring">
+        <h3>Hiring snapshot</h3>
+        <p>Skills, tools, and how I work with teams (handoff-ready Figma + clean front-end).</p>
+        <div class="tagrow"><span class="tag">Figma</span><span class="tag">UX</span><span class="tag">Front-end</span></div>
+        <div class="cta">
+          <a class="btn primary" href="#contact">Download CV</a>
+          <a class="btn" href="#work">View portfolio</a>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div class="box emphLanding">
+        <h3>Services for landing pages</h3>
+        <p>Copy structure, section rhythm, and one clear conversion goal.</p>
+        <div class="tagrow"><span class="tag">Offer</span><span class="tag">Objections</span><span class="tag">CTA</span></div>
+      </div>
+
+      <div class="box emphFull">
+        <h3>Services for full websites</h3>
+        <p>Design system, page templates, reusable blocks, and scaling rules.</p>
+        <div class="tagrow"><span class="tag">System</span><span class="tag">Templates</span><span class="tag">Handoff</span></div>
+      </div>
+
+      <div class="box emphHiring">
+        <h3>How I collaborate</h3>
+        <p>Weekly check-ins, async feedback, and clear deliverables every sprint.</p>
+        <div class="tagrow"><span class="tag">Process</span><span class="tag">Comm</span><span class="tag">Ownership</span></div>
+      </div>
+    </div>
+
+    <section id="contact" class="box" style="margin-top:14px">
+      <h3>Contact CTA</h3>
+      <p>One sentence + email button is enough for a prototype.</p>
+      <div class="cta">
+        <a class="btn primary" href="#">Email me</a>
+        <a class="btn" href="#">Book a call</a>
+      </div>
+    </section>
+  </section>
+</div>
+</body>
+</html>

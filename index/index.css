@@ -1,0 +1,320 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    /* border: 2px solid purple; */
+    color: white;
+    font-family: system-ui;
+    font-weight: 100;
+    text-align: center;
+}
+
+div#section_menu {
+    display: flex;
+    /* align-items: center; */
+    justify-content: flex-end;
+    text-decoration: none;
+    /* width: 100%; */
+    padding-right: 10px;
+    max-width: 100%;
+    height: 40px;
+    align-items: center;
+}
+
+
+
+body {
+    background-color: #121e28;
+}
+
+
+
+div#section_menu a {
+    text-decoration: none;
+    margin-right: 8px;
+    /* place-self: flex-end; */
+    /* align-self: self-end; */
+    /* align-self: flex-end; */
+}
+
+span.circle {
+    border-radius: 100%;
+    height: 8px;
+    width: 8px;
+    display: block;
+    background-color: #f66d59;
+    margin-top: 17px;
+    margin-left: 4px;
+}
+
+div#text_hello h1 {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    /* line-height: 44px; */
+    font-weight: 500;
+}
+
+span.span_line {
+    /* border-radius: 100%; */
+    height: 1px;
+    width: 75px;
+    display: block;
+    background-color: #f66d59;
+    margin-top: 23px;
+    /* margin-left: 4px; */
+    margin-right: 7px;
+    border: none;
+}
+
+div#text_imbasaam h1 {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+}
+
+div#hero {
+    height: 420px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div#hero_image {
+    height: 100%;
+    width: 45%;
+}
+
+div#hero_text_container {
+    width: 50%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+div#text_hello {
+    padding-left: 44px;
+}
+
+div#text_jobtitle {
+    font-weight: 800;
+    padding-left: 45px;
+}
+
+div#hero_text {
+    width: 100%;
+    height: 53%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    margin-bottom: 11px;
+}
+
+button#hero_cta {
+    background-color: #fd5840;
+    font-weight: 400;
+}
+
+.hero_buttons {
+    padding: 7px 21px;
+}
+
+div#hero_buttons {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 55%;
+    height: 13%;
+    justify-content: space-evenly;
+    margin-left: 52px;
+}
+
+div#text_jobtitle h1 {
+    font-weight: 500;
+}
+
+button#mr_resume {
+    background-color: #fd584000;
+    font-weight: 400;
+    border: 1px solid #f66d59;
+    padding: 6px 21px;
+}
+
+div#skills_language {
+    display: inline-block;
+    background-color: #203545;
+    width: 100%;
+    /* height: 30px; */
+}
+
+a.skill_language {
+    display: inline-block;
+    line-height: 52px;
+    text-decoration: none;
+    font-weight: 900;
+    margin: 0px 7px;
+}
+
+div#about_section {
+    flex-direction: row;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.border_left {
+    height: 49px;
+    width: 1px;
+    display: block;
+    background-color: #f66d59;
+    /* margin-top: 23px; */
+    margin-left: 6px;
+    margin: 9px 0px;
+    border: none;
+}
+
+.border_bullet {
+    border-radius: 100%;
+    height: 8px;
+    width: 8px;
+    display: block;
+    background-color: #f66d59;
+    /* margin-top: 17px; */
+    /* margin-left: 4px; */
+}
+
+div#vertical_column_section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+}
+
+.icon_skills img {
+    height: 32px;
+    width: 32px;
+}
+
+.icon_skills h1 {
+    font-size: 15px;
+    margin-left: 20px;
+}
+
+div#about_icons_section {
+    /* width: 41%; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 29px;
+}
+
+.icon_skills {
+    flex-direction: row;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    margin: 17px 8px;
+}
+
+div#skills {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+div#About_ {
+    width: 44%;
+    justify-content: space-around;
+    align-items: flex-start;
+    display: flex;
+    /* padding: 52px; */
+    flex-direction: column;
+    height: 330px;
+    /* background: orange; */
+    margin-top: 32px;
+}
+
+.data_row {
+    display: flex;
+    width: 79%;
+    /* margin: 2px 4px; */
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+a.skill_language p {
+    font-weight: 400;
+}
+
+div#About_ h1 {
+    align-self: flex-start;
+    font-weight: 600;
+}
+
+p {}
+
+div#row_number {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div#row_number p {
+    color: #fd5840;
+    font-weight: 700;
+    font-size: 2.1rem;
+    margin-top: -8px;
+}
+
+.data_column {
+    /* margin: 0px 12px; */
+    max-width: 76px;
+    /* background: orange; */
+    height: 79px;
+    justify-content: space-around;
+    display: flex;
+    flex-direction: column;
+}
+
+.smallerText {
+    text-align: left;
+    font-size: 10px;
+    font-weight: 900;
+}
+
+div#About_ p {
+    text-align: left;
+}
+
+.project_description {
+    width: 50%;
+    /* padding: 19px 0px; */
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.project_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.project_element {
+    width: 100%;
+}
+
+img.social_icon {
+    height: 40px;
+    border-radius: 100%;
+    /* object-fit: scale-down; */
+    width: 40px;
+}

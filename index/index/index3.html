@@ -1,0 +1,134 @@
+<!-- OPTION B: Services Tabs (CSS-only with radios) -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Prototype B — Services Tabs</title>
+<style>
+  :root{--bg:#0a0f1d;--panel:#101a32;--line:rgba(255,255,255,.10);--text:rgba(255,255,255,.9);--muted:rgba(255,255,255,.65);--brand:#22c55e}
+  *{box-sizing:border-box} body{margin:0;font:14px/1.6 system-ui;background:radial-gradient(900px 600px at 85% 10%, rgba(34,197,94,.20), transparent 60%),var(--bg);color:var(--text)}
+  .wrap{max-width:980px;margin:0 auto;padding:26px}
+  .card{border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03))}
+  header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+  h1{margin:0;font-size:22px}
+  .sub{margin:0;color:var(--muted)}
+  /* Tabs */
+  .tabs{padding:14px}
+  .tabbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+  input{position:absolute;opacity:0;pointer-events:none}
+  label{
+    padding:10px 12px;border-radius:999px;border:1px solid var(--line);
+    background:rgba(255,255,255,.03);cursor:pointer;color:var(--muted);font-weight:700
+  }
+  /* Highlight active label */
+  #t1:checked ~ .tabbar label[for="t1"],
+  #t2:checked ~ .tabbar label[for="t2"],
+  #t3:checked ~ .tabbar label[for="t3"]{
+    background:rgba(34,197,94,.15);color:var(--text);border-color:rgba(34,197,94,.35)
+  }
+  /* Panels */
+  .panel{display:none;border-top:1px solid var(--line);padding-top:14px;margin-top:10px}
+  #t1:checked ~ .p1{display:grid}
+  #t2:checked ~ .p2{display:grid}
+  #t3:checked ~ .p3{display:grid}
+
+  .panel{grid-template-columns:1.1fr .9fr;gap:12px;align-items:start}
+  .box{padding:14px;border:1px solid var(--line);border-radius:16px;background:rgba(0,0,0,.16)}
+  .box h3{margin:0 0 6px;font-size:16px}
+  .box p{margin:0;color:var(--muted)}
+  .list{margin-top:10px;display:grid;gap:8px}
+  .li{padding:10px 12px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--muted)}
+  .mock{height:220px;border-radius:16px;border:1px solid var(--line);background:
+    linear-gradient(135deg, rgba(34,197,94,.25), rgba(255,255,255,.02)),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.06) 0 8px, transparent 8px 16px)}
+  .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .btn{padding:10px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);text-decoration:none}
+  .btn.primary{background:linear-gradient(135deg, rgba(34,197,94,.9), rgba(16,185,129,.6));border-color:transparent}
+  @media(max-width:860px){.panel{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Services (Tab Demo)</h1>
+      <p class="sub">Click a tab to swap content — this pattern is great for portfolios.</p>
+    </div>
+    <div class="card" style="padding:10px 12px;border-radius:999px">CSS-only tabs</div>
+  </header>
+
+  <section class="card tabs">
+    <!-- Radio state -->
+    <input id="t1" name="tab" type="radio" checked>
+    <input id="t2" name="tab" type="radio">
+    <input id="t3" name="tab" type="radio">
+
+    <div class="tabbar">
+      <label for="t1">UI Design</label>
+      <label for="t2">UX Structure</label>
+      <label for="t3">Build</label>
+    </div>
+
+    <!-- Panel 1 -->
+    <div class="panel p1">
+      <div class="box">
+        <h3>UI Design &amp; Design Systems</h3>
+        <p>Premium look through spacing, type scale, components, and consistent patterns.</p>
+        <div class="list">
+          <div class="li">Component library: buttons, cards, nav, forms</div>
+          <div class="li">Type rhythm: headings, body, captions</div>
+          <div class="li">Style tokens: colors, radius, shadows</div>
+        </div>
+        <div class="cta">
+          <a class="btn primary" href="#contact">Request UI package</a>
+          <a class="btn" href="#work">See UI projects</a>
+        </div>
+      </div>
+      <div class="mock" aria-label="UI mock preview"></div>
+    </div>
+
+    <!-- Panel 2 -->
+    <div class="panel p2">
+      <div class="box">
+        <h3>UX Structure &amp; Content Flow</h3>
+        <p>Turn “nice visuals” into clarity: what to read, what to click, and why.</p>
+        <div class="list">
+          <div class="li">Section hierarchy: hero → proof → offer → CTA</div>
+          <div class="li">User journeys: 1–2 primary paths</div>
+          <div class="li">Microcopy: buttons, labels, friction removal</div>
+        </div>
+        <div class="cta">
+          <a class="btn primary" href="#contact">Audit my page</a>
+          <a class="btn" href="#work">See UX projects</a>
+        </div>
+      </div>
+      <div class="mock" aria-label="UX flow preview"></div>
+    </div>
+
+    <!-- Panel 3 -->
+    <div class="panel p3">
+      <div class="box">
+        <h3>Build (HTML/CSS)</h3>
+        <p>Responsive, clean implementation with a focus on performance and accessibility.</p>
+        <div class="list">
+          <div class="li">Responsive layout: grid, stack, spacing</div>
+          <div class="li">Accessibility: focus states, readable contrast</div>
+          <div class="li">Performance: lightweight, minimal dependencies</div>
+        </div>
+        <div class="cta">
+          <a class="btn primary" href="#contact">Build my design</a>
+          <a class="btn" href="#work">See built work</a>
+        </div>
+      </div>
+      <div class="mock" aria-label="Build preview"></div>
+    </div>
+  </section>
+
+  <section id="contact" class="card" style="margin-top:14px;padding:14px;border-radius:18px">
+    <b>Contact area</b>
+    <div style="color:var(--muted)">Keep this short: one sentence + email button.</div>
+  </section>
+</div>
+</body>
+</html>
