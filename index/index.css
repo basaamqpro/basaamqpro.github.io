@@ -318,3 +318,15 @@ img.social_icon {
     /* object-fit: scale-down; */
     width: 40px;
 }
+
+footer#contact_footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 50vh;
+}
+
+iframe {
+    min-height: 60vh;
+}

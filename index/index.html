@@ -318,12 +318,25 @@
 
 }
 
+.cv-btn {
+  display: inline-block;
+  padding: 12px 20px;
+  background-color: #0a66c2;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+}
+.cv-btn:hover {
+  background-color: #004182;
+}
+
 
   </style>
 </head>
 <body>
 
-
+<!-- 
   <div id="section_menu">
 
   
@@ -333,7 +346,7 @@
     <a href="contact.html">Contact</a>
 
     
-  </div>
+  </div> -->
 
     <div id="hero">
         <div id="hero_text_container">
@@ -345,7 +358,7 @@
         
        <div id="hero_buttons">
        <button class="hero_buttons" id="hero_cta">Got a project?</button>
-       <button  class="hero_buttons"  id="mr_resume">My Resume</button>
+       <a href="basaamcv.pdf">  <button href="basaamcv.pdf" class="hero_buttons"  id="mr_resume">My Resume</button></a>
         </div>
        </div>
        <div id="hero_image" style="background-image: url(basaam.jpg)"></div>
@@ -542,7 +555,7 @@
     <h1>© 2024 Basaamqpro. All rights reserved.</h1>
 </div> -->
 
-<footer id="contact_section">
+<footer id="contact_footer">
   
 
   
@@ -552,6 +565,10 @@
           <h1>+44 7497 467360</h1>
           <a href="mailto:basaamqpro@gmail.com" class="contact_btn primary">Email me</a>
           <a href="https://github.com/basaamqpro" class="contact_btn ghost">Github</a>
+
+          <a href="basaamcv.pdf" download class="cv-btn">
+  Download My CV
+</a>
 </footer>
 
 <script>
