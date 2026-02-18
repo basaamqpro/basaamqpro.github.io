@@ -14,12 +14,17 @@
     flex-direction: column;
     gap: 18px;
     padding: 22px 16px 10px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
   }
 
   div#hero_text_container{
-    width: 100%;
+    width: 33%;
     height: auto;
     align-items: flex-start;
+    display: flex;
+    justify-content: center;
   }
 
   div#hero_text{
@@ -61,11 +66,17 @@
   }
 
   div#hero_image{
-    width: 100%;
-    height: 320px;
+    width: 200px;
+    height: 200px;
     border-radius: 16px;
     background-position: center;
     background-size: cover;
+    border-top-right-radius: 15%;
+    border-bottom-right-radius: 52px;
+    border-bottom-left-radius: 145px;
+    border-top-left-radius: 153px;
+    border-top-right-radius: 99%;
+    border-top-left-radius: 73px;
   }
 
   /* SKILLS BAR */

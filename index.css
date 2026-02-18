@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     border: none;
-    /* border: 2px solid purple; */
+    border: 2px solid purple;
     color: white;
     font-family: system-ui;
     font-weight: 100;
@@ -76,17 +76,23 @@ div#text_imbasaam h1 {
 div#hero {
     height: 420px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
 div#hero_image {
-    height: 100%;
-    width: 45%;
+    height: 350px;
+    width: 350px;
+    background-size: 100% 100%;
+    border-radius: 100%;
+    border-top-left-radius: 153px;
+    border-top-right-radius: 15%;
+    border-bottom-right-radius: 52px;
+    border-bottom-left-radius: 145px;
 }
 
 div#hero_text_container {
-    width: 50%;
+    width: 35%;
     height: 80%;
     display: flex;
     flex-direction: column;
