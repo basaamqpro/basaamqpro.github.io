@@ -1,0 +1,12 @@
+div#skills_language p {
+    display: inline-block;
+    text-align: center;
+    margin-left: 15px;
+    margin-top: 1.5%;
+}
+div#skills_language {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    height: 60px;
+}

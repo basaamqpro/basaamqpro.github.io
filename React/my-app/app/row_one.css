@@ -1,0 +1,133 @@
+.rowP {
+    font-size: 1.125rem; /* text-lg */
+    color: #d8521d; /* text-gray-700 */
+    margin-bottom: 1.5rem; /* mb-6 */
+}
+
+
+* {
+    border: 1px solid rgb(225, 0, 255);
+    color: white;
+}
+
+body { 
+    background-color: #121e28;
+}
+
+.rowOne {
+    display: flex;
+    flex-direction: row;
+    height: 75vh;
+}
+
+.left-column {
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+ 
+.container {
+    width: 70%;
+    min-height: 50%;
+    justify-content: space-around;
+    display: flex;
+    flex-direction: column;
+}
+
+.dot {
+    border-radius: 100%;
+    height: 8px;
+    width: 8px;
+    display: block;
+    background-color: #f66d59;
+    /* margin-top: 17px;
+    margin-left: 4px; */
+} 
+
+.line {
+    width: 75px;
+    display: block;
+    background-color: #f66d59;
+    border: none;
+    height: 2px;
+}
+
+.row0 {
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row {
+    justify-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+}
+
+.row1.row {
+    align-items: flex-end;
+}
+
+h1.hello {
+    font-size: xx-large;
+    font-weight: 600;
+}
+
+h1.name {
+    font-size: x-large;
+    font-weight: 100;
+    font-family: system-ui;
+}
+
+h1.Entry {
+    font-size: xx-large;
+    font-weight: 600;
+} 
+
+.contactbutton {
+    background-color: #f66d59;
+    min-width: 114px;
+    min-height: 32px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.row3.row {
+    /* min-width: 240px; */
+    justify-content: space-evenly;
+}
+
+button.Resume.contactbutton {
+    background: none;
+    border-color: #f66d59;
+}
+
+h1.Entry {}
+
+.row2 {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+
+.profile_image {
+        height: 350px;
+    width: 350px;
+    background-size: 100% 100%;
+    border-radius: 100%;
+    border-top-left-radius: 153px;
+    border-top-right-radius: 15%;
+    border-bottom-right-radius: 52px;
+    border-bottom-left-radius: 93px;
+}
+
+.right-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
