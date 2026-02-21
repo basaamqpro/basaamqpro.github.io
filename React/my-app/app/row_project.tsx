@@ -1,23 +1,38 @@
 "use client";
 import { useEffect } from "react";
+import "./row_project.css";
+
+type Project = {
+  url: string;
+  title: string;
+  projectTitle: string;
+};
 
 export default function RowProject() {
-  const projects = [
+  const projects: Project[] = [
     {
       url: "https://codepen.io/basaamqpro/pen/jErRdqp",
-      title: "Untitled"
+      title: "3D Car CSS/JS",
+      projectTitle:
+        "An 3D car visualization built with CSS and JavaScript, showcasing advanced CSS transforms and animations."
     },
     {
       url: "https://codepen.io/basaamqpro/pen/WbxBvxz",
-      title: "3D GUN CSS/JS"
+      title: "3D GUN Interactive CSS/JS",
+      projectTitle:
+        "Requires mouse interaction and full screen desktop..."
     },
     {
       url: "https://codepen.io/basaamqpro/pen/yyJWNbG",
-      title: "Mario Interactive"
+      title: "Mario Interactive",
+      projectTitle:
+        "Click on the link to see the full design..."
     },
     {
       url: "https://codepen.io/basaamqpro/pen/LEZoVoW",
-      title: "Untitled"
+      title: "HTML Design Editor",
+      projectTitle:
+        "An interactive HTML design editor built with CSS and JavaScript..."
     }
   ];
 
@@ -37,16 +52,14 @@ export default function RowProject() {
   );
 }
 
-function ProjectCard({ project }) {
+function ProjectCard({ project }: { project: Project }) {
   const slug = project.url.split("/pen/")[1];
 
   return (
     <div className="project_container">
       <div className="project_description">
-        <h1>Projects</h1>
-        <p>
-          Here are some of my recent projects. Click on the links to see more details.
-        </p>
+        <h1>{project.title}</h1>
+        <p>{project.projectTitle}</p>
       </div>
 
       <div className="project_element">

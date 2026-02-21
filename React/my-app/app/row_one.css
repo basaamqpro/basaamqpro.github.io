@@ -5,10 +5,7 @@
 }
 
 
-* {
-    border: 1px solid rgb(225, 0, 255);
-    color: white;
-}
+
 
 body { 
     background-color: #121e28;
@@ -77,9 +74,9 @@ h1.hello {
 }
 
 h1.name {
-    font-size: x-large;
-    font-weight: 100;
     font-family: system-ui;
+    font-size: xx-large;
+    font-weight: 100;
 }
 
 h1.Entry {
@@ -88,12 +85,14 @@ h1.Entry {
 } 
 
 .contactbutton {
+    color: #fff;
     background-color: #f66d59;
-    min-width: 114px;
-    min-height: 32px;
-    color: white;
+    min-width: 130px;
+    min-height: 41px;
     font-size: 14px;
     font-weight: 600;
+    border-radius: 7px;
+    border: 1px solid #f66d59;
 }
 
 .row3.row {
@@ -130,4 +129,47 @@ h1.Entry {}
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media only screen and (orientation: portrait) {
+ .footer-left p {
+    font-size: 20px;
+}
+
+p.phone {
+    font-size: 22px;
+    text-align: center;
+}
+
+img.icon {
+    height: 41px;
+    width: 35px;
+}
+
+.rowOne {
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: space-around;
+    align-items: center;
+}
+
+img.profile_image {
+    height: 230px;
+    width: 230px;
+}
+
+* {
+    /* border: 2px solid; */
+}
+
+.container {
+    width: 100%;
+    min-height: 100%;
+}
+
+.left-column {
+    width: 90%;
+    min-height: 55vh;
+}
+
 }

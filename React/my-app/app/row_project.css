@@ -1,0 +1,54 @@
+.project_container {
+    min-height: 70vh;
+}
+
+.project_element {
+    min-height: 76vh;
+}
+
+.cp_embed_wrapper {
+    min-height: 74vh;
+}
+
+iframe {
+    min-height: 70vh;
+}
+
+.project_description {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.project_description h1 {
+    font-size: xxx-large;
+}
+
+p {}
+
+.project_description p {
+    font-size: x-large;
+    width: 70%;
+}
+
+
+@media only screen and (orientation: portrait) {
+
+.project_description h1 {
+    font-size: 2rem;
+}
+
+    .project_description p {
+        width: 85%;
+        font-size: 18px;
+    }
+
+.project_container {
+    margin: 15px 0px;
+}
+    .project_container {
+        margin: 35px 0;
+    }
+}
