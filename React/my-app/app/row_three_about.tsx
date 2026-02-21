@@ -60,7 +60,7 @@ function RightColumn() {
 
 
         <div className="data_column">
-          <div id="row_number">
+          <div className="row_number">
           <h1>20</h1>
           <p>+</p>
         </div>
@@ -70,7 +70,7 @@ function RightColumn() {
         </div>
 
          <div className="data_column">
-          <div id="row_number">
+          <div className="row_number">
           <h1>2</h1>
           <p>+</p>
         </div>
@@ -81,7 +81,7 @@ function RightColumn() {
 
 
          <div className="data_column">
-          <div id="row_number">
+          <div className="row_number">
           <h1>4</h1>
           <p>+</p>
         </div>

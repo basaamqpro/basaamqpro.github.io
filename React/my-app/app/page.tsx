@@ -4,7 +4,7 @@ import React from "react";
 import Row1 from "./row_one";
 import Row2Menu from "./row_two_menu";
 import Row_three_about from "./row_three_about";
-
+import RowProjects from "./row_project";
 export default function Home() {
   return (
     <div >
@@ -13,6 +13,7 @@ export default function Home() {
         <Row1 />
         <Row2Menu />
         <Row_three_about />
+        <RowProjects />
       </main>
     </div>
   );
