@@ -570,3 +570,6 @@ img.icon {
     width: 35px;
 }
 
+html {
+  scroll-behavior: smooth;
+}

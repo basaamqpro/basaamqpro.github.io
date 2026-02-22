@@ -32,7 +32,7 @@ export default function Home() {
       <RowThreeAbout />
       <RowProjects />
       <Footer />
-      <Counter /> {/* Optional demo */}
+      
     </main>
   );
 }

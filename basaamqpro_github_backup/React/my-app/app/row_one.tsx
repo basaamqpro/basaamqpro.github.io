@@ -29,8 +29,10 @@ function LeftColumn() {
                 <h1 className="Entry">Entry Web Developer</h1>
             </div>
             <div className="row3 row">
-                <button className="Hire contactbutton">Hire Me!</button>
-                <button className="Resume contactbutton">My Resume</button>
+                <a onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })} className="Hire contactbutton">
+                <button onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })} className="Hire contactbutton">Hire Me!</button>
+                </a>
+                <a href="basaamq_cv.pdf"><button className="Resume contactbutton">My Resume</button></a>
             </div>
             </div>
         </div>

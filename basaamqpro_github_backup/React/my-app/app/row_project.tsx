@@ -20,7 +20,7 @@ export default function RowProject() {
       url: "https://codepen.io/basaamqpro/pen/WbxBvxz",
       title: "3D GUN Interactive CSS/JS",
       projectTitle:
-        "Requires mouse interaction and full screen desktop..."
+        "Requires mouse interaction and move with AWSD keys, and mouse click, built with CSS and JavaScript, showcasing advanced CSS transforms and animations"
     },
     {
       url: "https://codepen.io/basaamqpro/pen/yyJWNbG",

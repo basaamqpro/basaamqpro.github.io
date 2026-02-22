@@ -12,7 +12,7 @@ export default function Footer() {
 
   return (
     <footer className="footer">
-      <div className="footer-content">
+      <div id="contact"className="footer-content">
 
         <div className="footer-left">
           <h2>Basaam Qasem</h2>
