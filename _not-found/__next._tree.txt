@@ -1,3 +1,3 @@
-:HL["/basaamqpro.github.io/_next/static/chunks/6f736991a3f1a68b.css","style"]
-:HL["/basaamqpro.github.io/_next/static/chunks/b4265970498e7eb6.css","style"]
-0:{"buildId":"M59vM0rw3Dzo1un9iaqWT","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"/_not-found","paramType":null,"paramKey":"/_not-found","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
+:HL["/_next/static/chunks/6f736991a3f1a68b.css","style"]
+:HL["/_next/static/chunks/b4265970498e7eb6.css","style"]
+0:{"buildId":"nHXze7gsddezZpEPoKpDv","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"/_not-found","paramType":null,"paramKey":"/_not-found","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
