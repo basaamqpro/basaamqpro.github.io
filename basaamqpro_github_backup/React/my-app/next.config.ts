@@ -1,10 +1,9 @@
 import type { NextConfig } from "next";
 
-const nextConfig = {
+const nextConfig: NextConfig = {
   output: "export",
-  images: {
-    unoptimized: true,
-  },
+  images: { unoptimized: true },
+  basePath: "/basaamqpro.github.io", // <-- add this
 };
 
 export default nextConfig;
