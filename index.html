@@ -134,19 +134,105 @@ ul{
 
 li{ margin:8px 0; }
 
+/* -------------------------
+   HOMEWORK (Embedded YouTube)
+   ------------------------- */
+.homework{
+  margin-top:26px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+}
+
+.homework-title{
+  margin:0 0 10px;
+  font-size:22px;
+  font-weight:800;
+}
+
+.homework-sub{
+  margin:0 0 16px;
+  font-size:18px;
+  color:var(--muted);
+}
+
+/* Horizontal row (mobile) */
+.video-row{
+  display:flex;
+  gap:14px;
+  overflow-x:auto;
+  padding-bottom:10px;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Scrollbar (nice but simple) */
+.video-row::-webkit-scrollbar{ height:10px; }
+.video-row::-webkit-scrollbar-thumb{
+  background:rgba(0,0,0,.12);
+  border-radius:999px;
+}
+.video-row::-webkit-scrollbar-track{ background:transparent; }
+
+/* Each video card */
+.video-card{
+  flex: 0 0 92%;
+  max-width: 520px;
+  background: var(--soft);
+  border:1px solid var(--line);
+  border-radius: 20px;
+  overflow:hidden;
+  scroll-snap-align:start;
+}
+
+/* Desktop: show two videos side-by-side (no scroll) */
+@media (min-width: 920px){
+  .video-row{
+    overflow: visible;
+    flex-wrap: wrap;
+  }
+  .video-card{
+    flex: 1 1 calc(50% - 14px);
+    max-width: none;
+  }
+}
+
+.video-frame{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  background:#000;
+}
+
+/* Responsive iframe */
+.video-frame iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+}
+
+.video-body{
+  padding:14px 16px 18px;
+}
+
+.video-title{
+  margin:0 0 8px;
+  font-size:18px;
+  font-weight:800;
+}
+
+.video-notes{
+  margin:0;
+  font-size:17px;
+  color:var(--muted);
+}
+
 /* Desktop spacing */
 @media (min-width:768px){
-  .lesson{
-    padding:32px;
-  }
-
-  .lesson-desc{
-    font-size:21px;
-  }
-
-  ul{
-    font-size:21px;
-  }
+  .lesson{ padding:32px; }
+  .lesson-desc{ font-size:21px; }
+  ul{ font-size:21px; }
 }
 </style>
 </head>
@@ -156,82 +242,130 @@ li{ margin:8px 0; }
 
 <header>
   <h1 class="site-title">Arabic Lessons Schedule</h1>
-  <div class="site-sub">
-    All times shown clearly for different countries.
-  </div>
+  <div class="site-sub">All times shown clearly for different countries.</div>
 </header>
 
 <h2 class="section-title">Upcoming Lessons</h2>
 
 <div class="redalert_note">
-  <div class="red_notice_text">
-    Important: Wednesday class moved to Friday this week.
-  </div>
-  <div class="last-updated">
-    Last updated: March 1, 2026
-  </div>
+  <div class="red_notice_text">Important: Wednesday class moved to Friday this week.</div>
+  <div class="last-updated">Last updated: March 1, 2026</div>
 </div>
 
 <!-- LESSON 1 -->
 <div class="lesson">
-  <h3 class="lesson-title">
-    Tuesday 8 February — 19:00 (Moscow Time)
-  </h3>
+  <h3 class="lesson-title">Tuesday 8 February — 19:00 (Moscow Time)</h3>
 
   <p class="lesson-desc">
     Revision of the previous class. Then we begin learning the Arabic alphabet.
     We will cover the first 10 letters and practice pronunciation and writing.
   </p>
 
-  <div class="time-box">
-    Moscow: 19:00 • Tue 8 Feb
-  </div>
+  <div class="time-box">Moscow: 19:00 • Tue 8 Feb</div>
 
-  <div class="timezones-title">
-    For students in other time zones:
-  </div>
-
+  <div class="timezones-title">For students in other time zones:</div>
   <ul>
     <li>London: 16:00</li>
     <li>Netherlands (Amsterdam): 17:00</li>
     <li>New York: 11:00</li>
     <li>Los Angeles: 08:00</li>
   </ul>
+
+  <!-- HOMEWORK -->
+  <div class="homework">
+    <h4 class="homework-title">Homework</h4>
+    <p class="homework-sub">Watch these videos before the next lesson.</p>
+
+    <div class="video-row">
+      <!-- Replace the VIDEO ID in the src (after /embed/) -->
+      <div class="video-card">
+        <div class="video-frame">
+          <iframe
+            src="https://www.youtube.com/embed/fJ9_79bg5H4"
+            title="YouTube video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-body">
+          <p class="video-title">Arabic Alphabet Practice</p>
+          <p class="video-notes">Repeat each letter out loud and write it down.</p>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-frame">
+          <iframe
+            src="https://www.youtube.com/embed/joaa_H3ejoM"
+            title="YouTube video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-body">
+          <p class="video-title">Letters + Writing Forms</p>
+          <p class="video-notes">Focus on initial/medial/final/isolated forms. Pause and copy.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- LESSON 2 -->
-
-<div class="redalert_note">
-  <div class="red_notice_text">
-    Important: Wednesday class moved to Friday this week.
-  </div>
-  <div class="last-updated">
-    Last updated: March 1, 2026
-  </div>
-</div>
 <div class="lesson">
-  <h3 class="lesson-title">
-    Monday 2 February — 19:00 (Moscow Time)
-  </h3>
+  <h3 class="lesson-title">Monday 2 February — 19:00 (Moscow Time)</h3>
 
   <p class="lesson-desc">
     Continue alphabet practice. Focus on joining letters and reading simple words.
   </p>
 
-  <div class="time-box">
-    Moscow: 19:00 • Mon 2 Feb
-  </div>
+  <div class="time-box">Moscow: 19:00 • Mon 2 Feb</div>
 
-  <div class="timezones-title">
-    For students in other time zones:
-  </div>
-
+  <div class="timezones-title">For students in other time zones:</div>
   <ul>
     <li>London: 16:00</li>
     <li>Netherlands (Amsterdam): 17:00</li>
     <li>New York: 11:00</li>
     <li>Los Angeles: 08:00</li>
   </ul>
+
+  <!-- HOMEWORK -->
+  <div class="homework">
+    <h4 class="homework-title">Homework</h4>
+    <p class="homework-sub">Watch these videos before the next lesson.</p>
+
+    <div class="video-row">
+      <div class="video-card">
+        <div class="video-frame">
+          <iframe
+            src="https://www.youtube.com/embed/fJ9_79bg5H4"
+            title="YouTube video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-body">
+          <p class="video-title">Arabic Alphabet Practice</p>
+          <p class="video-notes">Try to write each letter 5 times.</p>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-frame">
+          <iframe
+            src="https://www.youtube.com/embed/joaa_H3ejoM"
+            title="YouTube video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-body">
+          <p class="video-title">Letters + Writing Forms</p>
+          <p class="video-notes">Pause at each form and copy it on paper.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 </div>
