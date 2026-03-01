@@ -1,0 +1,96 @@
+<div class="bodyMap">
+  <img
+    id="bodyImg"
+    src="human-body-frontal.png"
+    usemap="#image-map"
+    alt="Human muscle diagram"
+    style="max-width:520px;width:100%;height:auto;"
+  />
+
+  <map name="image-map" id="image-map">
+    <!-- Upper clavicular head -->
+    <area
+      shape="poly"
+      coords="934,597,944,640,863,672,757,717,743,666,791,641,842,611,888,601,911,592,923,590,920,597"
+      href="#"
+      data-part="upper-clavicular"
+      alt="Upper clavicular head"
+      title="Upper clavicular head"
+    />
+
+    <!-- Middle sternal head -->
+    <area
+      shape="poly"
+      coords="746,723,768,813,962,793,955,684,941,645"
+      href="#"
+      data-part="middle-sternal"
+      alt="Middle sternal head"
+      title="Middle sternal head"
+    />
+
+    <!-- Lower abdominal head -->
+    <area
+      shape="poly"
+      coords="773,818,958,801,925,854,865,868,817,869,785,848"
+      href="#"
+      data-part="lower-abdominal"
+      alt="Lower abdominal head"
+      title="Lower abdominal head"
+    />
+  </map>
+</div>
+
+<div id="panel" style="max-width:520px;">
+  <h3 id="panelTitle">Click a muscle section</h3>
+  <div id="videos"></div>
+</div>
+
+<!-- Responsive resize for image maps -->
+<script src="https://cdn.jsdelivr.net/npm/image-map-resizer@1.0.10/js/imageMapResizer.min.js"></script>
+
+<script>
+  // Keeps coords correct when image scales
+  window.addEventListener("load", () => {
+    if (window.imageMapResize) imageMapResize();
+  });
+
+  // Replace with YOUR chosen videos (use YouTube embed URLs)
+  const VIDEOS = {
+    "upper-clavicular": [
+      { title: "Incline Push-Up / Incline Press (Upper Chest)", embed: "https://www.youtube.com/embed/IODxDxX7oi4" },
+    ],
+    "middle-sternal": [
+      { title: "Flat Push-Up / Bench Pattern (Mid Chest)", embed: "https://www.youtube.com/embed/rT7DgCr-3pg" },
+    ],
+    "lower-abdominal": [
+      { title: "Lower Abs (Reverse Crunch / Leg Raise)", embed: "https://www.youtube.com/embed/pSHjTRCQxIw" },
+    ],
+  };
+
+  // Attach click listeners to every area
+  document.querySelectorAll('area[data-part]').forEach(area => {
+    area.addEventListener("click", (e) => {
+      e.preventDefault();
+      render(area.dataset.part, area.title || area.alt || area.dataset.part);
+    });
+  });
+
+  function render(key, label) {
+    const list = VIDEOS[key] || [];
+    document.getElementById("panelTitle").textContent = label;
+
+    document.getElementById("videos").innerHTML = list.length
+      ? list.map(v => `
+          <div style="border:1px solid #eee;border-radius:12px;padding:10px;margin:10px 0;">
+            <div style="font-weight:600;margin-bottom:8px;">${v.title}</div>
+            <iframe
+              src="${v.embed}"
+              style="width:100%;aspect-ratio:16/9;border:0;border-radius:10px;"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+        `).join("")
+      : `<p style="color:#666;">No videos yet for this section.</p>`;
+  }
+</script>

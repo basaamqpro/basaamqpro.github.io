@@ -1,0 +1,112 @@
+<div class="mapWrap">
+  <img id="bodyImg" src="human-body-frontal.png" usemap="#image-map" alt="" />
+  <canvas id="overlay"></canvas>
+
+  <map name="image-map" id="image-map">
+    <area shape="poly"
+      coords="934,597,944,640,863,672,757,717,743,666,791,641,842,611,888,601,911,592,923,590,920,597"
+      href="#" data-part="upper-clavicular" alt="Upper clavicular head" title="Upper clavicular head" />
+
+    <area shape="poly"
+      coords="746,723,768,813,962,793,955,684,941,645"
+      href="#" data-part="middle-sternal" alt="Middle sternal head" title="Middle sternal head" />
+
+    <area shape="poly"
+      coords="773,818,958,801,925,854,865,868,817,869,785,848"
+      href="#" data-part="lower-abdominal" alt="Lower abdominal head" title="Lower abdominal head" />
+  </map>
+</div>
+
+<style>
+  .mapWrap { position: relative; display: inline-block; }
+  #bodyImg { width: 100%; max-width: 520px; height: auto; display:block; }
+  #overlay { position:absolute; left:0; top:0; pointer-events:none; }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/image-map-resizer@1.0.10/js/imageMapResizer.min.js"></script>
+<script>
+  const img = document.getElementById("bodyImg");
+  const canvas = document.getElementById("overlay");
+  const ctx = canvas.getContext("2d");
+
+  let selected = null;
+
+  function syncCanvasToImage() {
+    // match displayed size
+    const r = img.getBoundingClientRect();
+    canvas.width = Math.round(r.width);
+    canvas.height = Math.round(r.height);
+    canvas.style.width = r.width + "px";
+    canvas.style.height = r.height + "px";
+  }
+
+  function parseCoords(str) {
+    const nums = str.split(",").map(n => Number(n.trim()));
+    const pts = [];
+    for (let i = 0; i < nums.length; i += 2) pts.push([nums[i], nums[i+1]]);
+    return pts;
+  }
+
+  function drawPoly(areaEl, mode) {
+    if (!areaEl) return;
+    const pts = parseCoords(areaEl.coords);
+
+    // scale from original image pixels to displayed pixels
+    const sx = canvas.width / img.naturalWidth;
+    const sy = canvas.height / img.naturalHeight;
+
+    ctx.beginPath();
+    pts.forEach(([x,y], i) => {
+      const X = x * sx, Y = y * sy;
+      if (i === 0) ctx.moveTo(X, Y);
+      else ctx.lineTo(X, Y);
+    });
+    ctx.closePath();
+
+    // Fill + stroke (you can change these)
+    ctx.globalAlpha = (mode === "hover") ? 0.25 : 0.35;
+    ctx.fillStyle = "#00bcd4"; // highlight color
+    ctx.fill();
+
+    ctx.globalAlpha = 0.9;
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "#007a88";
+    ctx.stroke();
+
+    ctx.globalAlpha = 1;
+  }
+
+  function clearOverlay() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+
+  function renderOverlay(hoverArea) {
+    clearOverlay();
+    // draw selected first, then hover on top
+    if (selected) drawPoly(selected, "selected");
+    if (hoverArea && hoverArea !== selected) drawPoly(hoverArea, "hover");
+  }
+
+  window.addEventListener("load", () => {
+    imageMapResize();
+    syncCanvasToImage();
+  });
+
+  window.addEventListener("resize", () => {
+    syncCanvasToImage();
+    renderOverlay(null);
+  });
+
+  // Hover + click behavior
+  document.querySelectorAll("area[data-part]").forEach(area => {
+    area.addEventListener("mouseenter", () => renderOverlay(area));
+    area.addEventListener("mouseleave", () => renderOverlay(null));
+
+    area.addEventListener("click", (e) => {
+      e.preventDefault();
+      selected = area;
+      renderOverlay(null);
+      // call your showVideos(area.dataset.part) here
+    });
+  });
+</script>

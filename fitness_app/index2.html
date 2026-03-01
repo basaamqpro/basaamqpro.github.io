@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Body Map Overlay</title>
+  <style>
+    /* Mobile-first layout */
+    body { margin: 0; font-family: system-ui, Arial; padding: 16px; background:#fff; color:#111; }
+    .wrap { display: grid; gap: 14px; }
+    .card { border: 1px solid #eaeaea; border-radius: 14px; padding: 12px; }
+
+    /* On larger screens, place side-by-side */
+    @media (min-width: 900px) {
+      .wrap { grid-template-columns: 1fr 380px; align-items: start; }
+    }
+
+    /* Image + SVG overlay */
+    .mapBox { position: relative; width: 100%; max-width: 560px; margin: 0 auto; }
+    .mapBox img { width: 100%; height: auto; display: block; border-radius: 12px; }
+    .mapBox svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+    /* Interactive regions */
+    .region {
+      cursor: pointer;
+      transition: opacity .15s ease, filter .15s ease;
+      opacity: .28;               /* base tint */
+      filter: brightness(1);
+      stroke: rgba(0,0,0,.25);
+      stroke-width: 2;
+      pointer-events: all;
+    }
+
+    .region:hover { opacity: .45; filter: brightness(.92); }
+    .region.active { opacity: .60; filter: brightness(.80); }
+
+    /* Base colors */
+    .upper { fill: rgb(255 0 0); }     /* red */
+    .middle { fill: rgb(0 170 0); }    /* green */
+    .lower { fill: rgb(0 120 255); }   /* blue */
+
+    /* Panel */
+    #panelTitle { margin: 0 0 10px; font-size: 18px; }
+    .chipRow { display:flex; gap:8px; flex-wrap:wrap; margin-bottom: 12px; }
+    .chip { font-size: 12px; padding: 6px 10px; border-radius: 999px; background:#f4f4f4; }
+
+    .video { border: 1px solid #eee; border-radius: 12px; padding: 10px; margin: 10px 0; }
+    .video h4 { margin: 0 0 8px; font-size: 14px; }
+    iframe { width: 100%; aspect-ratio: 16/9; border: 0; border-radius: 10px; display:block; }
+    .hint { font-size: 13px; color:#666; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+    <div class="card">
+      <h3 style="margin:0 0 10px;font-size:18px;">Tap a section</h3>
+
+      <div class="mapBox">
+        <!-- Your PNG -->
+        <img src="human-body-frontal.png" alt="Human muscle diagram" />
+
+        <!-- SVG overlay (viewBox matches your image size 1234x2048) -->
+        <svg viewBox="0 0 1234 2048" preserveAspectRatio="xMidYMid meet" aria-label="Interactive body map">
+          <!-- Upper clavicular head (RED) -->
+          <polygon
+            class="region upper"
+            data-part="upper-clavicular"
+            data-label="Upper clavicular head"
+            points="934,597 944,640 863,672 757,717 743,666 791,641 842,611 888,601 911,592 923,590 920,597"
+          ></polygon>
+
+          <!-- Middle sternal head (GREEN) -->
+          <polygon
+            class="region middle"
+            data-part="middle-sternal"
+            data-label="Middle sternal head"
+            points="746,723 768,813 962,793 955,684 941,645"
+          ></polygon>
+
+          <!-- Lower abdominal head (BLUE) -->
+          <polygon
+            class="region lower"
+            data-part="lower-abdominal"
+            data-label="Lower abdominal head"
+            points="773,818 958,801 925,854 865,868 817,869 785,848"
+          ></polygon>
+        </svg>
+      </div>
+
+      <div class="hint">Hover on desktop / tap on mobile. Click locks selection + loads videos.</div>
+    </div>
+
+    <div class="card" id="panel">
+      <h3 id="panelTitle">Select a section</h3>
+      <div class="chipRow" id="chips"></div>
+      <div id="videos"></div>
+    </div>
+  </div>
+
+  <script>
+    // Your part -> videos data (replace with your own)
+    const DATA = {
+      "upper-clavicular": {
+        tags: ["Upper Chest", "Incline"],
+        videos: [
+          { title: "Incline Push-up / Upper Chest", embed: "https://www.youtube.com/embed/IODxDxX7oi4" }
+        ]
+      },
+      "middle-sternal": {
+        tags: ["Mid Chest", "Press"],
+        videos: [
+          { title: "Bench Press Basics", embed: "https://www.youtube.com/embed/rT7DgCr-3pg" }
+        ]
+      },
+      "lower-abdominal": {
+        tags: ["Lower Abs", "Core"],
+        videos: [
+          { title: "Reverse Crunch / Lower Abs", embed: "https://www.youtube.com/embed/pSHjTRCQxIw" }
+        ]
+      }
+    };
+
+    const regions = Array.from(document.querySelectorAll(".region"));
+
+    regions.forEach(r => {
+      r.addEventListener("click", () => {
+        // active state
+        regions.forEach(x => x.classList.remove("active"));
+        r.classList.add("active");
+
+        // render panel
+        const key = r.dataset.part;
+        const label = r.dataset.label || key;
+        render(key, label);
+      });
+    });
+
+    function render(key, label) {
+      const info = DATA[key] || { tags: [], videos: [] };
+
+      document.getElementById("panelTitle").textContent = label;
+
+      const chips = document.getElementById("chips");
+      chips.innerHTML = (info.tags || []).map(t => `<span class="chip">${t}</span>`).join("");
+
+      const videos = document.getElementById("videos");
+      videos.innerHTML = (info.videos || []).length
+        ? info.videos.map(v => `
+            <div class="video">
+              <h4>${v.title}</h4>
+              <iframe src="${v.embed}" allowfullscreen loading="lazy"></iframe>
+            </div>
+          `).join("")
+        : `<p style="color:#666;margin:0;">No videos added yet for this section.</p>`;
+    }
+  </script>
+
+</body>
+</html>
