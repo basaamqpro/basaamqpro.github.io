@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobile Body Map</title>
+
+<style>
+/* ========== Mobile First Base ========== */
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background:#f4f4f4;
+  display:flex;
+  justify-content:center;
+  padding:20px;
+}
+
+.wrapper{
+  width:100%;
+  max-width:500px;
+}
+
+.bodyWrapper{
+  position:relative;
+  width:100%;
+}
+
+.bodyImg{
+  width:100%;
+  display:block;
+}
+
+.overlay{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+
+/* Base polygon styling */
+.overlay polygon{
+  fill-opacity:0.35;
+  stroke-width:3;
+  transition:all 0.2s ease;
+  cursor:pointer;
+}
+
+/* ---------- COLOR THEMES ---------- */
+
+/* Upper (Red) */
+#upper-clavicular{
+  fill:rgb(255,0,0);
+  stroke:rgb(200,0,0);
+}
+
+/* Middle (Green) */
+#middle-sternal{
+  fill:rgb(0,170,0);
+  stroke:rgb(0,130,0);
+}
+
+/* Lower (Blue) */
+#lower-abdominal{
+  fill:rgb(0,120,255);
+  stroke:rgb(0,90,200);
+}
+
+/* Hover / touch active (darker) */
+.overlay polygon:hover{
+  filter:brightness(0.75);
+}
+
+/* Selected (even darker + stronger border) */
+.overlay polygon.active{
+  filter:brightness(0.55);
+  stroke-width:5;
+}
+
+/* Info panel */
+.info{
+  margin-top:20px;
+  text-align:center;
+  font-size:18px;
+  font-weight:600;
+}
+
+/* Desktop spacing upgrade */
+@media(min-width:768px){
+  body{
+    padding:40px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+  <div class="bodyWrapper">
+    <img src="human-body-frontal.png" class="bodyImg" alt="Body">
+
+    <!-- 2000 x 3317 -->
+    <svg class="overlay" viewBox="0 0 2000 3317">
+
+      <polygon
+        id="upper-clavicular"
+        points="934,597 944,640 863,672 757,717 743,666 791,641 842,611 888,601 911,592 923,590 920,597"
+      />
+
+      <polygon
+        id="middle-sternal"
+        points="746,723 768,813 962,793 955,684 941,645"
+      />
+
+      <polygon
+        id="lower-abdominal"
+        points="773,818 958,801 925,854 865,868 817,869 785,848"
+      />
+
+    </svg>
+  </div>
+
+  <div class="info" id="info">
+    Tap a muscle section
+  </div>
+
+</div>
+
+<script>
+const info = document.getElementById("info");
+
+document.querySelectorAll(".overlay polygon").forEach(poly => {
+
+  // Click for desktop
+  poly.addEventListener("click", select);
+
+  // Touch support
+  poly.addEventListener("touchstart", select);
+
+  function select(e){
+    e.preventDefault();
+
+    document.querySelectorAll(".overlay polygon")
+      .forEach(p => p.classList.remove("active"));
+
+    poly.classList.add("active");
+
+    info.textContent = "Selected: " + poly.id.replace("-", " ");
+  }
+});
+</script>
+
+</body>
+</html>

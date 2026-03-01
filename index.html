@@ -1,157 +1,239 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mobile Body Map</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Arabic Lessons — Schedule</title>
 
 <style>
-/* ========== Mobile First Base ========== */
+:root{
+  --bg:#ffffff;
+  --card:#ffffff;
+  --soft:#f5f5f7;
+  --ink:#0b0b0f;
+  --muted:#4b5563;
+  --line:rgba(0,0,0,.12);
+
+  --accent:#2563eb;
+  --alert:#dc2626;
+  --alertbg:#fee2e2;
+
+  --radius:22px;
+  --shadow:0 12px 40px rgba(0,0,0,.08);
+  --max:1000px;
+}
+
+*{box-sizing:border-box;}
+
 body{
   margin:0;
-  font-family: system-ui, -apple-system, sans-serif;
-  background:#f4f4f4;
-  display:flex;
-  justify-content:center;
-  padding:20px;
+  font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
 }
 
-.wrapper{
-  width:100%;
-  max-width:500px;
+/* Layout */
+.wrap{
+  width:min(var(--max),100%);
+  margin:0 auto;
+  padding:24px 20px 60px;
 }
 
-.bodyWrapper{
-  position:relative;
-  width:100%;
+/* Header */
+header{
+  padding-bottom:20px;
+  border-bottom:1px solid var(--line);
 }
 
-.bodyImg{
-  width:100%;
-  display:block;
+.site-title{
+  margin:0;
+  font-size: clamp(32px,6vw,56px);
+  font-weight:800;
+  letter-spacing:-1px;
 }
 
-.overlay{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+.site-sub{
+  margin-top:12px;
+  font-size:20px;
+  color:var(--muted);
 }
 
-/* Base polygon styling */
-.overlay polygon{
-  fill-opacity:0.35;
-  stroke-width:3;
-  transition:all 0.2s ease;
-  cursor:pointer;
+/* Section title */
+.section-title{
+  margin:40px 0 20px;
+  font-size:28px;
+  font-weight:800;
 }
 
-/* ---------- COLOR THEMES ---------- */
-
-/* Upper (Red) */
-#upper-clavicular{
-  fill:rgb(255,0,0);
-  stroke:rgb(200,0,0);
+/* Alert */
+.redalert_note{
+  background:var(--alertbg);
+  border:2px solid var(--alert);
+  border-radius:var(--radius);
+  padding:22px;
+  margin-bottom:30px;
 }
 
-/* Middle (Green) */
-#middle-sternal{
-  fill:rgb(0,170,0);
-  stroke:rgb(0,130,0);
+.red_notice_text{
+  margin:0;
+  font-size:22px;
+  font-weight:800;
+  color:var(--alert);
 }
 
-/* Lower (Blue) */
-#lower-abdominal{
-  fill:rgb(0,120,255);
-  stroke:rgb(0,90,200);
-}
-
-/* Hover / touch active (darker) */
-.overlay polygon:hover{
-  filter:brightness(0.75);
-}
-
-/* Selected (even darker + stronger border) */
-.overlay polygon.active{
-  filter:brightness(0.55);
-  stroke-width:5;
-}
-
-/* Info panel */
-.info{
-  margin-top:20px;
-  text-align:center;
+.last-updated{
+  margin-top:8px;
   font-size:18px;
-  font-weight:600;
+  color:#7f1d1d;
 }
 
-/* Desktop spacing upgrade */
-@media(min-width:768px){
-  body{
-    padding:40px;
+/* Lesson cards */
+.lesson{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:26px;
+  margin-bottom:24px;
+}
+
+.lesson-title{
+  margin:0 0 14px;
+  font-size:24px;
+  font-weight:800;
+}
+
+.lesson-desc{
+  margin:0 0 20px;
+  font-size:20px;
+  color:var(--muted);
+}
+
+.time-box{
+  background:var(--soft);
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:20px;
+  font-size:20px;
+  font-weight:700;
+}
+
+.timezones-title{
+  font-size:20px;
+  font-weight:800;
+  margin-bottom:10px;
+}
+
+ul{
+  margin:0;
+  padding-left:22px;
+  font-size:20px;
+}
+
+li{ margin:8px 0; }
+
+/* Desktop spacing */
+@media (min-width:768px){
+  .lesson{
+    padding:32px;
+  }
+
+  .lesson-desc{
+    font-size:21px;
+  }
+
+  ul{
+    font-size:21px;
   }
 }
 </style>
 </head>
 
 <body>
+<div class="wrap">
 
-<div class="wrapper">
-
-  <div class="bodyWrapper">
-    <img src="human-body-frontal.png" class="bodyImg" alt="Body">
-
-    <!-- 2000 x 3317 -->
-    <svg class="overlay" viewBox="0 0 2000 3317">
-
-      <polygon
-        id="upper-clavicular"
-        points="934,597 944,640 863,672 757,717 743,666 791,641 842,611 888,601 911,592 923,590 920,597"
-      />
-
-      <polygon
-        id="middle-sternal"
-        points="746,723 768,813 962,793 955,684 941,645"
-      />
-
-      <polygon
-        id="lower-abdominal"
-        points="773,818 958,801 925,854 865,868 817,869 785,848"
-      />
-
-    </svg>
+<header>
+  <h1 class="site-title">Arabic Lessons Schedule</h1>
+  <div class="site-sub">
+    All times shown clearly for different countries.
   </div>
+</header>
 
-  <div class="info" id="info">
-    Tap a muscle section
+<h2 class="section-title">Upcoming Lessons</h2>
+
+<div class="redalert_note">
+  <div class="red_notice_text">
+    Important: Wednesday class moved to Friday this week.
   </div>
-
+  <div class="last-updated">
+    Last updated: March 1, 2026
+  </div>
 </div>
 
-<script>
-const info = document.getElementById("info");
+<!-- LESSON 1 -->
+<div class="lesson">
+  <h3 class="lesson-title">
+    Tuesday 8 February — 19:00 (Moscow Time)
+  </h3>
 
-document.querySelectorAll(".overlay polygon").forEach(poly => {
+  <p class="lesson-desc">
+    Revision of the previous class. Then we begin learning the Arabic alphabet.
+    We will cover the first 10 letters and practice pronunciation and writing.
+  </p>
 
-  // Click for desktop
-  poly.addEventListener("click", select);
+  <div class="time-box">
+    Moscow: 19:00 • Tue 8 Feb
+  </div>
 
-  // Touch support
-  poly.addEventListener("touchstart", select);
+  <div class="timezones-title">
+    For students in other time zones:
+  </div>
 
-  function select(e){
-    e.preventDefault();
+  <ul>
+    <li>London: 16:00</li>
+    <li>Netherlands (Amsterdam): 17:00</li>
+    <li>New York: 11:00</li>
+    <li>Los Angeles: 08:00</li>
+  </ul>
+</div>
 
-    document.querySelectorAll(".overlay polygon")
-      .forEach(p => p.classList.remove("active"));
+<!-- LESSON 2 -->
 
-    poly.classList.add("active");
+<div class="redalert_note">
+  <div class="red_notice_text">
+    Important: Wednesday class moved to Friday this week.
+  </div>
+  <div class="last-updated">
+    Last updated: March 1, 2026
+  </div>
+</div>
+<div class="lesson">
+  <h3 class="lesson-title">
+    Monday 2 February — 19:00 (Moscow Time)
+  </h3>
 
-    info.textContent = "Selected: " + poly.id.replace("-", " ");
-  }
-});
-</script>
+  <p class="lesson-desc">
+    Continue alphabet practice. Focus on joining letters and reading simple words.
+  </p>
 
+  <div class="time-box">
+    Moscow: 19:00 • Mon 2 Feb
+  </div>
+
+  <div class="timezones-title">
+    For students in other time zones:
+  </div>
+
+  <ul>
+    <li>London: 16:00</li>
+    <li>Netherlands (Amsterdam): 17:00</li>
+    <li>New York: 11:00</li>
+    <li>Los Angeles: 08:00</li>
+  </ul>
+</div>
+
+</div>
 </body>
 </html>
