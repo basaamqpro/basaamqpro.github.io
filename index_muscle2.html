@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mobile Body Map</title>
+
+  <style>
+    :root {
+      --bg: #f4f4f4;
+      --text: #111;
+      --muted: #666;
+      --chip: #fff;
+      --border: rgba(0,0,0,.12);
+    }
+
+    /* Mobile-first */
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 520px;
+    }
+
+    /* Toggle */
+    .toggle {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .toggle button {
+      flex: 1;
+      border: 1px solid var(--border);
+      background: var(--chip);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .toggle button.active {
+      border-color: rgba(0,0,0,.35);
+      box-shadow: 0 1px 0 rgba(0,0,0,.08);
+    }
+
+    .bodyWrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .bodyImg {
+      width: 100%;
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Base polygon styling */
+    .overlay polygon {
+      fill-opacity: 0.45;
+      stroke-width: 3;
+      transition: filter 0.18s ease, stroke-width 0.18s ease;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    /* Hover (desktop) + also helps on some touch browsers */
+    .overlay polygon:hover {
+      filter: brightness(0.78);
+    }
+
+    /* Selected = darker than hover */
+    .overlay polygon.active {
+      filter: brightness(0.55);
+      stroke-width: 5;
+    }
+
+    /* Info panel */
+    .info {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 650;
+      color: var(--text);
+    }
+
+    .sub {
+      display: block;
+      margin-top: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    @media (min-width: 768px) {
+      body { padding: 40px; }
+      .info { font-size: 18px; }
+    }
+
+    /* ---------- YOUR COLORS (kept) ---------- */
+    #upper-clavicular { fill: rgb(255,0,0); stroke: rgb(200,0,0); }
+    #middle-sternal { fill: rgb(0,170,0); stroke: rgb(0,130,0); }
+    #lower-abdominal { fill: rgb(0,120,255); stroke: rgb(0,90,200); }
+
+    #Rectus-Abdominis-Upper-Region { fill: rgb(34,0,255); stroke: rgb(0,44,97); }
+    #Rectus-Abdominis-Lower-Region { fill: rgb(136,255,0); stroke: rgb(5,0,97); }
+    #Quads { fill: rgb(249,0,0); stroke: rgb(0,0,0); }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+
+    <div class="toggle" role="tablist" aria-label="Body view toggle">
+      <button id="frontBtn" class="active" type="button">Front</button>
+      <button id="backBtn" type="button">Back</button>
+    </div>
+
+    <!-- FRONT -->
+    <div id="frontwrapper" class="bodyWrapper">
+      <img src="human-body-frontal.png" class="bodyImg" alt="Body front" />
+
+      <svg class="overlay" viewBox="0 0 2000 3317" aria-label="Front muscle overlay">
+        <polygon id="upper-clavicular"
+          points="934,597 944,640 863,672 757,717 743,666 791,641 842,611 888,601 911,592 923,590 920,597" />
+
+        <polygon id="middle-sternal"
+          points="746,723 768,813 962,793 955,684 941,645" />
+
+        <polygon id="lower-abdominal"
+          points="773,818 958,801 925,854 865,868 817,869 785,848" />
+
+        <polygon id="Rectus-Abdominis-Upper-Region"
+          points="879,871 985,846 1089,866 1116,984 1110,1064 990,1050 861,1066 861,993" />
+
+        <polygon id="Rectus-Abdominis-Lower-Region"
+          points="863,1083 969,1060 1010,1060 1112,1074 1112,1127 1100,1170 1105,1267 1022,1514 957,1516 879,1271 870,1175 860,1133" />
+
+        <polygon id="Quads"
+          points="1261,1626 1252,1834 1112,2002 1017,1958 994,1709 1006,1559 1100,1408 1211,1271 1234,1407" />
+      </svg>
+    </div>
+
+    <!-- BACK -->
+    <div id="backwrapper" class="bodyWrapper" style="display:none;">
+      <img src="human-body-back-new.png" class="bodyImg" alt="Body back" />
+
+      <svg class="overlay" viewBox="0 0 2000 3462" aria-label="Back muscle overlay">
+        <polygon id="shoulder2"
+          points="1231,601 1188,820 1330,831 1338,728 1395,693 1462,772 1444,643 1411,594 1330,546" />
+
+        <polygon id="lats"
+          points="741,818 898,831 981,979 1006,1062 948,1101 881,1297 808,1278 812,1092" />
+
+        <polygon id="lower-back"
+          points="1006,1071 957,1108 890,1294 990,1371 1068,1377 1174,1302 1156,1186 1114,1103 1073,1064 1029,1064" />
+
+        <polygon id="middle-back"
+          points="868,606 1218,610 1204,705 1186,813 1155,885 1114,933 1070,1048 1013,1059 964,935 905,832 886,726" />
+
+        <polygon id="traps"
+          points="1123,449 1087,470 1098,505 1082,594 1204,596 1269,564 1277,530 1178,498" />
+
+        <polygon id="rotor-cuff"
+          points="1232,598 1326,540 1375,560 1428,618 1432,639 1451,685 1460,761 1387,676 1361,636 1303,616" />
+      </svg>
+    </div>
+
+    <div class="info" id="info">
+      Tap a muscle section
+      <span class="sub" id="sub">Front view</span>
+    </div>
+
+  </div>
+
+  <script>
+    const frontBtn = document.getElementById("frontBtn");
+    const backBtn = document.getElementById("backBtn");
+    const frontWrap = document.getElementById("frontwrapper");
+    const backWrap = document.getElementById("backwrapper");
+    const info = document.getElementById("info");
+    const sub = document.getElementById("sub");
+
+    function setView(view) {
+      const isFront = view === "front";
+      frontWrap.style.display = isFront ? "block" : "none";
+      backWrap.style.display = isFront ? "none" : "block";
+
+      frontBtn.classList.toggle("active", isFront);
+      backBtn.classList.toggle("active", !isFront);
+
+      clearActive();
+      info.firstChild.textContent = "Tap a muscle section";
+      sub.textContent = isFront ? "Front view" : "Back view";
+    }
+
+    function clearActive() {
+      document.querySelectorAll(".overlay polygon.active")
+        .forEach(p => p.classList.remove("active"));
+    }
+
+    // Toggle events
+    frontBtn.addEventListener("click", () => setView("front"));
+    backBtn.addEventListener("click", () => setView("back"));
+
+    // One unified handler for both front + back polygons
+    function onSelect(e) {
+      e.preventDefault();
+
+      // Only clear in the currently visible wrapper
+      const visibleWrap = frontWrap.style.display !== "none" ? frontWrap : backWrap;
+      visibleWrap.querySelectorAll(".overlay polygon")
+        .forEach(p => p.classList.remove("active"));
+
+      e.currentTarget.classList.add("active");
+      const id = e.currentTarget.id;
+      info.firstChild.textContent = "Selected: " + id.replace(/-/g, " ");
+    }
+
+    // Attach listeners once
+    document.querySelectorAll(".overlay polygon").forEach(poly => {
+      poly.addEventListener("click", onSelect, { passive: false });
+      poly.addEventListener("touchstart", onSelect, { passive: false });
+    });
+  </script>
+</body>
+</html>

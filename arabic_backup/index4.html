@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Arabic Live Lessons — Schedule</title>
+  <style>
+    :root{
+      --ink:#0b1220;
+      --muted: rgba(11,18,32,.68);
+
+      --white:#ffffff;
+      --soft:#f6f7fb;
+
+      --a:#fffbeb;   /* warm */
+      --b:#ecfeff;   /* aqua */
+      --c:#eef2ff;   /* indigo */
+      --d:#f0fdf4;   /* mint */
+      --e:#fff1f2;   /* rose */
+
+      --border: rgba(11,18,32,.10);
+      --shadow: 0 16px 40px rgba(11,18,32,.10);
+      --radius: 18px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--ink);
+      background: var(--soft);
+    }
+
+    /* Wide sections (100%) */
+    section{
+      width:100%;
+      padding: 56px 18px;
+    }
+
+    /* Center content within wide sections */
+    .container{
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+
+    /* Top nav */
+    .nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .brand{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .logo{
+      width:38px; height:38px;
+      border-radius:12px;
+      background: linear-gradient(135deg, #22c55e, #60a5fa);
+      box-shadow: var(--shadow);
+    }
+    .brand b{ font-size: 15px; letter-spacing:.2px; }
+    .brand span{ display:block; font-size:12px; color:var(--muted); margin-top:2px; }
+
+    .nav a{
+      text-decoration:none;
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 13px;
+      padding:10px 12px;
+      border-radius:999px;
+      border: 1px solid transparent;
+    }
+    .nav a:hover{
+      border-color: var(--border);
+      background: rgba(255,255,255,.6);
+    }
+
+    /* Hero */
+    .hero{
+      background: linear-gradient(180deg, var(--a), #ffffff);
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 18px;
+      align-items: start;
+      margin-top: 18px;
+    }
+    @media (max-width: 900px){ .hero-grid{ grid-template-columns:1fr; } }
+
+    h1{
+      margin: 14px 0 10px;
+      font-size: 44px;
+      line-height: 1.05;
+      letter-spacing:-.5px;
+    }
+    .lead{
+      margin: 0 0 18px;
+      max-width: 62ch;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .cta-row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top: 10px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border:1px solid var(--border);
+      background: #fff;
+      box-shadow: var(--shadow);
+      font-weight: 700;
+      font-size: 13px;
+      cursor:pointer;
+      text-decoration:none;
+      color: var(--ink);
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, #22c55e, #60a5fa);
+      color: white;
+      border-color: transparent;
+    }
+
+    .card{
+      background: rgba(255,255,255,.85);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+
+    .mini{
+      display:grid;
+      gap: 12px;
+    }
+    .mini .row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      border:1px solid var(--border);
+      padding: 12px 12px;
+      border-radius: 14px;
+      background: white;
+    }
+    .label{ font-size:12px; color:var(--muted); }
+    select{
+      font: inherit;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: white;
+      outline:none;
+    }
+
+    /* Schedule section */
+    .schedule{
+      background: linear-gradient(180deg, var(--b), #ffffff);
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 18px;
+      align-items: start;
+    }
+    @media (max-width: 900px){ .split{ grid-template-columns:1fr; } }
+
+    .section-title{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom: 12px;
+    }
+    .section-title h2{
+      margin:0;
+      font-size: 18px;
+      letter-spacing:.2px;
+    }
+    .section-title small{
+      color: var(--muted);
+    }
+
+    /* Lesson row: very simple and “manual edit friendly” */
+    .lesson{
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+
+    .lesson-top{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:flex-start;
+    }
+    .lesson h3{
+      margin:0;
+      font-size: 15px;
+    }
+    .meta{
+      margin-top:4px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .pill{
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: #0b1220;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .times{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    @media (max-width: 680px){ .times{ grid-template-columns: 1fr; } }
+
+    .timebox{
+      border: 1px dashed rgba(11,18,32,.18);
+      border-radius: 14px;
+      padding: 12px;
+      background: #fafafa;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:center;
+    }
+    .timebox b{
+      font-size: 13px;
+    }
+    .timebox span{
+      font-size: 12px;
+      color: var(--muted);
+      white-space:nowrap;
+    }
+
+    .link{
+      display:inline-block;
+      margin-top: 10px;
+      font-weight: 800;
+      font-size: 13px;
+      color: #2563eb;
+      text-decoration:none;
+    }
+    .link:hover{ text-decoration: underline; }
+
+    /* Notes section */
+    .notes{
+      background: linear-gradient(180deg, var(--d), #ffffff);
+    }
+    textarea{
+      width:100%;
+      min-height: 220px;
+      resize: vertical;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 14px;
+      font: inherit;
+      line-height: 1.5;
+      background: rgba(255,255,255,.85);
+      box-shadow: var(--shadow);
+      outline:none;
+    }
+    textarea:focus{
+      border-color: rgba(37,99,235,.35);
+      box-shadow: 0 0 0 5px rgba(37,99,235,.10), var(--shadow);
+    }
+
+    /* Footer */
+    footer{
+      padding: 22px 18px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align:center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO (wide warm section) -->
+  <section class="hero" id="top">
+    <div class="container">
+      <div class="nav">
+        <div class="brand">
+          <div class="logo"></div>
+          <div>
+            <b>Arabic Live Lessons</b>
+            <span>Timezone-friendly schedule</span>
+          </div>
+        </div>
+
+        <div>
+          <a href="#schedule">Schedule</a>
+          <a href="#notes">Updates</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+
+      <div class="hero-grid">
+        <div>
+          <h1>Know your class time instantly.</h1>
+          <p class="lead">
+            The teacher updates the schedule here. Students in the UK, Netherlands, and USA can see the correct local time.
+            Pick your timezone once and the page converts everything for you.
+          </p>
+
+          <div class="cta-row">
+            <a class="btn primary" href="#schedule">View schedule</a>
+            <a class="btn" href="#notes">Read updates</a>
+          </div>
+        </div>
+
+        <div class="card mini">
+          <div class="row">
+            <div>
+              <div class="label">Teacher timezone (base)</div>
+              <b id="teacherTzLabel">Europe/Moscow</b>
+            </div>
+            <select id="teacherTz">
+              <option value="Europe/Moscow" selected>Europe/Moscow</option>
+              <option value="Europe/London">Europe/London</option>
+              <option value="Europe/Amsterdam">Europe/Amsterdam</option>
+              <option value="America/New_York">America/New_York</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <div>
+              <div class="label">Your display timezone</div>
+              <b id="viewerTzLabel">Auto-detect</b>
+            </div>
+            <select id="viewerTz">
+              <option value="auto" selected>Auto-detect</option>
+              <option value="Europe/London">UK (London)</option>
+              <option value="Europe/Amsterdam">Netherlands (Amsterdam)</option>
+              <option value="America/New_York">USA (New York)</option>
+              <option value="America/Los_Angeles">USA (Los Angeles)</option>
+              <option value="Europe/Moscow">Teacher (Moscow)</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <div>
+              <div class="label">Last updated</div>
+              <b id="lastUpdated">—</b>
+            </div>
+            <button class="btn" id="markUpdated" type="button">Mark updated</button>
+          </div>
+
+          <div class="label" style="margin-top:4px">
+            Tip: Teacher selects the base timezone, then edits the schedule manually below.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHEDULE (wide aqua section) -->
+  <section class="schedule" id="schedule">
+    <div class="container">
+      <div class="section-title">
+        <h2>Upcoming Lessons</h2>
+        <small>Times below update automatically based on your timezone selection.</small>
+      </div>
+
+      <div class="split">
+        <div>
+
+          <!-- =========================================================
+            MANUAL EDIT AREA:
+            Add/remove lesson blocks by copying a .lesson div.
+            IMPORTANT: Only change data-start="YYYY-MM-DDTHH:MM"
+            That date-time is in the TEACHER TIMEZONE.
+          ========================================================== -->
+
+          <div class="lesson" data-start="2026-03-03T19:00" data-duration="60">
+            <div class="lesson-top">
+              <div>
+                <h3>Arabic A1 — Reading</h3>
+                <div class="meta">
+                  Base time (teacher): <b class="baseLine">—</b> • Duration: 60 min
+                </div>
+              </div>
+              <div class="pill">LIVE</div>
+            </div>
+
+            <div class="times">
+              <div class="timebox"><div><b>Your time</b><div class="yourTime">—</div></div><span class="yourTz">—</span></div>
+              <div class="timebox"><div><b>Teacher</b><div class="teacherTime">—</div></div><span class="teacherTz">—</span></div>
+              <div class="timebox"><div><b>UK (London)</b><div class="ukTime">—</div></div><span>Europe/London</span></div>
+              <div class="timebox"><div><b>Netherlands</b><div class="nlTime">—</div></div><span>Europe/Amsterdam</span></div>
+              <div class="timebox"><div><b>USA (New York)</b><div class="nyTime">—</div></div><span>America/New_York</span></div>
+              <div class="timebox"><div><b>USA (Los Angeles)</b><div class="laTime">—</div></div><span>America/Los_Angeles</span></div>
+            </div>
+
+            <a class="link" href="#" target="_blank" rel="noopener">Join meeting link</a>
+          </div>
+
+          <div class="lesson" data-start="2026-03-06T20:30" data-duration="75">
+            <div class="lesson-top">
+              <div>
+                <h3>Conversation Practice — Group</h3>
+                <div class="meta">
+                  Base time (teacher): <b class="baseLine">—</b> • Duration: 75 min
+                </div>
+              </div>
+              <div class="pill" style="background:#2563eb">GROUP</div>
+            </div>
+
+            <div class="times">
+              <div class="timebox"><div><b>Your time</b><div class="yourTime">—</div></div><span class="yourTz">—</span></div>
+              <div class="timebox"><div><b>Teacher</b><div class="teacherTime">—</div></div><span class="teacherTz">—</span></div>
+              <div class="timebox"><div><b>UK (London)</b><div class="ukTime">—</div></div><span>Europe/London</span></div>
+              <div class="timebox"><div><b>Netherlands</b><div class="nlTime">—</div></div><span>Europe/Amsterdam</span></div>
+              <div class="timebox"><div><b>USA (New York)</b><div class="nyTime">—</div></div><span>America/New_York</span></div>
+              <div class="timebox"><div><b>USA (Los Angeles)</b><div class="laTime">—</div></div><span>America/Los_Angeles</span></div>
+            </div>
+
+            <a class="link" href="#" target="_blank" rel="noopener">Join meeting link</a>
+          </div>
+
+          <!-- ======= END MANUAL EDIT AREA ======= -->
+
+        </div>
+
+        <aside class="card">
+          <div class="section-title" style="margin:0 0 10px;">
+            <h2>How to update (teacher)</h2>
+            <small>Manual HTML only</small>
+          </div>
+
+          <div class="label" style="line-height:1.7">
+            1) Copy a <b>.lesson</b> block to add a class.<br/>
+            2) Change <b>data-start</b> to the new teacher time (YYYY-MM-DDTHH:MM).<br/>
+            3) Change the lesson title and join link.<br/>
+            4) Click “Mark updated” so students see the latest update time.
+          </div>
+
+          <div class="label" style="margin-top:12px; line-height:1.7">
+            Note: Timezone abbreviations like “GMT/BST” change with daylight saving.
+            This page uses real timezone rules automatically.
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOTES (wide mint section) -->
+  <section class="notes" id="notes">
+    <div class="container">
+      <div class="section-title">
+        <h2>Schedule Updates</h2>
+        <small>Teacher messages (students check here first)</small>
+      </div>
+
+      <textarea id="updates" placeholder="Example:
+Mar 1: Wednesday class moved to Friday.
+Mar 2: Extra lesson added for A1 Reading.
+Mar 3: No class on Sunday (family event)."></textarea>
+
+      <div class="cta-row" style="margin-top:12px">
+        <button class="btn primary" id="saveUpdates" type="button">Save updates</button>
+        <button class="btn" id="clearUpdates" type="button">Clear</button>
+      </div>
+
+      <div class="label" style="margin-top:10px">
+        These updates save locally in the browser (simple demo). If you host this and want updates to be shared for everyone, you’d store them server-side.
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT (wide rose section) -->
+  <section style="background: linear-gradient(180deg, var(--e), #ffffff);" id="contact">
+    <div class="container">
+      <div class="section-title">
+        <h2>Contact</h2>
+        <small>Keep this simple</small>
+      </div>
+
+      <div class="card">
+        <div class="label" style="line-height:1.8">
+          Email: <b>teacher@email.com</b><br/>
+          WhatsApp: <b>+7 …</b><br/>
+          Telegram: <b>@teacher</b>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © Arabic Live Lessons • Timezone-friendly schedule demo
+  </footer>
+
+  <script>
+    // -------------------------
+    // Simple demo logic:
+    // - Teacher chooses base timezone
+    // - Viewer chooses display timezone
+    // - Each .lesson has data-start in TEACHER "wall time"
+    // - JS converts it to UTC and then formats in each timezone
+    // - Notes + last updated stored in localStorage
+    // -------------------------
+
+    const teacherTz = document.getElementById("teacherTz");
+    const viewerTz  = document.getElementById("viewerTz");
+
+    const teacherTzLabel = document.getElementById("teacherTzLabel");
+    const viewerTzLabel  = document.getElementById("viewerTzLabel");
+
+    const lastUpdatedEl  = document.getElementById("lastUpdated");
+    const markUpdatedBtn = document.getElementById("markUpdated");
+
+    const updatesEl = document.getElementById("updates");
+    const saveUpdatesBtn = document.getElementById("saveUpdates");
+    const clearUpdatesBtn = document.getElementById("clearUpdates");
+
+    const LS_TEACHER_TZ = "demo_teacher_tz_v1";
+    const LS_VIEWER_TZ  = "demo_viewer_tz_v1";
+    const LS_UPDATED    = "demo_last_updated_v1";
+    const LS_UPDATES    = "demo_updates_text_v1";
+
+    function pad2(n){ return String(n).padStart(2, "0"); }
+
+    function effectiveViewerTZ(){
+      return viewerTz.value === "auto"
+        ? Intl.DateTimeFormat().resolvedOptions().timeZone
+        : viewerTz.value;
+    }
+
+    // Format a UTC time in a timezone
+    function fmt(utcMs, timeZone){
+      return new Intl.DateTimeFormat(undefined, {
+        timeZone,
+        weekday: "short",
+        month: "short",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        year: "numeric"
+      }).format(new Date(utcMs));
+    }
+
+    // Get parts of a UTC time as if seen in timeZone
+    function tzParts(utcMs, timeZone){
+      const p = new Intl.DateTimeFormat("en-GB", {
+        timeZone,
+        year:"numeric", month:"2-digit", day:"2-digit",
+        hour:"2-digit", minute:"2-digit",
+        hour12:false
+      }).formatToParts(new Date(utcMs));
+      const get = (t) => Number(p.find(x => x.type === t).value);
+      return { year:get("year"), month:get("month"), day:get("day"), hour:get("hour"), minute:get("minute") };
+    }
+
+    // Convert teacher wall time (YYYY-MM-DDTHH:MM in teacher TZ) to UTC ms
+    function teacherWallToUTCms(isoLocal, teacherZone){
+      const [datePart, timePart] = isoLocal.split("T");
+      const [y,m,d] = datePart.split("-").map(Number);
+      const [hh,mi] = timePart.split(":").map(Number);
+
+      const guessUtc = Date.UTC(y, m-1, d, hh, mi, 0, 0);
+      const actual = tzParts(guessUtc, teacherZone);
+      const desired = Date.UTC(y, m-1, d, hh, mi, 0, 0);
+      const got     = Date.UTC(actual.year, actual.month-1, actual.day, actual.hour, actual.minute, 0, 0);
+
+      return guessUtc + (desired - got);
+    }
+
+    function renderAll(){
+      teacherTzLabel.textContent = teacherTz.value;
+      const vtz = effectiveViewerTZ();
+      viewerTzLabel.textContent = viewerTz.value === "auto" ? `Auto (${vtz})` : viewerTz.value;
+
+      document.querySelectorAll(".lesson").forEach(lesson => {
+        const start = lesson.getAttribute("data-start");      // teacher wall time
+        const utcMs = teacherWallToUTCms(start, teacherTz.value);
+
+        // base line (teacher)
+        lesson.querySelector(".baseLine").textContent = fmt(utcMs, teacherTz.value);
+
+        // viewer
+        lesson.querySelector(".yourTime").textContent = fmt(utcMs, vtz);
+        lesson.querySelector(".yourTz").textContent = vtz;
+
+        // fixed zones
+        lesson.querySelector(".teacherTime").textContent = fmt(utcMs, teacherTz.value);
+        lesson.querySelector(".teacherTz").textContent = teacherTz.value;
+
+        lesson.querySelector(".ukTime").textContent = fmt(utcMs, "Europe/London");
+        lesson.querySelector(".nlTime").textContent = fmt(utcMs, "Europe/Amsterdam");
+        lesson.querySelector(".nyTime").textContent = fmt(utcMs, "America/New_York");
+        lesson.querySelector(".laTime").textContent = fmt(utcMs, "America/Los_Angeles");
+      });
+    }
+
+    function setLastUpdated(ts){
+      if(!ts){ lastUpdatedEl.textContent = "—"; return; }
+      lastUpdatedEl.textContent = new Date(ts).toLocaleString();
+    }
+
+    // Init
+    (function init(){
+      teacherTz.value = localStorage.getItem(LS_TEACHER_TZ) || "Europe/Moscow";
+      viewerTz.value  = localStorage.getItem(LS_VIEWER_TZ)  || "auto";
+
+      updatesEl.value = localStorage.getItem(LS_UPDATES) || "";
+      setLastUpdated(Number(localStorage.getItem(LS_UPDATED) || 0));
+
+      renderAll();
+    })();
+
+    // Events
+    teacherTz.addEventListener("change", () => {
+      localStorage.setItem(LS_TEACHER_TZ, teacherTz.value);
+      renderAll();
+    });
+
+    viewerTz.addEventListener("change", () => {
+      localStorage.setItem(LS_VIEWER_TZ, viewerTz.value);
+      renderAll();
+    });
+
+    markUpdatedBtn.addEventListener("click", () => {
+      const ts = Date.now();
+      localStorage.setItem(LS_UPDATED, String(ts));
+      setLastUpdated(ts);
+    });
+
+    saveUpdatesBtn.addEventListener("click", () => {
+      localStorage.setItem(LS_UPDATES, updatesEl.value);
+      const ts = Date.now();
+      localStorage.setItem(LS_UPDATED, String(ts));
+      setLastUpdated(ts);
+      alert("Saved!");
+    });
+
+    clearUpdatesBtn.addEventListener("click", () => {
+      updatesEl.value = "";
+      localStorage.setItem(LS_UPDATES, "");
+    });
+  </script>
+</body>
+</html>

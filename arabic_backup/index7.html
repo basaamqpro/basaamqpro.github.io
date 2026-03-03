@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Arabic Lessons — Schedule</title>
+
+  <style>
+    :root{
+      --bg: #ffffff;
+      --surface: #f6f7fb;
+      --card: #ffffff;
+      --ink: #0b0b0f;
+      --muted: rgba(11,11,15,.68);
+      --line: rgba(0,0,0,.10);
+
+      --accent: #2563eb;     /* calm blue */
+      --alert: #ef4444;      /* red */
+      --alertBg: #fff1f2;    /* soft red background */
+
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+
+      --max: 980px;
+    }
+
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color: var(--ink);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      line-height: 1.45;
+    }
+
+    /* Mobile-first layout */
+    .wrap{
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+      padding: 18px 16px 50px;
+    }
+
+    /* Header */
+    .top{
+      padding: 10px 0 6px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 18px;
+    }
+    .site-title{
+      margin:0;
+      font-size: 22px;
+      letter-spacing: -0.2px;
+    }
+    .site-sub{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Section title */
+    .section-title{
+      margin: 18px 0 12px;
+      font-size: 18px;
+      letter-spacing: -0.2px;
+    }
+
+    /* Alert note */
+    .redalert_note{
+      border: 1px solid rgba(239,68,68,.35);
+      background: var(--alertBg);
+      border-radius: var(--radius);
+      padding: 12px 12px;
+      box-shadow: var(--shadow);
+      margin: 14px 0 18px;
+    }
+    .red_notice_text{
+      margin:0;
+      font-size: 14px;
+      font-weight: 700;
+      color: #991b1b;
+      letter-spacing: -0.1px;
+      line-height: 1.35;
+    }
+    .redalert_note .small{
+      margin: 6px 0 0;
+      font-size: 13px;
+      color: rgba(153,27,27,.85);
+    }
+
+    /* Lesson list (stack on mobile) */
+    .Notescontainer{
+      margin-bottom: 14px;
+    }
+
+    .notes{
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+
+    .whentheclasswillbe{
+      margin: 0 0 10px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -0.1px;
+    }
+
+    .what_the_class_is_about{
+      margin: 0 0 14px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .boxtime{
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 10px 12px;
+      background: var(--surface);
+      margin-bottom: 12px;
+    }
+    .boxtime p{
+      margin:0;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: -0.1px;
+    }
+
+    .different_timezones_container p{
+      margin: 0 0 8px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: -0.1px;
+    }
+
+    ul{
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    li{ margin: 4px 0; }
+
+    /* Small labels row (optional) */
+    .meta-row{
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .dot{
+      width:8px;
+      height:8px;
+      border-radius: 999px;
+      background: var(--accent);
+      display:inline-block;
+    }
+
+    /* Desktop enhancement (still simple) */
+    @media (min-width: 760px){
+      .wrap{ padding: 26px 18px 70px; }
+
+      .site-title{ font-size: 26px; }
+      .section-title{ font-size: 20px; margin-top: 26px; }
+
+      .notes{ padding: 18px; }
+
+      /* Slightly more breathing room */
+      .whentheclasswillbe{ font-size: 15px; }
+      .what_the_class_is_about{ font-size: 14.5px; }
+
+      /* Put the timebox + timezone list side-by-side */
+      .lesson-grid{
+        display: grid;
+        grid-template-columns: 0.95fr 1.05fr;
+        gap: 14px;
+        align-items: start;
+      }
+      .boxtime{ margin-bottom: 0; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="top">
+      <h1 class="site-title">Arabic Lessons — Schedule</h1>
+      <p class="site-sub">Simple page. Teacher updates this HTML when the schedule changes.</p>
+    </header>
+
+    <h2 class="section-title">Upcoming Lessons</h2>
+
+    <div class="redalert_note">
+      <h3 class="red_notice_text">Important update: Wednesday class moved to Friday this week.</h3>
+      <p class="small">Last updated: Mar 1, 2026</p>
+    </div>
+
+    <!-- LESSON 1 -->
+    <div class="Notescontainer">
+      <div class="notes">
+        <p class="whentheclasswillbe">Next class: Tuesday 8th February — 19:00 (Moscow time)</p>
+        <p class="what_the_class_is_about">
+          Revision of the previous class, then start learning the Arabic alphabet. We will cover the first 10 letters and their forms
+          (initial, medial, final, isolated), plus practice writing and pronunciation.
+        </p>
+
+        <div class="lesson-grid">
+          <div class="boxtime">
+            <p>Time in Moscow: 19:00 • Tue 8 Feb</p>
+          </div>
+
+          <div class="different_timezones_container">
+            <p>For students in different time zones:</p>
+            <ul>
+              <li>London: 16:00</li>
+              <li>Netherlands (Amsterdam): 17:00</li>
+              <li>New York: 11:00</li>
+              <li>Los Angeles: 08:00</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="meta-row">
+          <span class="pill"><span class="dot"></span> Live</span>
+          <span class="pill">60 min</span>
+          <span class="pill">Level A1</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- LESSON 2 -->
+    <div class="Notescontainer">
+      <div class="notes">
+        <p class="whentheclasswillbe">Next class: Monday 2nd February — 19:00 (Moscow time)</p>
+        <p class="what_the_class_is_about">
+          Quick revision, then continue alphabet practice. We will focus on joining letters and reading simple syllables.
+        </p>
+
+        <div class="lesson-grid">
+          <div class="boxtime">
+            <p>Time in Moscow: 19:00 • Mon 2 Feb</p>
+          </div>
+
+          <div class="different_timezones_container">
+            <p>For students in different time zones:</p>
+            <ul>
+              <li>London: 16:00</li>
+              <li>Netherlands (Amsterdam): 17:00</li>
+              <li>New York: 11:00</li>
+              <li>Los Angeles: 08:00</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="meta-row">
+          <span class="pill"><span class="dot"></span> Live</span>
+          <span class="pill">75 min</span>
+          <span class="pill">Group</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,495 +1,262 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Arabic Lessons — Schedule</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobile Body Map</title>
 
 <style>
-:root{
-  --bg:#ffffff;
-  --card:#ffffff;
-  --soft:#f5f5f7;
-  --ink:#0b0b0f;
-  --muted:#4b5563;
-  --line:rgba(0,0,0,.12);
-
-  --accent:#2563eb;
-  --alert:#dc2626;
-  --alertbg:#fee2e2;
-
-  --radius:22px;
-  --shadow:0 12px 40px rgba(0,0,0,.08);
-  --max:1000px;
-}
-
-*{box-sizing:border-box;}
-
+/* ========== Mobile First Base ========== */
 body{
   margin:0;
-  font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-  background:var(--bg);
-  color:var(--ink);
-  line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-}
-
-/* Layout */
-.wrap{
-  width:min(var(--max),100%);
-  margin:0 auto;
-  padding:24px 20px 60px;
-}
-
-/* Header */
-header{
-  padding-bottom:20px;
-  border-bottom:1px solid var(--line);
-}
-
-.site-title{
-  margin:0;
-  font-size: clamp(32px,6vw,56px);
-  font-weight:800;
-  letter-spacing:-1px;
-}
-
-.site-sub{
-  margin-top:12px;
-  font-size:20px;
-  color:var(--muted);
-}
-
-/* Section title */
-.section-title{
-  margin:40px 0 20px;
-  font-size:28px;
-  font-weight:800;
-}
-
-/* Alert */
-.redalert_note{
-  background:var(--alertbg);
-  border:2px solid var(--alert);
-  border-radius:var(--radius);
-  padding:22px;
-  margin-bottom:30px;
-}
-
-.red_notice_text{
-  margin:0;
-  font-size:22px;
-  font-weight:800;
-  color:var(--alert);
-}
-
-.last-updated{
-  margin-top:8px;
-  font-size:18px;
-  color:#7f1d1d;
-}
-
-/* Lesson cards */
-.lesson{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  padding:26px;
-  margin-bottom:24px;
-}
-
-.lesson-title{
-  margin:0 0 14px;
-  font-size:24px;
-  font-weight:800;
-}
-
-.lesson-desc{
-  margin:0 0 20px;
-  font-size:20px;
-  color: #006aff;
-  font-weight: bold;
-}
-
-.time-box{
-  background:var(--soft);
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:20px;
-  font-size:20px;
-  font-weight:700;
-}
-
-.timezones-title{
-  font-size:20px;
-  font-weight:800;
-  margin-bottom:10px;
-}
-
-ul{
-  margin:0;
-  padding-left:22px;
-  font-size:20px;
-}
-
-li{ margin:8px 0; }
-
-/* -------------------------
-   HOMEWORK (Embedded YouTube)
-   ------------------------- */
-.homework{
-  margin-top:26px;
-  padding-top:18px;
-  border-top:1px solid var(--line);
-}
-
-.homework-title{
-  margin:0 0 10px;
-  font-size:22px;
-  font-weight:800;
-}
-
-.homework-sub{
-  margin:0 0 16px;
-  font-size:18px;
-  color:var(--muted);
-}
-
-/* Horizontal row (mobile) */
-.video-row{
+  font-family: system-ui, -apple-system, sans-serif;
+  background:#f4f4f4;
   display:flex;
-  gap:14px;
-  overflow-x:auto;
-  padding-bottom:10px;
-  scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling: touch;
+  justify-content:center;
+  padding:20px;
 }
 
-/* Scrollbar (nice but simple) */
-.video-row::-webkit-scrollbar{ height:10px; }
-.video-row::-webkit-scrollbar-thumb{
-  background:rgba(0,0,0,.12);
-  border-radius:999px;
-}
-.video-row::-webkit-scrollbar-track{ background:transparent; }
-
-/* Each video card */
-.video-card{
-  flex: 0 0 92%;
-  max-width: 520px;
-  background: var(--soft);
-  border:1px solid var(--line);
-  border-radius: 20px;
-  overflow:hidden;
-  scroll-snap-align:start;
-}
-
-/* Desktop: show two videos side-by-side (no scroll) */
-@media (min-width: 920px){
-  .video-row{
-    overflow: visible;
-    flex-wrap: wrap;
-  }
-  .video-card{
-    flex: 1 1 calc(50% - 14px);
-    max-width: none;
-  }
-}
-
-.video-frame{
-  position:relative;
+.wrapper{
   width:100%;
-  aspect-ratio:16/9;
-  background:#000;
+  max-width:500px;
 }
 
-/* Responsive iframe */
-.video-frame iframe{
+.bodyWrapper{
+  position:relative;
+  width: 100%;
+}
+
+.bodyImg{
+  width:100%;
+  display:block;
+}
+
+.overlay{
   position:absolute;
-  inset:0;
+  top:0;
+  left:0;
   width:100%;
   height:100%;
-  border:0;
 }
 
-.video-body{
-  padding:14px 16px 18px;
+/* Base polygon styling */
+.overlay polygon{
+  fill-opacity: 0.45;
+  stroke-width:3;
+  transition:all 0.2s ease;
+  cursor:pointer;
 }
 
-.video-title{
-  margin:0 0 8px;
+/* ---------- COLOR THEMES ---------- */
+
+/* Upper (Red) */
+#upper-clavicular{
+  fill:rgb(255,0,0);
+  stroke:rgb(200,0,0);
+}
+
+/* Middle (Green) */
+#middle-sternal{
+  fill:rgb(0,170,0);
+  stroke:rgb(0,130,0);
+}
+
+/* Lower (Blue) */
+#lower-abdominal{
+  fill:rgb(0,120,255);
+  stroke:rgb(0,90,200);
+}
+
+/* Hover / touch active (darker) */
+.overlay polygon:hover{
+  filter:brightness(0.75);
+}
+
+/* Selected (even darker + stronger border) */
+.overlay polygon.active{
+  filter: brightness(0.85);
+  stroke-width:5;
+  fill-opacity: 0.7;
+}
+
+/* Info panel */
+.info{
+  margin-top:20px;
+  text-align:center;
   font-size:18px;
-  font-weight:800;
+  font-weight:600;
 }
 
-.video-notes{
-  margin:0;
-  font-size:17px;
-  color:var(--muted);
+/* Desktop spacing upgrade */
+@media(min-width:768px){
+  body{
+    padding:40px;
+  }
 }
 
-/* Desktop spacing */
-@media (min-width:768px){
-  .lesson{ padding:32px; }
-  .lesson-desc{ font-size:21px; }
-  ul{ font-size:21px; }
+#Rectus-Abdominis-Upper-Region {
+  fill:rgb(34, 0, 255);
+  stroke:rgb(0, 44, 97);
 }
 
-.video-row.youtube_none {
+#Rectus-Abdominis-Lower-Region {
+  fill:rgb(136, 255, 0);
+  stroke:rgb(5, 0, 97);
+}
+
+#Quads {
+  fill: red;
+  stroke:rgb(0, 0, 0);
+}
+
+#obliques {
+  fill: rgb(255 223 31);
+  stroke:rgb(0, 44, 97);
+}
+
+#shoulder {
+  fill: blue;
+  stroke:rgb(0, 0, 0);
+}
+
+#lats {
+  fill: green;
+  stroke:rgb(0, 0, 0);
+}
+
+#lower-back {
+  fill: purple;
+  stroke:rgb(0, 0, 0);
+}
+
+#middle-back {
+  fill: yellow;
+  stroke:rgb(0, 0, 0);
+}
+
+#traps {
+  fill: #8c00ff;
+  stroke:rgb(0, 0, 0);
+}
+
+#rotor-cuff {
+  fill: rgb(0, 191, 255);
+  stroke:rgb(0, 0, 0);
+}
+
+div#backwrapper {
     display: none;
+}
+
+* {
+  border: 1px solid red;
 }
 </style>
 </head>
 
 <body>
-<div class="wrap">
 
-<header>
-  <h1 class="site-title">Arabic Lessons Schedule</h1>
-  <div class="site-sub">All times shown clearly for different countries.</div>
-</header>
-
-<h2 class="section-title">Upcoming Lessons</h2>
-
-<div class="redalert_note">
-  <div class="red_notice_text">Important: Wednesday class moved to Friday this week.</div>
-  <div class="last-updated">Last updated: March 1, 2026</div>
-</div>
-
-
-<!-- LESSON 1 -->
-<div class="lesson">
-  <h3 class="lesson-title">Sunday 8th March — 20:00 (Moscow Time)</h3>
-
-  <p class="lesson-desc">
-    ...
-  </p>
-
-  <div class="time-box">Moscow: 20:00 • Wednesday 4th Feb</div>
-
-  <div class="timezones-title">For students in other time zones:</div>
-  <ul>
-    <li>USA Eastern Time: 12:00</li>
-    <li>USA Mountain Time: 10:00</li>
-    <li>United Kingdom: 17:00</li>
-    <li>Netherlands (Amsterdam): 18:00</li>
-  </ul>
-
-  <!-- HOMEWORK -->
-  <div class="homework">
-    <h4 class="homework-title">Homework</h4>
-    <p class="homework-sub">Watch these videos before the next lesson.</p>
-
-    <div  class="video-row youtube_none">
-      <!-- Replace the VIDEO ID in the src (after /embed/) -->
-      <div class="video-card">
-        <div class="video-frame">
-          <iframe
-            src="https://www.youtube.com/embed/fJ9_79bg5H4"
-            title="YouTube video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
-        </div>
-        <div class="video-body">
-          <p class="video-title">Arabic Alphabet Practice</p>
-          <p class="video-notes">Repeat each letter out loud and write it down.</p>
-        </div>
-      </div>
-
-      <div  class="video-card">
-        <div class="video-frame">
-          <iframe
-            src="https://www.youtube.com/embed/joaa_H3ejoM"
-            title="YouTube video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
-        </div>
-        <div class="video-body">
-          <p class="video-title">Letters + Writing Forms</p>
-          <p class="video-notes">Focus on initial/medial/final/isolated forms. Pause and copy.</p>
-        </div>
-      </div>
-    </div>
+  <div >
+    <p id="front">Front</p>
+    <p id="back">Back</p>
   </div>
-</div>
 
+<div class="wrapper">
 
-<!-- LESSON 3 -->
-<div class="lesson">
-  <h3 class="lesson-title">Saturday 7th March — 20:00 (Moscow Time)</h3>
+  <div id="frontwrapper" class="bodyWrapper">
+    <img src="human-body-frontal.png" class="bodyImg" alt="Body">
 
-  <p class="lesson-desc">
-    Arabic Lesson by Hakim
-  </p>
+    <!-- 2000 x 3317 -->
+    <svg class="overlay" viewBox="0 0 2000 3317">
 
-  <div class="time-box">Moscow: 20:00 • Saturday 7th March</div>
+      <polygon
+        id="upper-clavicular"
+        points="934,597 944,640 863,672 757,717 743,666 791,641 842,611 888,601 911,592 923,590 920,597"
+      />
 
-  <div class="timezones-title">For students in other time zones:</div>
-  <ul>
-    <li>USA Eastern Time: 12:00</li>
-    <li>USA Mountain Time: 10:00</li>
-    <li>United Kingdom: 17:00</li>
-    <li>Netherlands (Amsterdam): 18:00</li>
-  </ul>
+      <polygon
+        id="middle-sternal"
+        points="746,723 768,813 962,793 955,684 941,645"
+      />
 
-  <!-- HOMEWORK -->
-  <div class="homework">
-    <h4 class="homework-title">Homework</h4>
-    <p class="homework-sub">Watch these videos before the next lesson.</p>
+      <polygon
+        id="lower-abdominal"
+        points="773,818 958,801 925,854 865,868 817,869 785,848"
+      />
 
-    <div  class="video-row youtube_none">
-      <!-- Replace the VIDEO ID in the src (after /embed/) -->
-      <div class="video-card">
-        <div class="video-frame">
-          <iframe
-            src="https://www.youtube.com/embed/fJ9_79bg5H4"
-            title="YouTube video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
-        </div>
-        <div class="video-body">
-          <p class="video-title">Arabic Alphabet Practice</p>
-          <p class="video-notes">Repeat each letter out loud and write it down.</p>
-        </div>
-      </div>
+       <polygon  id="Rectus-Abdominis-Upper-Region" points="879,871,985,846,1089,866,1116,984,1110,1064,990,1050,861,1066,861,993" />
+       
+      <polygon id="Rectus-Abdominis-Lower-Region" points="863,1083,969,1060,1010,1060,1112,1074,1112,1127,1100,1170,1105,1267,1022,1514,957,1516,879,1271,870,1175,860,1133" />
+    
+      <polygon id="Quads" points="1261,1626,1252,1834,1112,2002,1017,1958,994,1709,1006,1559,1100,1408,1211,1271,1234,1407" />
 
-      <div class="video-card">
-        <div class="video-frame">
-          <iframe
-            src="https://www.youtube.com/embed/joaa_H3ejoM"
-            title="YouTube video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
-        </div>
-        <div class="video-body">
-          <p class="video-title">Letters + Writing Forms</p>
-          <p class="video-notes">Focus on initial/medial/final/isolated forms. Pause and copy.</p>
-        </div>
-      </div>
-    </div>
+      <polygon id="obliques" points="1096,875,1119,977,1119,1135,1107,1256,1105,1347,1204,1258,1209,1198,1195,1142,1218,997,1254,882" />
+      </svg>
   </div>
-</div>
 
-<!-- LESSON 1 -->
-<div class="lesson">
-  <h3 class="lesson-title">Wednesday 3rd March — 20:00 (Moscow Time)</h3>
+  <div id="backwrapper" class="bodyWrapper">
+    <img src="human-body-back-new.png" class="bodyImg" alt="Body">
 
-  <p class="lesson-desc">
-    ...
-  </p>
+    <!-- 2000 x 3317 -->
+    <svg class="overlay" viewBox="0 0 2000 3462">
 
-  <div class="time-box">Moscow: 20:00 • Wednesday 4th Feb</div>
-
-  <div class="timezones-title">For students in other time zones:</div>
-  <ul>
-    <li>USA Eastern Time: 12:00</li>
-    <li>USA Mountain Time: 10:00</li>
-    <li>United Kingdom: 17:00</li>
-    <li>Netherlands (Amsterdam): 18:00</li>
-  </ul>
-
-  <!-- HOMEWORK -->
-  <div class="homework">
-    <h4 class="homework-title">Homework</h4>
-    <p class="homework-sub">Watch these videos before the next lesson.</p>
-
-    <div  class="video-row youtube_none">
-      <!-- Replace the VIDEO ID in the src (after /embed/) -->
-      <div class="video-card">
-        <div class="video-frame">
-          <iframe
-            src="https://www.youtube.com/embed/fJ9_79bg5H4"
-            title="YouTube video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
-        </div>
-        <div class="video-body">
-          <p class="video-title">Arabic Alphabet Practice</p>
-          <p class="video-notes">Repeat each letter out loud and write it down.</p>
-        </div>
-      </div>
-
-      <div class="video-card">
-        <div class="video-frame">
-          <iframe
-            src="https://www.youtube.com/embed/joaa_H3ejoM"
-            title="YouTube video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
-        </div>
-        <div class="video-body">
-          <p class="video-title">Letters + Writing Forms</p>
-          <p class="video-notes">Focus on initial/medial/final/isolated forms. Pause and copy.</p>
-        </div>
-      </div>
-    </div>
+      
+      <!-- <polygon  id="shoulder" points="1231,601,1188,820,1330,831,1338,728,1395,693,1462,772,1444,643,1411,594,1330,546" />   -->
+      <polygon  id="lats"  points="741,818,898,831,981,979,1006,1062,948,1101,881,1297,808,1278,812,1092" />
+      <polygon  id="lower-back" points="1006,1071,957,1108,890,1294,990,1371,1068,1377,1174,1302,1156,1186,1114,1103,1073,1064,1029,1064" />
+      <polygon  id="middle-back" points="868,606,1218,610,1204,705,1186,813,1155,885,1114,933,1070,1048,1013,1059,964,935,905,832,886,726" />
+      <polygon  id="traps" points="1123,449,1087,470,1098,505,1082,594,1204,596,1269,564,1277,530,1178,498" />
+      <polygon  id="rotor-cuff" points="1232,598,1326,540,1375,560,1428,618,1432,639,1451,685,1460,761,1387,676,1361,636,1303,616" />
+      <polygon  id="deltoid" points="1229,615,1208,686,1204,710,1188,801,1188,829,1324,825,1333,717,1383,695,1342,629" />
+       
+    </svg>
   </div>
-</div>
 
-<!-- LESSON 2 -->
-<div class="lesson">
-  <h3 class="lesson-title">Monday 2nd March — 20:00 (Moscow Time)</h3>
-
-  <p class="lesson-desc">
-    We will cover the short and long vowels
-  </p>
-
-  <div class="time-box">Moscow: 20:00 • Mon 2 Feb</div>
-
-  <div class="timezones-title">For students in other time zones:</div>
-  <ul>
-    <li>USA Eastern Time: 12:00</li>
-    <li>USA Mountain Time: 10:00</li>
-    <li>United Kingdom: 17:00</li>
-    <li>Netherlands (Amsterdam): 18:00</li>
-  </ul>
-
-  <!-- HOMEWORK -->
-  <div class="homework">
-    <h4 class="homework-title">Homework</h4>
-    <p class="homework-sub">Watch these videos before the next lesson.</p>
-
-    <div class="video-row ">
-      <div class="video-card">
-        <div class="video-frame">
-          <iframe
-            src="https://www.youtube.com/embed/fJ9_79bg5H4"
-            title="YouTube video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
-        </div>
-        <div class="video-body">
-          <p class="video-title">Arabic Alphabet Practice</p>
-          <p class="video-notes">Try to write each letter 5 times.</p>
-        </div>
-      </div>
-
-      <div class="video-card">
-        <div class="video-frame">
-          <iframe
-            src="https://www.youtube.com/embed/joaa_H3ejoM"
-            title="YouTube video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
-        </div>
-        <div class="video-body">
-          <p class="video-title">Letters + Writing Forms</p>
-          <p class="video-notes">Pause at each form and copy it on paper.</p>
-        </div>
-      </div>
-    </div>
+  <div class="info" id="info">
+    Tap a muscle section
   </div>
-</div>
 
 </div>
+
+<script>
+
+
+
+document.getElementById("front").onclick = function() {
+  document.getElementById("frontwrapper").style.display = "block";
+  document.getElementById("backwrapper").style.display = "none";
+};
+
+document.getElementById("back").onclick = function() {
+  document.getElementById("frontwrapper").style.display = "none";
+  document.getElementById("backwrapper").style.display = "block";
+};
+
+
+
+const info = document.getElementById("info");
+
+document.querySelectorAll(".overlay polygon").forEach(poly => {
+
+  // Click for desktop
+  poly.addEventListener("click", select);
+
+  // Touch support
+  poly.addEventListener("touchstart", select);
+
+  function select(e){
+    e.preventDefault();
+
+    document.querySelectorAll(".overlay polygon")
+      .forEach(p => p.classList.remove("active"));
+
+    poly.classList.add("active");
+
+    info.textContent = "Selected: " + poly.id.replace("-", " ");
+  }
+});
+
+</script>
+
 </body>
 </html>

@@ -1,0 +1,848 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Multi-Timezone Class Scheduler</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --panel:#111a2e;
+      --panel2:#0f172a;
+      --border:rgba(255,255,255,.10);
+      --text:#e8eefc;
+      --muted:rgba(232,238,252,.70);
+      --muted2:rgba(232,238,252,.55);
+      --accent:#5eead4;
+      --accent2:#60a5fa;
+      --danger:#fb7185;
+      --ok:#34d399;
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --radius:16px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 700px at 10% -10%, rgba(94,234,212,.20), transparent 50%),
+        radial-gradient(900px 600px at 90% 0%, rgba(96,165,250,.18), transparent 50%),
+        var(--bg);
+      color:var(--text);
+      min-height:100vh;
+    }
+
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:24px 18px 60px;
+    }
+
+    header{
+      display:flex;
+      gap:14px;
+      align-items:flex-end;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+
+    .title{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .title h1{
+      margin:0;
+      font-size:28px;
+      letter-spacing:.2px;
+    }
+    .title p{
+      margin:0;
+      color:var(--muted);
+      max-width:66ch;
+      line-height:1.4;
+      font-size:14px;
+    }
+
+    .pill-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .pill{
+      border:1px solid var(--border);
+      background: rgba(17,26,46,.65);
+      border-radius:999px;
+      padding:10px 12px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+      backdrop-filter: blur(10px);
+    }
+    .pill label{
+      color:var(--muted2);
+      font-size:12px;
+    }
+
+    select, input, textarea, button{
+      font: inherit;
+      color: inherit;
+    }
+
+    select, input[type="datetime-local"], input[type="text"], textarea{
+      background: rgba(15,23,42,.6);
+      border:1px solid var(--border);
+      padding:10px 12px;
+      border-radius:12px;
+      outline:none;
+    }
+    select:focus, input:focus, textarea:focus{
+      border-color: rgba(94,234,212,.55);
+      box-shadow: 0 0 0 4px rgba(94,234,212,.12);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.3fr .9fr;
+      gap:16px;
+      align-items:start;
+    }
+
+    @media (max-width: 900px){
+      .grid{grid-template-columns: 1fr;}
+    }
+
+    .card{
+      border:1px solid var(--border);
+      background: rgba(17,26,46,.55);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      overflow:hidden;
+    }
+
+    .card .head{
+      padding:14px 16px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), transparent);
+    }
+    .card .head h2{
+      margin:0;
+      font-size:15px;
+      letter-spacing:.2px;
+    }
+    .card .head small{
+      color:var(--muted2);
+    }
+    .card .body{
+      padding:14px 16px 16px;
+    }
+
+    .form{
+      display:grid;
+      gap:10px;
+    }
+    .form-row{
+      display:grid;
+      gap:10px;
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 500px){
+      .form-row{grid-template-columns:1fr;}
+    }
+
+    .btn-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:6px;
+    }
+
+    button{
+      border:1px solid var(--border);
+      background: rgba(96,165,250,.15);
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      transition:.15s transform, .15s background;
+    }
+    button:hover{ transform: translateY(-1px); background: rgba(96,165,250,.22);}
+    button.primary{
+      background: rgba(94,234,212,.18);
+    }
+    button.primary:hover{ background: rgba(94,234,212,.26);}
+    button.danger{
+      background: rgba(251,113,133,.14);
+    }
+    button.danger:hover{ background: rgba(251,113,133,.22);}
+
+    .lessons{
+      display:grid;
+      gap:12px;
+    }
+
+    .lesson{
+      border:1px solid var(--border);
+      background: rgba(15,23,42,.55);
+      border-radius: 14px;
+      padding:12px 12px 10px;
+      display:grid;
+      gap:10px;
+    }
+
+    .lesson-top{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:flex-start;
+      flex-wrap:wrap;
+    }
+
+    .lesson-title{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .lesson-title strong{
+      font-size:14px;
+    }
+    .lesson-title span{
+      color: var(--muted);
+      font-size:12px;
+    }
+
+    .tag{
+      font-size:12px;
+      color: rgba(11,18,32,.95);
+      background: linear-gradient(90deg, rgba(94,234,212,.95), rgba(96,165,250,.95));
+      padding:6px 10px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+
+    .times{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:8px;
+    }
+    @media (max-width: 600px){
+      .times{grid-template-columns:1fr;}
+    }
+
+    .time-box{
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:10px 10px;
+      background: rgba(17,26,46,.35);
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:center;
+    }
+    .time-box .city{
+      color: var(--muted2);
+      font-size:12px;
+    }
+    .time-box .val{
+      font-feature-settings: "tnum" 1, "lnum" 1;
+      font-size:13px;
+    }
+
+    .lesson-actions{
+      display:flex;
+      gap:10px;
+      justify-content:flex-end;
+      flex-wrap:wrap;
+    }
+    .lesson-actions button{
+      padding:8px 10px;
+      border-radius:10px;
+      font-size:13px;
+    }
+
+    textarea{
+      width:100%;
+      min-height:140px;
+      resize:vertical;
+      line-height:1.5;
+    }
+
+    .hint{
+      margin-top:10px;
+      color: var(--muted2);
+      font-size:12px;
+      line-height:1.4;
+    }
+
+    .toast{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(17,26,46,.85);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      color: var(--text);
+      transform: translateY(18px);
+      opacity:0;
+      pointer-events:none;
+      transition: .2s ease;
+      max-width: 380px;
+    }
+    .toast.show{
+      transform: translateY(0);
+      opacity:1;
+    }
+    .toast b{color: var(--accent);}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="title">
+        <h1>Multi-Timezone Class Scheduler</h1>
+        <p>
+          Add lessons once in the teacher’s base timezone, and the page automatically shows times in UK, Netherlands, and USA.
+          Everything is saved locally in your browser.
+        </p>
+      </div>
+
+      <div class="pill-row">
+        <div class="pill">
+          <label for="teacherTz">Teacher timezone</label>
+          <select id="teacherTz">
+            <option value="Europe/Moscow">Europe/Moscow</option>
+            <option value="Europe/London">Europe/London</option>
+            <option value="Europe/Amsterdam">Europe/Amsterdam</option>
+            <option value="America/New_York">America/New_York</option>
+          </select>
+        </div>
+
+        <div class="pill">
+          <label for="viewerTz">Viewer display</label>
+          <select id="viewerTz">
+            <option value="auto">Auto-detect</option>
+            <option value="Europe/London">UK (London)</option>
+            <option value="Europe/Amsterdam">Netherlands (Amsterdam)</option>
+            <option value="America/New_York">USA (New York)</option>
+            <option value="America/Los_Angeles">USA (Los Angeles)</option>
+            <option value="Europe/Moscow">Teacher (Moscow)</option>
+          </select>
+        </div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- LEFT: LESSONS -->
+      <section class="card">
+        <div class="head">
+          <h2>Lessons</h2>
+          <small id="countLabel">0 upcoming</small>
+        </div>
+        <div class="body">
+          <form class="form" id="lessonForm">
+            <div class="form-row">
+              <input id="lessonTitle" type="text" placeholder="Lesson title (e.g., Arabic A1 — Reading)" required />
+              <input id="lessonLink" type="text" placeholder="Meeting link (optional)" />
+            </div>
+
+            <div class="form-row">
+              <input id="lessonDateTime" type="datetime-local" required />
+              <select id="lessonDuration">
+                <option value="45">45 min</option>
+                <option value="60" selected>60 min</option>
+                <option value="75">75 min</option>
+                <option value="90">90 min</option>
+              </select>
+            </div>
+
+            <div class="btn-row">
+              <button class="primary" type="submit" id="saveBtn">Add lesson</button>
+              <button type="button" id="resetBtn">Reset</button>
+            </div>
+
+            <div class="hint">
+              Tip: pick the time in the <b>teacher timezone</b>. Then students in other countries will see the correct local time automatically.
+            </div>
+          </form>
+
+          <div style="height:14px"></div>
+
+          <div class="lessons" id="lessonsList"></div>
+        </div>
+      </section>
+
+      <!-- RIGHT: NOTES -->
+      <aside class="card">
+        <div class="head">
+          <h2>Schedule Updates / Notes</h2>
+          <small id="lastUpdated">Not updated yet</small>
+        </div>
+        <div class="body">
+          <textarea id="notes" placeholder="Write updates like:
+- Wednesday class moved to Friday
+- This week: only 2 lessons
+- New group starts next Monday"></textarea>
+
+          <div class="btn-row">
+            <button class="primary" id="saveNotesBtn" type="button">Save notes</button>
+            <button class="danger" id="clearNotesBtn" type="button">Clear</button>
+          </div>
+
+          <div class="hint">
+            Students can check here first before asking questions. Keep it short + dated (e.g., “Mar 1: …”).
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ----------------------------
+    // Storage keys
+    // ----------------------------
+    const LS_LESSONS = "tz_scheduler_lessons_v1";
+    const LS_NOTES   = "tz_scheduler_notes_v1";
+    const LS_TZ      = "tz_scheduler_teacher_tz_v1";
+    const LS_VIEWTZ  = "tz_scheduler_view_tz_v1";
+    const LS_UPDATED = "tz_scheduler_notes_updated_v1";
+
+    // ----------------------------
+    // DOM
+    // ----------------------------
+    const teacherTzEl = document.getElementById("teacherTz");
+    const viewerTzEl  = document.getElementById("viewerTz");
+
+    const form = document.getElementById("lessonForm");
+    const titleEl = document.getElementById("lessonTitle");
+    const linkEl  = document.getElementById("lessonLink");
+    const dtEl    = document.getElementById("lessonDateTime");
+    const durEl   = document.getElementById("lessonDuration");
+
+    const listEl  = document.getElementById("lessonsList");
+    const countEl = document.getElementById("countLabel");
+
+    const notesEl = document.getElementById("notes");
+    const saveNotesBtn = document.getElementById("saveNotesBtn");
+    const clearNotesBtn = document.getElementById("clearNotesBtn");
+    const lastUpdatedEl = document.getElementById("lastUpdated");
+
+    const resetBtn = document.getElementById("resetBtn");
+    const saveBtn  = document.getElementById("saveBtn");
+
+    const toastEl = document.getElementById("toast");
+
+    // ----------------------------
+    // State
+    // ----------------------------
+    let lessons = loadLessons();
+    let editingId = null;
+
+    // Pick a sensible default datetime (next full hour)
+    function setDefaultDatetime(){
+      const now = new Date();
+      now.setMinutes(0,0,0);
+      now.setHours(now.getHours() + 1);
+      dtEl.value = toDatetimeLocalValue(now);
+    }
+
+    // ----------------------------
+    // Helpers: datetime-local conversions
+    // ----------------------------
+    function pad2(n){ return String(n).padStart(2,"0"); }
+
+    function toDatetimeLocalValue(d){
+      // Format as "YYYY-MM-DDTHH:MM" in local time
+      const yyyy = d.getFullYear();
+      const mm = pad2(d.getMonth()+1);
+      const dd = pad2(d.getDate());
+      const hh = pad2(d.getHours());
+      const mi = pad2(d.getMinutes());
+      return `${yyyy}-${mm}-${dd}T${hh}:${mi}`;
+    }
+
+    function parseDatetimeLocal(value){
+      // value like "2026-03-01T16:00" interpreted in *browser local time*
+      const [datePart, timePart] = value.split("T");
+      const [y,m,d] = datePart.split("-").map(Number);
+      const [hh,mi] = timePart.split(":").map(Number);
+      return new Date(y, m-1, d, hh, mi, 0, 0);
+    }
+
+    // ----------------------------
+    // Core: timezone formatting
+    // We store lesson time as UTC milliseconds.
+    // We allow entering time as "teacher's wall time" and convert to UTC.
+    // ----------------------------
+
+    // Format a UTC ms in a particular timeZone nicely.
+    function formatInTZ(utcMs, timeZone){
+      const d = new Date(utcMs);
+      const fmt = new Intl.DateTimeFormat(undefined, {
+        timeZone,
+        weekday: "short",
+        year: "numeric",
+        month: "short",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+      return fmt.format(d);
+    }
+
+    // Convert "teacher wall time" (date-time picked in datetime-local)
+    // into UTC ms assuming that wall time belongs to teacherTz.
+    //
+    // Approach:
+    // - We take the components y/m/d/h/min from the user's input.
+    // - We create an approximate UTC date from those components.
+    // - Then we compute the timezone offset at that instant for teacherTz
+    //   and adjust.
+    //
+    // This avoids external libraries and handles DST for supported IANA zones.
+    function wallTimeToUTCms(y,m,d,hh,mi, teacherTz){
+      // Start with a "guess": treat it as UTC
+      const guessUtc = Date.UTC(y, m-1, d, hh, mi, 0, 0);
+
+      // Determine what local time that UTC would be in teacherTz.
+      const parts = tzParts(guessUtc, teacherTz);
+      // parts are in teacherTz, but our desired wall time is y/m/d/hh/mi
+      // Compute difference (desired - actual) in minutes
+      const desired = Date.UTC(y, m-1, d, hh, mi, 0, 0);
+      const actual  = Date.UTC(parts.year, parts.month-1, parts.day, parts.hour, parts.minute, 0, 0);
+
+      const diffMs = desired - actual;
+      return guessUtc + diffMs;
+    }
+
+    function tzParts(utcMs, timeZone){
+      const d = new Date(utcMs);
+      const fmt = new Intl.DateTimeFormat("en-GB", {
+        timeZone,
+        year:"numeric", month:"2-digit", day:"2-digit",
+        hour:"2-digit", minute:"2-digit",
+        hour12:false
+      });
+      const p = fmt.formatToParts(d);
+      const get = (type) => Number(p.find(x => x.type === type).value);
+      return {
+        year: get("year"),
+        month: get("month"),
+        day: get("day"),
+        hour: get("hour"),
+        minute: get("minute"),
+      };
+    }
+
+    // ----------------------------
+    // Storage
+    // ----------------------------
+    function loadLessons(){
+      try { return JSON.parse(localStorage.getItem(LS_LESSONS)) || []; }
+      catch { return []; }
+    }
+    function saveLessons(){
+      localStorage.setItem(LS_LESSONS, JSON.stringify(lessons));
+    }
+
+    function loadNotes(){
+      return localStorage.getItem(LS_NOTES) || "";
+    }
+    function saveNotes(text){
+      localStorage.setItem(LS_NOTES, text);
+      localStorage.setItem(LS_UPDATED, String(Date.now()));
+    }
+
+    function loadTeacherTz(){
+      return localStorage.getItem(LS_TZ) || "Europe/Moscow";
+    }
+    function saveTeacherTz(tz){
+      localStorage.setItem(LS_TZ, tz);
+    }
+
+    function loadViewerTz(){
+      return localStorage.getItem(LS_VIEWTZ) || "auto";
+    }
+    function saveViewerTz(v){
+      localStorage.setItem(LS_VIEWTZ, v);
+    }
+
+    // ----------------------------
+    // UI render
+    // ----------------------------
+    const ZONES = [
+      { label: "Teacher", tz: () => teacherTzEl.value },
+      { label: "UK", tz: () => "Europe/London" },
+      { label: "Netherlands", tz: () => "Europe/Amsterdam" },
+      { label: "USA (New York)", tz: () => "America/New_York" },
+      { label: "USA (Los Angeles)", tz: () => "America/Los_Angeles" },
+    ];
+
+    function effectiveViewerTZ(){
+      return viewerTzEl.value === "auto"
+        ? Intl.DateTimeFormat().resolvedOptions().timeZone
+        : viewerTzEl.value;
+    }
+
+    function render(){
+      // Sort upcoming first
+      lessons.sort((a,b) => a.utcMs - b.utcMs);
+
+      // Filter: show all, but label past
+      listEl.innerHTML = "";
+
+      const now = Date.now();
+      countEl.textContent = `${lessons.length} total`;
+
+      if(lessons.length === 0){
+        listEl.innerHTML = `
+          <div class="lesson" style="text-align:center;padding:18px;color:rgba(232,238,252,.65)">
+            No lessons yet. Add one above 👆
+          </div>`;
+        return;
+      }
+
+      for(const lesson of lessons){
+        const isPast = lesson.utcMs + (lesson.durationMin*60*1000) < now;
+
+        const viewerTz = effectiveViewerTZ();
+        const viewerLabel = viewerTzEl.value === "auto" ? "Your time (auto)" : "Your selected time";
+
+        const topLine = formatInTZ(lesson.utcMs, viewerTz);
+        const badge = isPast ? `<span class="tag" style="background:rgba(255,255,255,.18);color:var(--text)">Past</span>`
+                             : `<span class="tag">Upcoming</span>`;
+
+        const link = (lesson.link && lesson.link.trim())
+          ? `<a href="${escapeHtmlAttr(lesson.link.trim())}" target="_blank" rel="noopener"
+                style="color:var(--accent);text-decoration:none">Join link</a>`
+          : `<span style="color:var(--muted2)">No link</span>`;
+
+        const boxes = [];
+
+        // Always show viewer time box + the fixed zones
+        boxes.push(timeBox(viewerLabel, viewerTz, lesson.utcMs));
+        for(const z of ZONES){
+          boxes.push(timeBox(z.label, z.tz(), lesson.utcMs));
+        }
+
+        const el = document.createElement("div");
+        el.className = "lesson";
+        el.innerHTML = `
+          <div class="lesson-top">
+            <div class="lesson-title">
+              <strong>${escapeHtml(lesson.title)}</strong>
+              <span>${topLine} • ${lesson.durationMin} min • ${link}</span>
+            </div>
+            ${badge}
+          </div>
+
+          <div class="times">${boxes.join("")}</div>
+
+          <div class="lesson-actions">
+            <button type="button" data-action="edit" data-id="${lesson.id}">Edit</button>
+            <button type="button" class="danger" data-action="delete" data-id="${lesson.id}">Delete</button>
+          </div>
+        `;
+        listEl.appendChild(el);
+      }
+    }
+
+    function timeBox(label, tz, utcMs){
+      return `
+        <div class="time-box">
+          <div>
+            <div class="city">${escapeHtml(label)}</div>
+            <div class="val">${escapeHtml(formatInTZ(utcMs, tz))}</div>
+          </div>
+          <div style="color:rgba(232,238,252,.45);font-size:12px">${escapeHtml(shortTZ(tz))}</div>
+        </div>
+      `;
+    }
+
+    function shortTZ(tz){
+      // Just a compact hint; can be the IANA name
+      // You could map to abbreviations, but those are messy + DST changes.
+      return tz.split("/").pop().replaceAll("_"," ");
+    }
+
+    function escapeHtml(s){
+      return String(s)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+    function escapeHtmlAttr(s){ return escapeHtml(s); }
+
+    // ----------------------------
+    // Actions
+    // ----------------------------
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const title = titleEl.value.trim();
+      if(!title){ toast("Please enter a lesson title."); return; }
+
+      const teacherTz = teacherTzEl.value;
+      const localPicked = parseDatetimeLocal(dtEl.value);
+
+      // Extract components of picked time (in browser local) — but we treat them as "wall time"
+      // for the teacher timezone.
+      const y = localPicked.getFullYear();
+      const m = localPicked.getMonth()+1;
+      const d = localPicked.getDate();
+      const hh = localPicked.getHours();
+      const mi = localPicked.getMinutes();
+
+      const utcMs = wallTimeToUTCms(y,m,d,hh,mi, teacherTz);
+
+      const durationMin = Number(durEl.value) || 60;
+      const link = linkEl.value.trim();
+
+      if(editingId){
+        const idx = lessons.findIndex(x => x.id === editingId);
+        if(idx !== -1){
+          lessons[idx] = { ...lessons[idx], title, link, utcMs, durationMin };
+          saveLessons();
+          toast(`Updated: <b>${escapeHtml(title)}</b>`);
+        }
+        editingId = null;
+        saveBtn.textContent = "Add lesson";
+      } else {
+        lessons.push({
+          id: crypto.randomUUID(),
+          title,
+          link,
+          utcMs,
+          durationMin
+        });
+        saveLessons();
+        toast(`Added: <b>${escapeHtml(title)}</b>`);
+      }
+
+      form.reset();
+      setDefaultDatetime();
+      render();
+    });
+
+    resetBtn.addEventListener("click", () => {
+      editingId = null;
+      form.reset();
+      setDefaultDatetime();
+      saveBtn.textContent = "Add lesson";
+      toast("Form reset.");
+    });
+
+    listEl.addEventListener("click", (e) => {
+      const btn = e.target.closest("button");
+      if(!btn) return;
+
+      const id = btn.getAttribute("data-id");
+      const action = btn.getAttribute("data-action");
+      const lesson = lessons.find(x => x.id === id);
+      if(!lesson) return;
+
+      if(action === "delete"){
+        lessons = lessons.filter(x => x.id !== id);
+        saveLessons();
+        toast(`Deleted: <b>${escapeHtml(lesson.title)}</b>`);
+        render();
+      }
+
+      if(action === "edit"){
+        // Convert lesson UTC to teacher timezone parts for prefill display
+        const teacherTz = teacherTzEl.value;
+        const parts = tzParts(lesson.utcMs, teacherTz);
+
+        titleEl.value = lesson.title;
+        linkEl.value = lesson.link || "";
+        durEl.value = String(lesson.durationMin || 60);
+
+        // Put teacher wall time parts into datetime-local input.
+        const temp = new Date(parts.year, parts.month-1, parts.day, parts.hour, parts.minute, 0, 0);
+        dtEl.value = toDatetimeLocalValue(temp);
+
+        editingId = lesson.id;
+        saveBtn.textContent = "Save changes";
+        toast(`Editing: <b>${escapeHtml(lesson.title)}</b>`);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    });
+
+    teacherTzEl.addEventListener("change", () => {
+      saveTeacherTz(teacherTzEl.value);
+      render();
+      toast(`Teacher timezone set to <b>${escapeHtml(teacherTzEl.value)}</b>`);
+    });
+
+    viewerTzEl.addEventListener("change", () => {
+      saveViewerTz(viewerTzEl.value);
+      render();
+    });
+
+    // Notes
+    saveNotesBtn.addEventListener("click", () => {
+      saveNotes(notesEl.value);
+      updateNotesTimestamp();
+      toast("Notes saved.");
+    });
+
+    clearNotesBtn.addEventListener("click", () => {
+      notesEl.value = "";
+      saveNotes("");
+      updateNotesTimestamp();
+      toast("Notes cleared.");
+    });
+
+    function updateNotesTimestamp(){
+      const ts = Number(localStorage.getItem(LS_UPDATED) || 0);
+      if(!ts){
+        lastUpdatedEl.textContent = "Not updated yet";
+        return;
+      }
+      const d = new Date(ts);
+      lastUpdatedEl.textContent = `Last updated: ${d.toLocaleString()}`;
+    }
+
+    // Toast
+    let toastTimer = null;
+    function toast(html){
+      toastEl.innerHTML = html;
+      toastEl.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2400);
+    }
+
+    // ----------------------------
+    // Init
+    // ----------------------------
+    function init(){
+      // Load saved preferences
+      teacherTzEl.value = loadTeacherTz();
+      viewerTzEl.value  = loadViewerTz();
+
+      // Load notes
+      notesEl.value = loadNotes();
+      updateNotesTimestamp();
+
+      setDefaultDatetime();
+      render();
+    }
+
+    init();
+  </script>
+</body>
+</html>
