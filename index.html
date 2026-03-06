@@ -191,6 +191,7 @@ document.getElementById("menu_icon").onclick = function() {
   var youtube_video_container = document.getElementById("youtube_video_container");
   if (youtube_video_container.style.display === "block") {
     youtube_video_container.style.display = "none";
+    youtube_video_container.innerHTML = "";
   } else {
     youtube_video_container.style.display = "block";
   }
