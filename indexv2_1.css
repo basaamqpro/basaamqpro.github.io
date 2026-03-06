@@ -1,0 +1,405 @@
+/* ================================
+   Mobile Fitness App Theme (Clean)
+   Works with your original HTML
+   ================================ */
+
+:root{
+  --bg: #07080b;
+  --panel: rgba(18, 20, 26, 0.78);
+  --panel-solid:#11131a;
+  --text:#f4f6ff;
+  --muted: rgba(244,246,255,.68);
+  --line: rgba(255,255,255,.10);
+
+  --accent:#8b5cf6; /* purple */
+  --accent2:#22c55e; /* green */
+  --danger:#ef4444;
+
+  --radius: 22px;
+  --radius-sm: 14px;
+  --shadow: 0 18px 60px rgba(0,0,0,.55);
+}
+
+/* ---------- Reset ---------- */
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background:
+    radial-gradient(900px 500px at 20% 10%, rgba(139,92,246,.22), transparent 55%),
+    radial-gradient(700px 450px at 85% 18%, rgba(34,197,94,.16), transparent 55%),
+    radial-gradient(700px 500px at 50% 100%, rgba(255,255,255,.06), transparent 60%),
+    var(--bg);
+  color: var(--text);
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  overflow-x:hidden;
+}
+
+/* ---------- Wrapper / Stage ---------- */
+.wrapper{
+  width:100%;
+  max-width:520px;
+  min-height:100vh;
+  position:relative;
+  padding-top:72px;         /* space for top bar */
+  padding-bottom:330px;     /* space for bottom sheet */
+}
+
+/* ---------- Top menu (Front / Back) ---------- */
+#menu{
+  position:fixed;
+  top:14px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(520px, calc(100% - 24px));
+  z-index:30;
+
+  display:flex;
+  gap:10px;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background: rgba(15,17,22,.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 10px 40px rgba(0,0,0,.45);
+}
+
+#menu p{
+  margin:0;
+  flex:1;
+  text-align:center;
+  font-weight:700;
+  letter-spacing:.2px;
+  padding:12px 10px;
+  border-radius:999px;
+  user-select:none;
+  cursor:pointer;
+  color: var(--muted);
+  transition: .18s ease;
+}
+
+#menu p:hover{
+  color: var(--text);
+  background: rgba(255,255,255,.06);
+}
+
+/* “Active” state without JS changes:
+   - When backwrapper is hidden (default), Front looks active.
+   - When frontwrapper is hidden, Back looks active. */
+#backwrapper{ display:none; } /* your original behavior */
+#frontwrapper{ display:block; }
+
+body:has(#backwrapper[style*="display: block"]) #back{
+  background: linear-gradient(135deg, rgba(139,92,246,.22), rgba(34,197,94,.16));
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.10);
+}
+body:has(#backwrapper[style*="display: block"]) #front{
+  background: transparent;
+  color: var(--muted);
+}
+
+body:has(#frontwrapper[style*="display: block"]) #front{
+  background: linear-gradient(135deg, rgba(139,92,246,.22), rgba(34,197,94,.16));
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.10);
+}
+body:has(#frontwrapper[style*="display: block"]) #back{
+  background: transparent;
+  color: var(--muted);
+}
+
+/* Fallback (browsers without :has)
+   Front appears active by default */
+@supports not(selector(:has(*))){
+  #front{
+    background: linear-gradient(135deg, rgba(139,92,246,.22), rgba(34,197,94,.16));
+    color: var(--text);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.10);
+  }
+}
+
+/* ---------- Body map ---------- */
+.bodyWrapper{
+  position:relative;
+  width:100%;
+  border-radius: var(--radius);
+  overflow:hidden;
+  background: rgba(255,255,255,.03);
+  border:1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.bodyImg{
+  width:100%;
+  height:auto;
+  display:block;
+  opacity: .98;
+  transform: translateZ(0);
+}
+
+.overlay{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+
+/* Polygons: “premium” interaction */
+.overlay polygon{
+  fill: rgba(139,92,246,.18);
+  stroke: rgba(244,246,255,.30);
+  stroke-width: 2.5;
+  cursor:pointer;
+
+  transition: transform .16s ease, filter .16s ease, fill .16s ease, stroke .16s ease, fill-opacity .16s ease;
+  transform-origin: center;
+  fill-opacity: .55;
+}
+
+.overlay polygon:hover{
+  filter: brightness(1.12);
+  fill-opacity: .72;
+}
+
+.overlay polygon:active{
+  transform: scale(0.985);
+}
+
+/* If you later re-enable `.active` in JS, this looks great */
+.overlay polygon.active{
+  fill: rgba(34,197,94,.22);
+  stroke: rgba(34,197,94,.85);
+  stroke-width: 4;
+  fill-opacity: .85;
+  filter: drop-shadow(0 10px 20px rgba(34,197,94,.35));
+}
+
+/* Optional: different tints for variety (not required) */
+#only_upper_chest{ fill: rgba(239,68,68,.22); }
+#middle_chest{ fill: rgba(59,130,246,.22); }
+#lower_chest{ fill: rgba(34,197,94,.18); }
+#upper_abs{ fill: rgba(139,92,246,.22); }
+#lower_abs{ fill: rgba(234,179,8,.18); }
+#quads{ fill: rgba(59,130,246,.16); }
+#obliques{ fill: rgba(234,179,8,.18); }
+
+#lats{ fill: rgba(34,197,94,.18); }
+#lower_back{ fill: rgba(139,92,246,.18); }
+#middle_back{ fill: rgba(234,179,8,.16); }
+#traps{ fill: rgba(239,68,68,.18); }
+#rotor_cuff{ fill: rgba(59,130,246,.18); }
+#deltoid{ fill: rgba(234,179,8,.16); }
+
+/* ---------- Info (your "Tap a muscle section") ---------- */
+#info.info{
+  margin:14px 8px 0;
+  text-align:center;
+  font-weight:700;
+  font-size:14px;
+  color: var(--muted);
+  display:block; /* show it, feels like app guidance */
+}
+
+/* ---------- Bottom sheet container ---------- */
+#MenuContainer{
+  position:fixed;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:0;
+  width:min(520px, 100%);
+  z-index:25;
+
+  padding:12px 12px 16px;
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-bottom:none;
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 -18px 60px rgba(0,0,0,.65);
+}
+
+/* a little “grab” handle */
+#MenuContainer::before{
+  content:"";
+  display:block;
+  width:54px;
+  height:5px;
+  border-radius:999px;
+  margin:2px auto 10px;
+  background: rgba(255,255,255,.16);
+}
+
+/* Hide unused container safely */
+#menu_information:empty::before{
+  content:"Pick an option below to see workouts";
+  display:block;
+  text-align:center;
+  padding:18px 12px;
+  color: var(--muted);
+  font-weight:600;
+}
+
+/* ---------- Chip rows ---------- */
+#genre_buttons,
+#muscleType_container{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  overflow-x:auto;
+  padding:8px 4px;
+  scrollbar-width: none;
+}
+#genre_buttons::-webkit-scrollbar,
+#muscleType_container::-webkit-scrollbar{ display:none; }
+
+#genre_buttons button,
+#muscleType_container button{
+  appearance:none;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.06);
+  color: var(--text);
+  padding:10px 12px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:13px;
+  letter-spacing:.2px;
+  white-space:nowrap;
+  cursor:pointer;
+  transition: .18s ease;
+}
+
+#genre_buttons button:hover,
+#muscleType_container button:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.10);
+}
+
+#genre_buttons button:active,
+#muscleType_container button:active{
+  transform: translateY(0px) scale(.98);
+}
+
+/* give the first row (equipment tags) a bit of “primary” vibe */
+#genre_buttons button{
+  background: linear-gradient(135deg, rgba(139,92,246,.18), rgba(34,197,94,.10));
+  border-color: rgba(255,255,255,.14);
+}
+
+/* ---------- Results list ---------- */
+#menu_information{
+  margin-top:10px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  max-height: 230px;
+  overflow:auto;
+  padding: 6px 2px 2px;
+}
+
+/* Smooth scroll + better iOS feel */
+#menu_information{
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* ---------- Video card ---------- */
+.video_container{
+  width:100%;
+  border-radius: 18px;
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(10,11,14,.70);
+  box-shadow: 0 14px 40px rgba(0,0,0,.45);
+  padding:12px;
+  overflow:hidden;
+}
+
+/* you append an <a> with no text; make it fill the card anyway */
+.video_container a{
+  display:block;
+  position:absolute;
+  inset:0;
+  border-radius: 18px;
+  text-decoration:none;
+}
+
+/* Your <p> lines inside the container */
+.video_container p{
+  margin:0;
+  line-height:1.25;
+}
+
+/* Since your order is:
+   p_link, muscle_type_target, excercise_genre, video_title, video_channel
+   ...we style based on position for a clean hierarchy */
+.video_container p:nth-of-type(1){
+  /* muscle target */
+  font-size:12px;
+  font-weight:800;
+  color: rgba(34,197,94,.95);
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  margin-bottom:6px;
+}
+
+.video_container p:nth-of-type(2){
+  /* equipment */
+  display:inline-flex;
+  width:fit-content;
+  font-size:12px;
+  font-weight:800;
+  color: rgba(244,246,255,.88);
+  background: rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.10);
+  padding:6px 10px;
+  border-radius:999px;
+  margin-bottom:10px;
+}
+
+.video_container p:nth-of-type(3){
+  /* title */
+  font-size:14px;
+  font-weight:900;
+  color: var(--text);
+  margin-bottom:8px;
+}
+
+.video_container p:nth-of-type(4){
+  /* channel */
+  font-size:12px;
+  font-weight:700;
+  color: var(--muted);
+}
+
+/* Make the entire card clickable without breaking text selection */
+.video_container{
+  position:relative;
+}
+.video_container:hover{
+  transform: translateY(-1px);
+  transition: transform .16s ease;
+  border-color: rgba(255,255,255,.16);
+}
+
+/* ---------- Desktop polish ---------- */
+@media (min-width: 800px){
+  .wrapper{
+    padding-top:84px;
+    padding-bottom:360px;
+  }
+  #MenuContainer{
+    width:min(560px, 100%);
+    padding:14px 14px 18px;
+  }
+  #menu{
+    width:min(560px, calc(100% - 24px));
+  }
+}

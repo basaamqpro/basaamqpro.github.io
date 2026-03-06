@@ -1,0 +1,269 @@
+/* =========================
+   BASE LAYOUT
+   ========================= */
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background:#f4f4f4;
+  display:flex;
+  justify-content:center;
+  background-image: linear-gradient(45deg, #093164, #611238);
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  /* border: 1px solid blue; */ /* DEBUGGING PURPOSES ONLY, REMOVE THIS LATER */
+  box-sizing: border-box;
+}
+
+.wrapper{
+  width:100%;
+  max-width:500px;
+}
+
+/* =========================
+   BODY IMAGE + SVG OVERLAY
+   ========================= */
+.bodyWrapper{
+  position:relative;
+  width:100%;
+}
+
+.bodyImg{
+  width:100%;
+  display:block;
+  opacity:1;
+}
+
+.overlay{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+
+/* Base polygon styling */
+.overlay polygon{
+  fill-opacity:0.55;
+  stroke-width:1.5px;
+  transition:all 0.2s ease;
+  cursor:pointer;
+}
+
+/* Hover / touch active (darker) */
+.overlay polygon:hover{
+  filter:brightness(0.75);
+}
+
+/* Selected (when you add/remove .active in JS) */
+.overlay polygon.active{
+  filter:brightness(0.85);
+  stroke-width:5;
+  fill-opacity:0.7;
+}
+
+/* =========================
+   FRONT / BACK TOGGLE MENU
+   ========================= */
+#backwrapper{
+  display:none;
+}
+
+#menu{
+  position:fixed;
+  left:0;
+  margin:20px;
+  z-index:22;
+  display: none;
+}
+
+/* =========================
+   INFO TEXT
+   ========================= */
+.info{
+  margin-top:20px;
+  text-align:center;
+  font-size:18px;
+  font-weight:600;
+  display:none;
+}
+
+/* Desktop spacing upgrade */
+@media (min-width:768px){
+  body{ padding:40px; }
+}
+
+/* =========================
+   BOTTOM MENU CONTAINER
+   ========================= */
+#MenuContainer{
+  position:absolute;
+  min-height:20px;
+  height: 230px;
+  bottom: 11px;
+  background: #ffffff4d;
+  padding: 2px 9px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 93%;
+}
+
+#menu_information{
+  display:flex;
+  flex-direction:column;
+  overflow-y:scroll;
+  /* min-height:20vh; */
+  height: 50%;
+  justify-content:flex-start;
+  align-items:center;
+}
+
+#genre_buttons{
+  display:flex;
+  justify-content:space-around;
+  height: 30px;
+}
+
+.video_container{
+  /* min-height:20vh; */
+  height: max-content;
+  background-color: #00000000;
+  color:white;
+  width:80%;
+  margin:5px 0;
+  flex-direction: row;
+  display: flex;
+  padding: 0px 0px;
+  min-width: 89vw;
+  justify-content: space-around;
+  margin: 9px 0px;
+}
+
+/* =========================
+   POLYGON COLORS (USED IDS)
+   ========================= */
+polygon#only_upper_chest{
+  fill:#fd0505;
+  stroke:#000;
+}
+
+polygon#middle_chest{
+  fill:rgb(0,130,0);
+  stroke:#000;
+}
+
+polygon#lower_chest{
+  fill:rgb(255 223 31);
+  stroke:#000;
+}
+
+polygon#upper_abs{
+  fill:rgb(34, 0, 255);
+  stroke:#000;
+}
+
+polygon#lower_abs{
+  fill:#fd0505;
+  stroke:#000;
+}
+
+polygon#obliques{
+  fill:rgb(136 255 0);
+  stroke:#000;
+}
+
+polygon#all_legs{
+  fill:#057bfd;
+  stroke:#000;
+}
+
+/* back */
+polygon#lats{
+  fill:green;
+  stroke:#000;
+}
+
+polygon#lower_back{
+  fill:#fd0505;
+  stroke:#000;
+}
+
+polygon#middle_back{
+  fill:rgb(0, 191, 255);
+  stroke:#000;
+}
+
+polygon#traps{
+  fill:rgb(34, 0, 255);
+  stroke:#000;
+}
+
+polygon#rotor_cuff{
+  fill:rgb(71 221 162);
+  stroke:#000;
+}
+
+polygon#deltoid{
+  fill:rgb(255 223 31);
+  stroke:#000;
+}
+
+img {}
+
+img.thumbnail {
+    width: 160px;
+    align-self: flex-end;
+}
+
+button {
+    border: none;
+    background: none;
+    background-color: white;
+    padding: 4px 13px;
+    border-radius: 30px;
+}
+
+div#muscleType_container {
+    display: flex;
+    justify-content: space-around;
+    height: 30px;
+}
+
+.details_container p {
+    color: #ffffff;
+}
+
+.details_container {
+    background-color: #ffffff00;
+    width: 150px;
+}
+
+div#youtube_video_container {
+    position: fixed;
+    top: 70px;
+    display: block;
+}
+
+p#menu_icon {
+    position: fixed;
+    right: 31px;
+    color: wheat;
+    font-size: 34px;
+    top: 20px;
+    z-index: 9999;
+}
+
+div#swap {
+    background-image: url(swap.png);
+    height: 35px;
+    width: 35px;
+    background-size: 100% 100%;
+    position: fixed;
+    top: 40px;
+    left: 40px;
+    z-index: 22;
+}

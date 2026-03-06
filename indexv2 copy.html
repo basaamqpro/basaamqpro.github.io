@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="indexv2_1.css" />
+<title>Mobile Body Map</title>
+
+
+</head>
+
+<body>
+
+  <div id="menu">
+    <p id="front">Front</p>
+    <p id="back">Back</p>
+  </div>
+
+<div class="wrapper">
+
+  <div id="frontwrapper" class="bodyWrapper">
+    <img src="human-body-frontal.png" class="bodyImg" alt="Body">
+
+    <!-- 2000 x 3317 -->
+    <svg class="overlay" viewBox="0 0 2000 3317">
+
+      <polygon
+        id="only_upper_chest"
+        points="934,597 944,640 863,672 757,717 743,666 791,641 842,611 888,601 911,592 923,590 920,597"
+      />
+
+      <polygon
+        id="middle_chest"
+        points="746,723 768,813 962,793 955,684 941,645"
+      />
+
+      <polygon
+        id="lower_chest"
+        points="773,818 958,801 925,854 865,868 817,869 785,848"
+      />
+
+       <polygon  id="upper_abs" points="879,871,985,846,1089,866,1116,984,1110,1064,990,1050,861,1066,861,993" />
+       
+      <polygon id="lower_abs" points="863,1083,969,1060,1010,1060,1112,1074,1112,1127,1100,1170,1105,1267,1022,1514,957,1516,879,1271,870,1175,860,1133" />
+    
+      <polygon id="quads" points="1261,1626,1252,1834,1112,2002,1017,1958,994,1709,1006,1559,1100,1408,1211,1271,1234,1407" />
+
+      <polygon id="obliques" points="1096,875,1119,977,1119,1135,1107,1256,1105,1347,1204,1258,1209,1198,1195,1142,1218,997,1254,882" />
+      </svg>
+  </div>
+
+  <div id="backwrapper" class="bodyWrapper">
+    <img src="human-body-back-new.png" class="bodyImg" alt="Body">
+
+    <!-- 2000 x 3317 -->
+    <svg class="overlay" viewBox="0 0 2000 3462">
+
+      
+      <!-- <polygon  id="shoulder" points="1231,601,1188,820,1330,831,1338,728,1395,693,1462,772,1444,643,1411,594,1330,546" />   -->
+      <polygon  id="lats"  points="741,818,898,831,981,979,1006,1062,948,1101,881,1297,808,1278,812,1092" />
+      <polygon  id="lower_back" points="1006,1071,957,1108,890,1294,990,1371,1068,1377,1174,1302,1156,1186,1114,1103,1073,1064,1029,1064" />
+      <polygon  id="middle_back" points="868,606,1218,610,1204,705,1186,813,1155,885,1114,933,1070,1048,1013,1059,964,935,905,832,886,726" />
+      <polygon  id="traps" points="1123,449,1087,470,1098,505,1082,594,1204,596,1269,564,1277,530,1178,498" />
+      <polygon  id="rotor_cuff" points="1232,598,1326,540,1375,560,1428,618,1432,639,1451,685,1460,761,1387,676,1361,636,1303,616" />
+      <polygon  id="deltoid" points="1229,615,1208,686,1204,710,1188,801,1188,829,1324,825,1333,717,1383,695,1342,629" />
+       
+    </svg>
+  </div>
+
+  <div class="info" id="info">
+    Tap a muscle section
+  </div>
+
+</div>
+
+<div id="MenuContainer">
+  <div id="muscleType_container"></div>
+ <div id="genre_buttons"></div>
+ <div id="menu_information"></div>
+</div>
+
+<script>
+
+
+
+var upperChest = [
+["https://www.youtube.com/watch?v=mm47bCaCzpQ", ["only_upper_chest"], ["body weight"], ["20 MINUTE UPPER BODY WORKOUT(NO EQUIPMENT)", "BullyJuice"]],
+["https://www.youtube.com/watch?v=49d_PratfaQ", ["only_upper_chest"], ["body weight"], ["5 Best Exercises For Upper Chest (No Weights Needed)", "CHRIS HERIA"]],
+["https://www.youtube.com/watch?v=dtm1ZPlp7AU", ["only_upper_chest"], ["body weight"], ["7 MIN HOME CHEST WORKOUT | FOLLOW ALONG", "CHRIS HERIA"]],
+["https://www.youtube.com/watch?v=hQ_K2rKSMjw", ["only_upper_chest"], ["gym"], ["The Fastest Way To Build A MASSIVE Upper Chest! (We Were WRONG)", "Ryan Humiston"]],
+["https://www.youtube.com/watch?v=tjDyjW_DWNE", ["only_upper_chest"], ["gym"], ["8 BEST UPPER CHEST WORKOUT AT GYM - CHEST WORKOUT"]],
+]
+
+
+var lowerChest = [
+["https://www.youtube.com/watch?v=VKgvrl0DemI", ["only_lower_chest"], ["gym"], ["Here’s Why Your Lower Chest Sucks…", "Ryan Humiston"]],
+["https://www.youtube.com/watch?v=zsnDC0YL4Co", ["only_lower_chest"], ["body weight"], ["5 Min. Home LOWER Chest Workout - FOLLOW ALONG", "Austin Dunham"]],
+["https://www.youtube.com/watch?v=vAcrOkRywgk", ["only_lower_chest"], ["body weight"], ["Intense 5 Minute At Home Lower Chest Workout", "Anabolic Aliens"]],
+["https://www.youtube.com/watch?v=vdv6sO1Tc6g", ["only_lower_chest"], ["gym"], ["5 BEST LOWER CHEST EXERCISES (NO WEIGHTS NEEDED)", "THENX"]],
+["https://www.youtube.com/watch?v=BKyvTYuxWZE", ["only_lower_chest"], ["dumbell"], ["DUMBBELL ONLY LOWER CHEST WORKOUT AT HOME | NO BENCH NEEDED!", "Midas Movement"]],
+]
+
+
+var all_chest = [
+["https://www.youtube.com/watch?v=BkS1-El_WlE", ["all_chest"], ["body weight"], ["The BEST HOME CHEST WORKOUT (NO EQUIPMENT NEEDED)", "THENX"]],
+["https://www.youtube.com/watch?v=rxEMKXW2Wqs", ["all_chest"], ["body weight"], ["Home Chest Workout | 10 Minutes (FOLLOW ALONG!)", "ATHLEAN-X™"]],
+["https://www.youtube.com/watch?v=qwx1VV9vV1A", ["all_chest"], ["body weight"], ["Most Effective CHEST Workout at HOME (NO EQUIPMENT NEEDED)", "NEXT Workout"]],
+["https://www.youtube.com/watch?v=_q_-adYzkh0", ["all_chest"], ["body weight"], ["5 MINUTE CHEST WORKOUT(NO EQUIPMENT)", "BullyJuice"]],
+["https://www.youtube.com/watch?v=w9iymJIDc-I", ["all_chest"], ["body weight"], ["5 Min. Home Chest Workout (No Equipment Needed)", "Pierre Dalati"]],
+["https://www.youtube.com/watch?v=Jf5_PJCFs-g", ["all_chest", "tricep"], ["body weight"], ["The BEST Push Up Workout for Chest & Triceps Growth", "TIFF x DAN"]],
+["https://www.youtube.com/watch?v=QdT-Bgmp2u4", ["all_chest"], ["dumbbell"], ["Best Chest Home Workout (Dumbbells Only)", "CHRIS HERIA"]],
+["https://www.youtube.com/watch?v=HY9i5BSC2GQ", ["all_chest"], ["Bands"], ["Build a Big Chest with Bands (NO WEIGHTS!)", "ATHLEAN-X™"]],
+["https://www.youtube.com/watch?v=sMP2F0OXRYI", ["all_chest"], ["Bands"], ["Intense 5 Minute Resistance Band Chest Workout", "Anabolic Aliens"]],
+
+]
+
+
+var upperAbs = [
+["https://www.youtube.com/watch?v=0_nKiv0i7PA", ["only_upper_abs"], ["body weight"], ["5 MINUTE ABS | UPPER AB WORKOUT", "TIFF x DAN"]],
+["https://www.youtube.com/watch?v=BAlA3kSMBII", ["only_upper_abs"], ["body weight"], ["Intense 5 Minute At Home Upper Ab Workout", "Anabolic Aliens"]],
+["https://www.youtube.com/watch?v=DGnUDs2E9vI", ["only_upper_abs"], ["body weight"], ["Intense 5 Minute At Home Upper Ab Workout #2", "Anabolic Aliens"]],
+["https://www.youtube.com/watch?v=NlYUalulXxA", ["only_upper_abs"], ["gym"], ["How to target lower & upper abs: BEST science based ab exercises & ab workout", "Citizen Athletics"]],
+["https://www.youtube.com/watch?v=wtEFrO1eFW8", ["only_upper_abs"], ["body weight"], ["Ultimate 10 Min Upper Abs Explosion | Quick & Powerful!", "TIFF x DAN"]],
+]
+
+var lowerAbs = [
+["https://www.youtube.com/watch?v=TN4jrqVI8A4", ["only_lower_abs"], ["body weight"], ["10 Min ADVANCED LOWER AB Workout (No Equipment) | FULL BODY Series 22", "TIFF x DAN"]],
+["https://www.youtube.com/watch?v=miNgNRfuCdE", ["only_lower_abs"], ["body weight"], ["INTENSE Lower Abs Workout | BURN Belly Fat In A Week", "LEANSQUAD"]],
+["https://www.youtube.com/watch?v=eix91Co6E-0", ["only_lower_abs"], ["body weight"], ["10 Min Lower Ab Workout | Best Daily Routine to Sculpt and Strengthen Your Core", "TIFF x DAN"]],
+["https://www.youtube.com/watch?v=Kd8ZU9NUbRA", ["only_lower_abs"], ["body weight"], ["5 MIN LOWER ABS | LOWER ABS WORKOUT", "TIFF x DAN"]],
+["https://www.youtube.com/watch?v=1GOkbijsv2U", ["only_lower_abs"], ["body weight"], ["10 MINUTE LOWER ABS WORKOUT (NO EQUIPMENT) | INTERMEDIATE | LEVEL 2 ABS", "Midas Movement"]],
+["https://www.youtube.com/watch?v=FTnzhSWAxC4", ["only_lower_abs"], ["body weight"], ["8 Minutes Lower Ab Workout - HASfit's Lower Abdominal Exercises - Work Out Lower Abs", "Midas Movement"]],
+]
+
+
+
+var all_abs = [
+["https://www.youtube.com/watch?v=Tn-XvYG9x7w", ["all_abs"], ["body weight"], ["Get Abs In 60 Days (Using Science)", "Jeff Nippard"]],
+["https://www.youtube.com/watch?v=3SUtOSaOn1M", ["dumbbell"], ["body weight"], ["10 Minute Beginner Dumbbell ABs Workout | Level 1", "Midas Movement"]],
+["https://www.youtube.com/watch?v=Y0nXmTZ1Ibs", ["all_abs"], ["gym"], ["The ONLY 2 Exercises You Need For Six Pack Abs", "Jeremy Ethier"]],
+["https://www.youtube.com/watch?v=1G0y8D5rFDc", ["all_abs"], ["body weight"], ["How To Build A Better Core & Six Pack Abs: Optimal Training Explained", "Jeff Nippard"]],
+["https://www.youtube.com/watch?v=KMAgpxZtQ6k", ["all_abs"], ["gym"], ["Abs Day at the Gym – Burn Belly Fat & Build Core!", "Zi workout"]],
+["https://www.youtube.com/watch?v=8PwoytUU06g", ["all_abs"], ["body weight"], ["COMPLETE 20 MIN ABS WORKOUT (From Home)", "CHRIS HERIA"]],
+]
+
+var all_legs = [
+["https://www.youtube.com/watch?v=q7rCeOa_m58", ["all_legs"], ["body weight"], ["20 Min Complete Home Leg Workout | Follow Along", "THENX"]],
+["https://www.youtube.com/watch?v=X0xt0fYTZv8", ["all_legs"], ["body weight"], ["20 min LOWER BODY WORKOUT NO EQUIPMENT | Legs Workout at Home", "TIFF x DAN"]],
+["https://www.youtube.com/watch?v=G5nxGTFBauM", ["all_legs"], ["body weight"], ["8 Min Home Leg Workout | No Jumping", "THENX"]],
+["https://www.youtube.com/watch?v=841gJUczmzg", ["all_legs"], ["body weight"], ["Killer LEG Workout at Home (No Equipment)", "NEXT Workout"]],
+["https://www.youtube.com/watch?v=qPUg11v8k9c", ["all_legs"], ["body weight"], ["Best Dumbbell Leg Exercises (AT HOME WORKOUT!)", "Ryan Humiston"]],
+["https://www.youtube.com/watch?v=x5PAjQrG_UM", ["all_legs"], ["body weight"], ["20-Min Dumbbell Workout To Build Stronger Leg Muscles!", "Midas Movement"]],
+
+["https://www.youtube.com/watch?v=H6mRkx1x77k", ["all_legs"], ["gym"], ["The Ultimate Science-Based Leg Day For Muscle Growth (2023)", "Jeff Nippard"]],
+["https://www.youtube.com/watch?v=8zWDuWKdBZU", ["all_legs"], ["gym"], ["The Perfect Leg Day (According To Science)", "Jeff Nippard"]],
+["https://www.youtube.com/watch?v=QXtXEug0PLU", ["all_legs"], ["gym"], ["The PERFECT Leg Workout (Backed by Science)", "ATHLEAN-X™"]],
+["https://www.youtube.com/watch?v=7uMRxo8BRkM", ["all_legs"], ["gym"], ["The PERFECT LEG WORKOUT (The Science LIES!)", "Ryan Humiston"]],
+]
+
+var all_back = [
+["https://www.youtube.com/watch?v=HHZPRrGHaFw", ["all_back"], ["dumbbell"], ["Dumbbell Back Workout At Home - (Light Weight = BIG GAINS!!)", "Ryan Humiston"]],
+["https://www.youtube.com/watch?v=J6de47GLTKQ", ["all_back"], ["gym"], ["At Home Back Workout - Bodyweight Exercises - NO EQUIPMENT!", "Tone and Tighten"]],
+["https://www.youtube.com/watch?v=QqZV3JEoOlc", ["all_back"], ["body weight"], ["Do This Back Workout From Home | No Equipment", "Thenx"]],
+["https://www.youtube.com/watch?v=Sa0sBKUiOvU", ["all_back"], ["dumbbell"], ["10 MINUTE LIGHTWEIGHT DUMBBELL BACK WORKOUT!", "Midas Movement"]],
+["https://www.youtube.com/watch?v=fX36liNtKzw", ["all_back"], ["gym"], ["The PERFECT Back Workout (2025 EDITION)", "ATHLEAN-X™"]],
+["https://www.youtube.com/watch?v=bT5YwclMfRo", ["all_back"], ["gym"], ["HUGE BACK WORKOUT W. BRETT WILKIN", "Chris Bumstead"]],
+["https://www.youtube.com/watch?v=12xHxUnBEiI", ["all_back"], ["gym"], ["The Most Scientific Way to Train Your BACK | Training Science Explained", "Jeff Nippard"]],
+["https://www.youtube.com/watch?v=6eBwGki2JuU", ["all_back"], ["body weight"], ["Exercise Scientist's Top 5 Back Exercises", "Renaissance Periodization"]],
+]
+
+var hamstring = [
+["https://www.youtube.com/watch?v=2PAm7gEVCAg", ["hamstring"], ["body weight"], ["Intense 5 Minute At Home Hamstring Workout", "Anabolic Aliens"]],
+
+]
+/* =========================================================
+   CLEAN JS + YOUTUBE EMBED PLAYER (middle overlay)
+   - Keep your HTML as-is.
+   - Paste your DATA arrays above this script (upperChest etc.)
+   - Click a result card -> opens an embed player overlay with close button
+   - Click outside / press ESC -> closes
+   ========================================================= */
+
+/* -------------------------
+   FRONT / BACK TOGGLE
+-------------------------- */
+const frontBtn = document.getElementById("front");
+const backBtn  = document.getElementById("back");
+const frontWrap = document.getElementById("frontwrapper");
+const backWrap  = document.getElementById("backwrapper");
+
+frontBtn.addEventListener("click", () => {
+  frontWrap.style.display = "block";
+  backWrap.style.display  = "none";
+  clearActivePolys();
+});
+
+backBtn.addEventListener("click", () => {
+  frontWrap.style.display = "none";
+  backWrap.style.display  = "block";
+  clearActivePolys();
+});
+
+/* -------------------------
+   YOUR DATA (PASTE ABOVE)
+-------------------------- */
+const data = [upperChest, lowerChest, all_chest, upperAbs, lowerAbs, all_abs, all_legs, all_back, hamstring];
+
+/* -------------------------
+   CONFIG / STATE
+-------------------------- */
+const genreOptions = ["body weight", "gym", "dumbbell", "bands"];
+let selectedGenre = "";     // "" = all
+let selectedMuscle = "";
+let muscleButtons = [];
+
+const elGenreRow   = document.getElementById("genre_buttons");
+const elMuscleRow  = document.getElementById("muscleType_container");
+const elResults    = document.getElementById("menu_information");
+const elInfo       = document.getElementById("info");
+
+/* -------------------------
+   ID NORMALIZATION (fixes your only_* mismatch)
+-------------------------- */
+const MUSCLE_ALIAS = {
+  "only_upper_abs": "upper_abs",
+  "only_lower_abs": "lower_abs",
+  "only_lower_chest": "lower_chest",
+  "only_upper_chest": "only_upper_chest",
+};
+function normMuscleId(id){ return MUSCLE_ALIAS[id] || id; }
+function normGenre(g){ return String(g || "").trim().toLowerCase(); }
+function prettyLabel(id){ return String(id).replaceAll("_", " ").replaceAll("-", " "); }
+
+/* -------------------------
+   POLYGONS
+-------------------------- */
+function getAllPolygons(){
+  return document.querySelectorAll(".overlay polygon");
+}
+function clearActivePolys(){
+  getAllPolygons().forEach(p => p.classList.remove("active"));
+}
+function setActivePolyById(id){
+  clearActivePolys();
+  const poly = document.getElementById(id);
+  if (poly) poly.classList.add("active");
+}
+function bindPolygons(){
+  getAllPolygons().forEach(poly => {
+    const handler = (e) => { e.preventDefault(); onMuscleSelected(poly.id); };
+    poly.addEventListener("click", handler);
+    poly.addEventListener("touchstart", handler, { passive:false });
+  });
+}
+
+/* -------------------------
+   MUSCLE SELECTION
+-------------------------- */
+function getRelatedGroup(polyId){
+  const map = {
+    "only_upper_chest":"all_chest",
+    "middle_chest":"all_chest",
+    "lower_chest":"all_chest",
+
+    "upper_abs":"all_abs",
+    "lower_abs":"all_abs",
+    "obliques":"all_abs",
+
+    "quads":"all_legs",
+    "hamstring":"all_legs",
+
+    "lats":"all_back",
+    "middle_back":"all_back",
+    "lower_back":"all_back",
+    "traps":"all_back",
+    "rotor_cuff":"all_back",
+    "deltoid":"all_back",
+  };
+  return map[polyId] || "";
+}
+
+function onMuscleSelected(polyId){
+  selectedMuscle = polyId;
+  setActivePolyById(polyId);
+
+  const related = getRelatedGroup(polyId);
+  muscleButtons = related ? [polyId, related] : [polyId];
+
+  renderMuscleButtons();
+  renderResults();
+
+  if (elInfo) elInfo.textContent = `Selected: ${prettyLabel(polyId)}`;
+}
+
+/* -------------------------
+   GENRE CHIPS
+-------------------------- */
+function renderGenreButtons(){
+  elGenreRow.innerHTML = "";
+
+  const allBtn = document.createElement("button");
+  allBtn.type = "button";
+  allBtn.textContent = "all";
+  allBtn.onclick = () => { selectedGenre = ""; renderResults(); highlightSelectedGenre(); };
+  elGenreRow.appendChild(allBtn);
+
+  genreOptions.forEach(g => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = g;
+    btn.onclick = () => { selectedGenre = g; renderResults(); highlightSelectedGenre(); };
+    elGenreRow.appendChild(btn);
+  });
+
+  highlightSelectedGenre();
+}
+
+function highlightSelectedGenre(){
+  [...elGenreRow.querySelectorAll("button")].forEach(btn => {
+    const isAll = btn.textContent.toLowerCase() === "all";
+    const active = (selectedGenre === "" && isAll) || (btn.textContent === selectedGenre);
+    btn.dataset.active = active ? "true" : "false";
+  });
+}
+
+/* -------------------------
+   MUSCLE CHIPS
+-------------------------- */
+function renderMuscleButtons(){
+  elMuscleRow.innerHTML = "";
+  muscleButtons.forEach(id => {
+    if (!id) return;
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = prettyLabel(id);
+    btn.onclick = () => {
+      selectedMuscle = id;
+      setActivePolyById(id);
+      renderResults();
+      if (elInfo) elInfo.textContent = `Selected: ${prettyLabel(id)}`;
+    };
+    elMuscleRow.appendChild(btn);
+  });
+}
+
+/* -------------------------
+   YOUTUBE PLAYER OVERLAY
+   (created dynamically, no HTML edits)
+-------------------------- */
+let playerOverlay = null;
+let playerIframe = null;
+
+function getYouTubeId(url){
+  try{
+    const u = new URL(url);
+    // youtu.be/<id>
+    if (u.hostname.includes("youtu.be")) return u.pathname.replace("/", "");
+    // youtube.com/watch?v=<id>
+    return u.searchParams.get("v") || "";
+  }catch{
+    // fallback regex
+    const m = String(url).match(/[?&]v=([^&]+)/);
+    return m ? m[1] : "";
+  }
+}
+
+function ensurePlayerOverlay(){
+  if (playerOverlay) return;
+
+  playerOverlay = document.createElement("div");
+  playerOverlay.id = "ytOverlay";
+  playerOverlay.setAttribute("role", "dialog");
+  playerOverlay.setAttribute("aria-modal", "true");
+
+  // Minimal inline styles so it works even if you don’t add CSS
+  playerOverlay.style.position = "fixed";
+  playerOverlay.style.inset = "0";
+  playerOverlay.style.zIndex = "9999";
+  playerOverlay.style.display = "none";
+  playerOverlay.style.alignItems = "center";
+  playerOverlay.style.justifyContent = "center";
+  playerOverlay.style.padding = "18px";
+  playerOverlay.style.background = "rgba(0,0,0,.72)";
+  playerOverlay.style.backdropFilter = "blur(10px)";
+  playerOverlay.style.webkitBackdropFilter = "blur(10px)";
+
+  const modal = document.createElement("div");
+  modal.id = "ytModal";
+  modal.style.width = "min(900px, 100%)";
+  modal.style.borderRadius = "22px";
+  modal.style.overflow = "hidden";
+  modal.style.background = "rgba(14,16,22,.95)";
+  modal.style.border = "1px solid rgba(255,255,255,.12)";
+  modal.style.boxShadow = "0 25px 80px rgba(0,0,0,.6)";
+
+  const top = document.createElement("div");
+  top.style.display = "flex";
+  top.style.alignItems = "center";
+  top.style.justifyContent = "space-between";
+  top.style.padding = "12px 12px 10px";
+  top.style.borderBottom = "1px solid rgba(255,255,255,.10)";
+
+  const title = document.createElement("div");
+  title.id = "ytTitle";
+  title.style.color = "rgba(255,255,255,.9)";
+  title.style.fontWeight = "800";
+  title.style.fontSize = "14px";
+  title.style.padding = "0 8px";
+  title.style.whiteSpace = "nowrap";
+  title.style.overflow = "hidden";
+  title.style.textOverflow = "ellipsis";
+
+  const close = document.createElement("button");
+  close.type = "button";
+  close.textContent = "✕";
+  close.setAttribute("aria-label", "Close video");
+  close.style.cursor = "pointer";
+  close.style.border = "1px solid rgba(255,255,255,.12)";
+  close.style.background = "rgba(255,255,255,.06)";
+  close.style.color = "rgba(255,255,255,.92)";
+  close.style.borderRadius = "999px";
+  close.style.width = "40px";
+  close.style.height = "40px";
+  close.style.fontSize = "16px";
+  close.onclick = closePlayer;
+
+  top.appendChild(title);
+  top.appendChild(close);
+
+  const frameWrap = document.createElement("div");
+  frameWrap.style.position = "relative";
+  frameWrap.style.width = "100%";
+  frameWrap.style.aspectRatio = "16 / 9";
+  frameWrap.style.background = "#000";
+
+  playerIframe = document.createElement("iframe");
+  playerIframe.id = "ytFrame";
+  playerIframe.style.position = "absolute";
+  playerIframe.style.inset = "0";
+  playerIframe.style.width = "100%";
+  playerIframe.style.height = "100%";
+  playerIframe.style.border = "0";
+  playerIframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+  playerIframe.allowFullscreen = true;
+
+  frameWrap.appendChild(playerIframe);
+
+  modal.appendChild(top);
+  modal.appendChild(frameWrap);
+  playerOverlay.appendChild(modal);
+  document.body.appendChild(playerOverlay);
+
+  // click outside to close
+  playerOverlay.addEventListener("click", (e) => {
+    if (e.target === playerOverlay) closePlayer();
+  });
+
+  // ESC to close
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && playerOverlay.style.display !== "none") closePlayer();
+  });
+}
+
+function openPlayer(videoUrl, displayTitle){
+  const id = getYouTubeId(videoUrl);
+  if (!id) return;
+
+  ensurePlayerOverlay();
+
+  const titleEl = document.getElementById("ytTitle");
+  if (titleEl) titleEl.textContent = displayTitle || "Workout video";
+
+  // autoplay + modest branding
+  playerIframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
+  playerOverlay.style.display = "flex";
+
+  // prevent background scroll while open
+  document.documentElement.style.overflow = "hidden";
+  document.body.style.overflow = "hidden";
+}
+
+function closePlayer(){
+  if (!playerOverlay) return;
+  playerOverlay.style.display = "none";
+  if (playerIframe) playerIframe.src = ""; // stop playback
+  document.documentElement.style.overflow = "";
+  document.body.style.overflow = "";
+}
+
+/* -------------------------
+   RESULTS LIST
+   Click card -> opens embed player
+-------------------------- */
+function renderResults(){
+  elResults.innerHTML = "";
+  if (!selectedMuscle) return;
+
+  const wantedMuscle = normMuscleId(selectedMuscle);
+  const wantedGenre  = normGenre(selectedGenre);
+  const entries = data.flat();
+
+  const filtered = entries.filter(row => {
+    const url = row?.[0];
+    const muscle = normMuscleId(row?.[1]?.[0] || "");
+    const genre  = normGenre(row?.[2]?.[0] || "");
+    if (!url) return false;
+    if (muscle !== wantedMuscle) return false;
+    if (wantedGenre === "") return true;
+    return genre === wantedGenre;
+  });
+
+  if (filtered.length === 0) {
+    const empty = document.createElement("div");
+    empty.className = "video_container";
+    empty.innerHTML = `
+      <p>${prettyLabel(selectedMuscle)}</p>
+      <p>${selectedGenre ? selectedGenre : "all equipment"}</p>
+      <p>No videos found for this filter.</p>
+      <p>Try another equipment tag.</p>
+    `;
+    elResults.appendChild(empty);
+    return;
+  }
+
+  filtered.forEach(row => {
+    const url = row[0];
+    const muscle = normMuscleId(row[1][0]);
+    const genre  = row[2][0];
+    const title  = row[3][0] || "Workout";
+    const channel= row[3][1] || "";
+
+    const card = document.createElement("div");
+    card.className = "video_container";
+
+    // Keep your overlay <a> for accessibility, but we’ll intercept click to open player
+    const a = document.createElement("a");
+    a.href = url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.setAttribute("aria-label", title);
+
+    // Intercept: open player instead of navigating
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      openPlayer(url, title);
+    });
+
+    const pMuscle = document.createElement("p");
+    pMuscle.textContent = prettyLabel(muscle);
+
+    const pGenre = document.createElement("p");
+    pGenre.textContent = genre;
+
+    const pTitle = document.createElement("p");
+    pTitle.textContent = title;
+
+    const pChannel = document.createElement("p");
+    pChannel.textContent = channel;
+
+    card.appendChild(a);
+    card.appendChild(pMuscle);
+    card.appendChild(pGenre);
+    card.appendChild(pTitle);
+    card.appendChild(pChannel);
+
+    elResults.appendChild(card);
+  });
+}
+
+/* -------------------------
+   INIT
+-------------------------- */
+(function init(){
+  bindPolygons();
+  renderGenreButtons();
+
+  // default state
+  frontWrap.style.display = "block";
+  backWrap.style.display  = "none";
+
+  // Optional default selection:
+  // onMuscleSelected("only_upper_chest");
+})();
+</script>
+
+</body>
+</html>
