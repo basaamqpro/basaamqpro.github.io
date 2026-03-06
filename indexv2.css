@@ -244,8 +244,9 @@ div#muscleType_container {
 
 div#youtube_video_container {
     position: fixed;
-    top: 70px;
+    top: 86px;
     display: block;
+    width: 97%;
 }
 
 p#menu_icon {
