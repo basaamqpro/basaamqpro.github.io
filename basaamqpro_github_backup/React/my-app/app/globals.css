@@ -140,7 +140,7 @@ button.Resume.contactbutton {
     border-color: #f66d59;
 }
 
-h1.Entry {}
+
 
 .row2 {
     justify-content: center;
@@ -160,11 +160,16 @@ h1.Entry {}
     border-bottom-left-radius: 93px;
 }
 
-.right-column {
+@media only screen and (orientation: landscape) {
+    .right-column {
     display: flex;
     justify-content: center;
     align-items: center;
+        width: 50%;
 }
+
+}
+
 
 @media only screen and (orientation: portrait) {
  .footer-left p {
@@ -186,6 +191,7 @@ img.icon {
     min-height: 100vh;
     justify-content: space-around;
     align-items: center;
+    min-height: max-content;
 }
 
 img.profile_image {
@@ -193,9 +199,6 @@ img.profile_image {
     width: 230px;
 }
 
-* {
-    /* border: 2px solid; */
-}
 
 .container {
     width: 100%;
@@ -446,7 +449,7 @@ iframe {
     font-size: xxx-large;
 }
 
-p {}
+
 
 .project_description p {
     font-size: x-large;
@@ -455,6 +458,11 @@ p {}
 
 
 @media only screen and (orientation: portrait) {
+
+    .right-column {
+    min-height: 75vh;
+    width: 100%;
+}
 
 .project_description h1 {
     font-size: 2rem;
@@ -477,7 +485,7 @@ p {}
 
 
 .footer {
-      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
     color: #fff;
     background: linear-gradient(135deg, #3a7bd54f, #4b110cc2, #3ad5b466);
     border-top: 1px solid #fff3;
@@ -573,3 +581,15 @@ img.icon {
 html {
   scroll-behavior: smooth;
 }
+
+iframe.youtube_video {
+    height: 100%;
+    width: 100%;
+    min-height: 20px;
+}
+
+div#youtube_video_container {
+    height: 70%;
+    width: 97%;
+}
+
