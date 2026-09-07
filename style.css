@@ -1,0 +1,317 @@
+
+
+
+* {
+    font-family: sans-serif;
+    /* border: 2px solid purple; */
+    /* margin: 0px; */
+    /* padding: 0px; */
+    border: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(145deg, #001f73, #95ff99);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: max-content;
+    background-attachment: fixed;
+}
+
+.slider_container2 {
+    width: 100%;
+}
+
+div#slider_container {}
+
+.parent_slider_container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-start;
+    overflow: hidden;
+    overflow-x: scroll;
+    align-items: center;
+    /* height: 82%; */
+}
+
+.project_element {
+    min-width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: max-content;
+    /* background-color: #494949; */
+    align-items: center;
+    justify-content: space-around;
+    border-right: 5px solid #000000;
+    position: relative;
+}
+
+.project_description {
+    /* height: 40%; */
+    height: 99%;
+    width: 100%;
+    background-color: white;
+    border-radius: 17px;
+    overflow: hidden;
+    overflow-y: scroll;
+    /* padding: 5px 12px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #8a2be200;
+}
+
+.project_description_container {
+    height: 38vh;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    width: 98%;
+    /* background-color: blue; */
+    padding: 7px 0px 0px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.codepenio {
+    height: 50vh;
+    width: 97%;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 0px 0px;
+}
+
+.cp_embed_wrapper {height: 100%;}
+
+iframe {
+    height: 100%;
+}
+
+h3.project_description_title {
+    word-spacing: 1px;
+    margin: 9px 2px;
+    /* width: 100%; */
+    text-align: center;
+}
+
+h3#project_description_title1 {
+    /* margin: 34px 0px 17px 0px; */
+}
+
+p.project_description_text {
+    width: 90%;
+    /* text-align: center; */
+    margin: 0px 0px;
+}
+
+div#menu_container {
+    background-color: white;
+    height: 38px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.project_description_element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #ffffff;
+    margin: 12px 12px;
+    padding: 24px 26px;
+    border-radius: 16px;
+    width: 78%;
+}
+
+.parent_parent_slider_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 13px;
+    border-bottom-right-radius: 0px;
+    height: max-content;
+    /* background-color: #1d3293; */
+    min-height: 92vh;
+    margin-bottom: 17px;
+    border-top: 2px solid blue;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+.project_element::after {/* content: ""; *//* position: absolute; *//* right: 0; *//* top: 9%; */          /* Vertically centers the border (15% from top + 70% height + 15% bottom = 100%) *//* height: 79%; */       /* Adjust this to decrease or increase height *//* width: 3px; */        /* This mimics the border thickness *//* background: #ffffff; *//* left: -2px; */}
+
+img.appIconimg {
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    margin: 0px 0px 4px 0px;
+}
+
+.apps_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: max-content;
+    /* border-radius: 100%; */
+    max-width: 100%;
+    width: 95%;
+    margin: 25px;
+    background-color: white;
+    border-radius: 33px;
+    height: max-content;
+    padding: 17px 0px;
+    min-height: 69vh;
+    background-image: linear-gradient(45deg, #ff00002e, #29647f);
+}
+
+.appIcon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 6px 0px 18px 0px;
+}
+
+iframe {}
+
+iframe.youtubes {
+    height: 42vh;
+    width: 95%;
+    border-radius: 28px;
+}
+
+.app_content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+a.apptitle h3 {}
+
+h3.apptitle {
+    word-spacing: 4px;
+    margin: 12px 0px 0px 0px;
+    color: black;
+    /* font-family: system-ui; */
+    /* font-weight: 600; */
+    font-size: 2.7rem;
+    color: white;
+    text-decoration: underline;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a.anchor {
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1.liveapptitle {
+    color: white;
+    font-weight: 100;
+    margin: 51px 0px 20px 0px;
+    text-decoration: underline;
+    font-style: italic;
+}
+
+div {}
+
+div {}
+
+.parent_app_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.app_description_container {
+    width: 80%;
+    background-color: white;
+    padding: 22px;
+    border-radius: 36px;
+}
+
+img {}
+
+img.contact_icon_img {
+    height: 31px;
+}
+
+.footer {
+    width: 100%;
+    display: flex;
+    background-color: #a497f9;
+    padding: 12px 0px;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.contact_icons_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 50%;
+    margin: 8px;
+}
+
+.contact_details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 42%;
+}
+
+.contact_details p {
+    margin: 10px 3px;
+    font-size: 18px;
+}
+
+h1.projecttitle {
+    color: white;
+}
+
+.aboutme_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.aboutme {
+    /* background-color: white; */
+    width: 80%;
+    color: white;
+    font-weight: bold;
+}
+
+p#swipe {
+    font-size: 20px;
+    color: #ffffff;
+    font-weight: 500;
+}
+
